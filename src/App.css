@@ -735,6 +735,13 @@ body {
 
 .anime__card__modal__img__wrapper {
     align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-evenly;
+    background-color: #2E3338;
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .anime__card__modal__img {
@@ -743,30 +750,35 @@ body {
     border-radius: 10px;
 }
 
+.anime__card__modal__title {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.anime__card_model__info__block {
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 .anime__card__modal__description {
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 20px;
+    background-color: #2E3338;
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .anime-card-modal-synopsis {
     text-align: justify;
 }
 
-.anime__card__modal__title {
-    font-size: 38px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.anime__card_model__info__block {
-    font-size: 24px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
 
 .anime-card-modal-genres-wrapper {
     display: flex;

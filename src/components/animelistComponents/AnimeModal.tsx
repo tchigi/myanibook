@@ -28,10 +28,8 @@ const AnimeModal = () => {
     return (
         <div className={isActive('anime-card-modal')} onClick={() => dispatch(animeSlice.actions.modalHandler(false))}>
             <div className={isActive('anime__card__modal__content')} onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
-                <figure className="anime__card__modal__img__wrapper">
+                <div className="anime__card__modal__img__wrapper">
                     <img src={selectedAnime.attributes.posterImage.original} className={'anime__card__modal__img'} alt="" />
-                </figure>
-                <div className="anime__card__modal__description">
                     <div className="anime__card__modal__title">{selectedAnime.attributes.canonicalTitle}</div>
                     <div className="anime__card_model__info__block">
                         <div>{selectedAnime.attributes.showType}</div>
@@ -40,7 +38,8 @@ const AnimeModal = () => {
                             Rating: <span>{selectedAnime.attributes.averageRating}</span>
                         </div>
                     </div>
-
+                </div>
+                <div className="anime__card__modal__description">
                     <div className={'anime-card-modal-synopsis'}>{selectedAnime.attributes.description}</div>
 
                     <div className="anime-card-modal-genres-wrapper">
