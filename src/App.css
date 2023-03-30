@@ -148,6 +148,11 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    transition: 0.3s;
+}
+
+.title-logo:hover {
+    transform: scale(1.05);
 }
 
 .nav {
@@ -158,16 +163,19 @@ body {
     gap: 30px;
 }
 
-.auth-container {
-
-}
-
-a:visited {
+.nav a:visited {
     color: #ffffff;
 }
+.nav a:hover {
+    color: #b84900;
+}
+.active-link {
+    color: #ff6600 !important;
+}
 
-a:hover {
-    color: #ff6600;
+
+.auth-container {
+
 }
 
 .main {
@@ -460,6 +468,7 @@ a:hover {
 }
 
 .radio__button__wrapper:hover {
+    background: linear-gradient(to bottom, rgba(255, 102, 0, 0.5), rgba(184, 73, 0, 0.5));
     border: 3px #ffffff solid;
 }
 .radio__button__wrapper:active {
@@ -648,47 +657,38 @@ a:hover {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 20px;
-    width: 100%;
+    gap: 3px;
+    width: auto;
     padding: 10px;
-}
-
-.active-pagination {
-    border-radius: 50%;
-    border: 2px solid white;
-    transition: all 0.3s ease;
+    background-color: #1C1F22;
+    border-radius: 20px;
 }
 
 .page-item {
     padding: 15px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 20px;
     color: #fff;
+    border: 2px #1C1F22 solid;
+}
+
+.active-pagination {
+    background: linear-gradient(to bottom, #ff6600, #b84900);
 }
 
 .page-item:hover {
-    transform: scale(1.05);
+    background: linear-gradient(to bottom, rgba(255, 102, 0, 0.5), rgba(184, 73, 0, 0.5));
 }
 
 .page-item:active {
-    border: 3px solid #ffffff;
-    transform: scale(1.1);
+    border: 2px solid #FFFFFF;
 }
 
 .page-item.disabled {
-    color: grey;
+    color: #535B65;
 }
 
-.page-item.disabled:hover {
-    transform: none;
-}
-
-.page-item.disabled:active {
-    border: none;
-    transform: none;
-}
 
 /*------------------------Anime Modal--------------------*/
 
