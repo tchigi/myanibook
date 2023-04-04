@@ -31,7 +31,7 @@ const AnimeModal = () => {
                 <div className="anime__card__modal__img__wrapper">
                     <img src={selectedAnime.attributes.posterImage.original} className={'anime__card__modal__img'} alt="" />
                     <div className="anime__card__modal__title">{selectedAnime.attributes.canonicalTitle}</div>
-                    <div className="anime__card_model__info__block">
+                    <div className="anime__card__model__info__block">
                         <div>{selectedAnime.attributes.showType}</div>
                         <div>{releaseDateMorph}</div>
                         <div className="anime__card__modal__rating">
@@ -40,19 +40,22 @@ const AnimeModal = () => {
                     </div>
                 </div>
                 <div className="anime__card__modal__description">
-                    <div className={'anime-card-modal-synopsis'}>{selectedAnime.attributes.description}</div>
+                    <div className={'anime-card-modal-synopsis'}>
+                        <p>Description: </p>
+                        {selectedAnime.attributes.description}
+                    </div>
 
                     <div className="anime-card-modal-genres-wrapper">
-                        Genres:
-                        {genres.data.map((item) => {
-                            return <span key={item.id}>{item.attributes.name}</span>
+                        <p>Genres: </p>
+                        {genres.data.map((item, index) => {
+                            return <span key={item.id}>{item.attributes.name}{genres.data.length - 1 !== index ? ', ' : ''}</span>
                         })}
                     </div>
 
                     <div className="anime-card-modal-categories-wrapper">
-                        Categories:
-                        {categories.data.map((item) => {
-                            return <span key={item.id}>{item.attributes.title}</span>
+                        <p>Categories: </p>
+                        {categories.data.map((item, index) => {
+                            return <span key={item.id}>{item.attributes.title}{categories.data.length - 1 !== index ? ', ' : ''}</span>
                         })}
                     </div>
                 </div>

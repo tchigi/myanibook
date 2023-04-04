@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
 import { paginationSlice } from '../../store/reducers/PaginationSlice'
-import { fetchAnimeList } from '../../store/reducers/ActionCreators'
 
 const RadioInput = () => {
-    const { sortType, animeList } = useAppSelector((state) => state.animeReducer)
-    const { animeListCurrentPage } = useAppSelector((state) => state.paginationReducer)
+    const { sortType } = useAppSelector((state) => state.animeReducer)
     const dispatch = useAppDispatch()
     const sortTypeArr = ['id', 'ratingRank', 'popularityRank']
     const inputValueArr = ['Default', 'Rating', 'Popularity']

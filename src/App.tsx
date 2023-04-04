@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage"
 import AnimeList from "./pages/AnimeList"
 import BookList from "./pages/BookList"
 import NotFoundPage from "./pages/NotFoundPage";
+import AnimeViewedList from './pages/AnimeViewedList'
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path="/" element={<Layout/>}>
                     <Route index element={<HomePage/>}/>
                     <Route path="anime" element={<AnimeList/>}/>
+                    <Route path="anime/viewed" element={<AnimeViewedList/>}/>
                     <Route path="books" element={<BookList/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                 </Route>

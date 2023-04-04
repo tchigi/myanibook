@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import AnimeCard from './AnimeCard'
 import ReactPaginate from 'react-paginate'
 import { paginationSlice } from '../../store/reducers/PaginationSlice'
-import { fetchAnimeList, fetchPaginateSearchedAnimeList } from '../../store/reducers/ActionCreators'
+import {
+    fetchAnimeList,
+    fetchPaginateSearchedAnimeList,
+    fetchSearchAnimeList,
+} from '../../store/reducers/ActionCreators'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
 import AnimeModal from './AnimeModal'
-import { log } from 'util'
 
 const AnimelistWrapper = () => {
     const dispatch = useAppDispatch()
@@ -27,6 +30,12 @@ const AnimelistWrapper = () => {
         dispatch(paginationSlice.actions.animeListSetCurrentPage(selected))
         dispatch(fetchAnimeList(selected * 20, sortType))
     }
+
+    // useEffect(() => {
+    //     if (isSearched) {
+    //
+    //     }
+    // }, [])
 
     useEffect(() => {
         dispatch(fetchAnimeList(animeListCurrentPage * 20, sortType))
@@ -52,21 +61,23 @@ const AnimelistWrapper = () => {
 
             {isSearched && animeList.data.length > 0 ? <h2 style={{ width: '100%', textAlign: 'center' }}>{animeListMaxOffset || animeList.data.length} anime found for your request</h2> : ''}
 
-            {animeList.data.length === 0 && isSearched ? (
-                <h1>Не найдено аниме...</h1>
-            ) : (
-                animeList.data.map((item) => (
-                    <AnimeCard
-                        image={item.attributes.posterImage.original}
-                        title={item.attributes.canonicalTitle}
-                        showType={item.attributes.showType}
-                        key={item.id}
-                        id={item.id}
-                        anime={item}
-                        rating={item.attributes.averageRating}
-                    />
-                ))
-            )}
+            <div className='anime-cards-container'>
+                {animeList.data.length === 0 && isSearched ? (
+                    <h1>Не найдено аниме...</h1>
+                ) : (
+                    animeList.data.map((item) => (
+                        <AnimeCard
+                            image={item.attributes.posterImage.original}
+                            title={item.attributes.canonicalTitle}
+                            showType={item.attributes.showType}
+                            key={item.id}
+                            id={item.id}
+                            anime={item}
+                            rating={item.attributes.averageRating}
+                        />
+                    ))
+                )}
+            </div>
 
             <ReactPaginate
                 className={animeListMaxOffset === 0 || isLoading ? 'hidden' : ''}
