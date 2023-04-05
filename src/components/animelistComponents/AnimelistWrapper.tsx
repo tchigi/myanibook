@@ -2,20 +2,17 @@ import React, { useEffect, useState } from 'react'
 import AnimeCard from './AnimeCard'
 import ReactPaginate from 'react-paginate'
 import { paginationSlice } from '../../store/reducers/PaginationSlice'
-import {
-    fetchAnimeList,
-    fetchPaginateSearchedAnimeList,
-    fetchSearchAnimeList,
-} from '../../store/reducers/ActionCreators'
+import { fetchAnimeList, fetchPaginateSearchedAnimeList, fetchSearchAnimeList } from '../../store/reducers/ActionCreators'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
 import AnimeModal from './AnimeModal'
 
 const AnimelistWrapper = () => {
     const dispatch = useAppDispatch()
-    const { animeList, isSearched, isLoading, sortType, isModalActive } = useAppSelector((state) => state.animeReducer)
+    const { animeList, isSearched, isLoading, sortType, searchValue } = useAppSelector((state) => state.animeReducer)
     const { animeListCurrentPage, animeListMaxOffset } = useAppSelector((state) => state.paginationReducer)
     const animeListPagesAmount = Math.ceil(animeListMaxOffset / 20) + 1
+    const [random, setRandom] = useState(Math.random())
 
     function pageChangeHandler({ selected }: { selected: number }) {
         if (isSearched) {
@@ -31,16 +28,6 @@ const AnimelistWrapper = () => {
         dispatch(fetchAnimeList(selected * 20, sortType))
     }
 
-    // useEffect(() => {
-    //     if (isSearched) {
-    //
-    //     }
-    // }, [])
-
-    useEffect(() => {
-        dispatch(fetchAnimeList(animeListCurrentPage * 20, sortType))
-    }, [sortType])
-
     function getAnimeListSize() {
         if (isSearched) {
             dispatch(paginationSlice.actions.animeListSetMaxOffset(Number(animeList.links.last?.split('=')[3])))
@@ -55,13 +42,26 @@ const AnimelistWrapper = () => {
         getAnimeListSize()
     }, [animeList])
 
+    useEffect(() => {
+        if (isSearched !== true) {
+            dispatch(fetchAnimeList())
+        }
+        return
+    }, [])
+
     return (
-        <div className="animelist-wrapper">
+        <div className="animelist-wrapper" key={random}>
             <AnimeModal />
 
-            {isSearched && animeList.data.length > 0 ? <h2 style={{ width: '100%', textAlign: 'center' }}>{animeListMaxOffset || animeList.data.length} anime found for your request</h2> : ''}
+            {isSearched && animeList.data.length > 0 ? (
+                <h2 style={{ width: '100%', textAlign: 'center' }}>
+                    {animeListMaxOffset || animeList.data.length} anime found for your request "{searchValue}"
+                </h2>
+            ) : (
+                ''
+            )}
 
-            <div className='anime-cards-container'>
+            <div className="anime-cards-container">
                 {animeList.data.length === 0 && isSearched ? (
                     <h1>Не найдено аниме...</h1>
                 ) : (

@@ -8,14 +8,6 @@ const UserInfoBlock = () => {
 
     return (
         <div className={'userblock__wrapper'}>
-            <div className='userblock-info'>
-                <figure className="userblock-avatar-wrapper">
-                        <div className="userblock-avatar"></div>
-                </figure>
-                <div className='userblock-name-wrapper'>
-                    Anonymous
-                </div>
-            </div>
             <div className='userblock-pageinfo'>
                 <NavLink to={'/anime'} end>
                     <div className={'userblock__button'}>Anime</div>
@@ -26,7 +18,7 @@ const UserInfoBlock = () => {
             </div>
 
             <div className={`sort-wrapper ${isSearched ? 'hidden' : ''}`}>
-                <p className="sort-title">Sort by:</p>
+                <p className="sort-title">Recommended:</p>
                 <RadioInput />
             </div>
         </div>

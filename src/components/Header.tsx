@@ -18,8 +18,8 @@ function Header() {
     }
 
     const onClickSearch = (e: any) => {
-        dispatch(paginationSlice.actions.animeListSetCurrentPage(0))
         dispatch(fetchSearchAnimeList(value))
+        dispatch(paginationSlice.actions.animeListSetCurrentPage(0))
 
         navigate('/anime')
     }

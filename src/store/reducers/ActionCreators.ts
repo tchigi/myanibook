@@ -17,11 +17,11 @@ export const fetchAnimeList =
 
 export const fetchSearchAnimeList = (text: string) => async (dispatch: AppDispatch) => {
     try {
-        dispatch(animeSlice.actions.animeListFetching())
+        dispatch(animeSlice.actions.animeSearchFetching(text))
         const response = await axios.get<IAnime>(`https://kitsu.io/api/edge/anime?filter[text]=${text}&page[limit]=20`)
         dispatch(animeSlice.actions.animeSearchSuccess(response.data))
     } catch (e: any) {
-        dispatch(animeSlice.actions.animeListFetchingError(e.message))
+        dispatch(animeSlice.actions.animeSearchFetchingError(e.message))
     }
 }
 
