@@ -73,3 +73,4 @@ export interface PosterImage {
     medium: string
     original: string
 }
+

@@ -55,7 +55,7 @@ const AnimelistWrapper = () => {
 
             {isSearched && animeList.data.length > 0 ? (
                 <h2 style={{ width: '100%', textAlign: 'center' }}>
-                    {animeListMaxOffset || animeList.data.length} anime found for your request "{searchValue}"
+                    Found for your request "{searchValue}"
                 </h2>
             ) : (
                 ''

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../hooks/redux'
-import UserInfoBlock from '../components/animelistComponents/UserInfoBlock'
+import FilterPanel from '../components/animelistComponents/FilterPanel'
 import Loading from '../components/Loading'
 import ViewedList from '../components/ViewedList'
 
@@ -9,7 +9,7 @@ const AnimeViewedList = () => {
 
     return (
         <main className={'animelist-page-wrapper main'}>
-            <UserInfoBlock />
+            <FilterPanel />
             {isLoading && <Loading></Loading>}
             {error && <h1>{error}</h1>}
             <ViewedList />

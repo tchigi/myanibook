@@ -190,6 +190,20 @@ body {
     height: 30px;
     font-size: 18px;
     line-height: 30px;
+    transition: 0.3s;
+    color: #000000;
+}
+
+.animelist-search-input:focus {
+    box-shadow: 0 0 20px #ff6600;
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.animelist-search-input:hover {
+    background-color: #000000;
+    box-shadow: 0 0 20px #ffffff;
+    color: #FFFFFF;
 }
 
 .small__button {
@@ -324,82 +338,77 @@ body {
     gap: 20px;
 }
 
-/*--------------USERBLOCK----------------*/
+/*--------------filter-panel----------------*/
 
-.userblock__wrapper {
+.filter-panel-wrapper {
     padding-top: 15px;
     width: 20%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     justify-content: flex-start;
     align-items: center;
     border-radius: 20px;
     background-color: #2E3338;
 }
 
-.userblock-pageinfo {
+.filter__panel__block {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    gap: 10px;
+    padding: 5px 0;
 }
 
-.userblock-pageinfo a{
-    font-size: 26px;
+.filter-panel-pageinfo a{
     color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
     width: 90%;
-    height: 55px;
+    height: 35px;
     padding: 10px;
 
     border-radius: 20px 0 0 20px;
-    border-left: 3px #2E3338 solid;
-    border-top: 3px #2E3338 solid;
-    border-bottom: 3px #2E3338 solid;
+    border-left: 2px #2E3338 solid;
+    border-top: 2px #2E3338 solid;
+    border-bottom: 2px #2E3338 solid;
     box-sizing: border-box;
     transition: 0.3s;
 }
-.userblock-pageinfo a.active {
+.filter-panel-pageinfo a.active {
     background: linear-gradient(to bottom, #ff6600, #b84900);
 }
-.userblock-pageinfo a:hover {
+.filter-panel-pageinfo a:hover {
     background: linear-gradient(to bottom, rgba(255, 102, 0, 0.5), rgba(184, 73, 0, 0.5));
-    border-left: 3px #fff solid;
-    border-top: 3px #fff solid;
-    border-bottom: 3px #fff solid;
+    border-left: 2px #fff solid;
+    border-top: 2px #fff solid;
+    border-bottom: 2px #fff solid;
 }
-.userblock-pageinfo a:active {
-    border-left: 3px #ff6600 solid;
-    border-top: 3px #ff6600 solid;
-    border-bottom: 3px #ff6600 solid;
+.filter-panel-pageinfo a:active {
+    border-left: 2px #ff6600 solid;
+    border-top: 2px #ff6600 solid;
+    border-bottom: 2px #ff6600 solid;
 }
-.userblock__button {
-    font-size: 26px;
+.filter-panel__button {
+    font-size: 18px;
     background-color: inherit;
     color: #ffffff;
     text-align: center;
 }
 
-
-
-.sort-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    gap: 10px;
-}
-
-.sort-title {
+.filter__panel__title {
     text-align: center;
     width: 100%;
-    line-height: 20px;
-    font-size: 20px;
+    line-height: 18px;
+    font-size: 18px;
     font-weight: bold;
+    border: 2px #b84900 solid;
+}
+.sort-title {
+    margin-bottom: 5px;
 }
 
 .radio-input-wrapper {
@@ -408,13 +417,12 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    gap: 10px;
 }
 
 .radio__button__wrapper {
-    font-size: 26px;
+    font-size: 18px;
     color: white;
-    height: 55px;
+    height: 35px;
     width: 90%;
     padding: 10px;
 
@@ -424,9 +432,9 @@ body {
     justify-content: center;
 
     border-radius: 20px 0 0 20px;
-    border-left: 3px #2E3338 solid;
-    border-top: 3px #2E3338 solid;
-    border-bottom: 3px #2E3338 solid;
+    border-left: 2px #2E3338 solid;
+    border-top: 2px #2E3338 solid;
+    border-bottom: 2px #2E3338 solid;
     box-sizing: border-box;
     transition: 0.3s;
 }
@@ -437,14 +445,14 @@ body {
 
 .radio__button__wrapper:hover {
     background: linear-gradient(to bottom, rgba(255, 102, 0, 0.5), rgba(184, 73, 0, 0.5));
-    border-left: 3px #fff solid;
-    border-top: 3px #fff solid;
-    border-bottom: 3px #fff solid;
+    border-left: 2px #fff solid;
+    border-top: 2px #fff solid;
+    border-bottom: 2px #fff solid;
 }
 .radio__button__wrapper:active {
-    border-left: 3px #ff6600 solid;
-    border-top: 3px #ff6600 solid;
-    border-bottom: 3px #ff6600 solid;
+    border-left: 2px #ff6600 solid;
+    border-top: 2px #ff6600 solid;
+    border-bottom: 2px #ff6600 solid;
 }
 
 .radio__button {
@@ -453,6 +461,90 @@ body {
     opacity: 0;
 }
 
+/*-------------------------------checkbox----------------------*/
+
+.filter__panel__checkbox__container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.filter__panel__checkbox__wrapper {
+    height: 30px;
+    width: 90%;
+    border-radius: 20px 0 0 20px;
+    border-left: 3px #2E3338 solid;
+    border-top: 3px #2E3338 solid;
+    border-bottom: 3px #2E3338 solid;
+    box-sizing: border-box;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter__panel__checkbox__wrapper.checked {
+    background: linear-gradient(to bottom, #ff6600, #b84900);
+}
+
+.filter__panel__checkbox__wrapper.checked:hover {
+    background: linear-gradient(to bottom, rgba(255, 102, 0, 0.5), rgba(184, 73, 0, 0.5));
+
+}
+
+.filter__panel__checkbox__wrapper label{
+    padding: 5px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+.filter__panel__checkbox{
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px #ff6600 solid;
+    cursor: pointer;
+}
+.filter__panel__checkbox.checked {
+    position: relative;
+    border: 2px #1C1F22 solid;
+    background: none;
+}
+
+.filter__panel__checkbox.checked::before {
+    content: "\2714";
+    font-size: 20px;
+    color: #1C1F22;
+    position: absolute;
+    top: -6px;
+    left: 1px;
+}
+.filter__panel__checkbox.checked:hover::before {
+    color: #ffffff;
+}
+
+.filter__panel__checkbox:focus {
+    box-shadow: 0 0 10px #ff6600;
+}
+.filter__panel__checkbox:hover {
+    border: 2px #FFFFFF solid;
+    box-shadow: 0 0 10px #ffffff;
+}
+
+.filter__panel__checkbox__label {
+    margin-left: 10px;
+    text-align: center;
+    font-size: 14px;
+}
 
 /*--------------ANIMELISTBLOCK----------------*/
 
