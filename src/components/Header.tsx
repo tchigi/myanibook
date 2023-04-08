@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, NavLink, redirect, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { paginationSlice } from '../store/reducers/PaginationSlice'
-import { fetchAnimeList, fetchSearchAnimeList } from '../store/reducers/ActionCreators'
+import { fetchAnimeList } from '../store/reducers/ActionCreators'
 import { animeSlice } from '../store/reducers/AnimeSlice'
 
 const setActive = ({ isActive }: any) => (isActive ? 'active-link' : '')
@@ -11,14 +11,17 @@ function Header() {
     const dispatch = useAppDispatch()
     const [value, setValue] = useState('')
     let navigate = useNavigate()
-    const { isSearched, sortType } = useAppSelector((state) => state.animeReducer)
+    const { isSearched, sortType, currentLink } = useAppSelector((state) => state.animeReducer)
 
     const onChange = (e: any) => {
         setValue(e.target.value)
     }
 
     const onClickSearch = (e: any) => {
-        dispatch(fetchSearchAnimeList(value))
+        const currentRequest = `&filter[text]=${value}`
+        dispatch(animeSlice.actions.animeSearch(value))
+        dispatch(animeSlice.actions.animeCurrentLinkAdd(currentRequest))
+        dispatch(fetchAnimeList(currentLink))
         dispatch(paginationSlice.actions.animeListSetCurrentPage(0))
 
         navigate('/anime')

@@ -7,15 +7,17 @@ const RadioInput = () => {
     const dispatch = useAppDispatch()
     const sortTypeArr = ['id', 'ratingRank', 'popularityRank']
     const inputValueArr = ['Default', 'Rating', 'Popularity']
-    const {  sortType } = useAppSelector((state) => state.animeReducer)
+    const {  sortType, currentLink } = useAppSelector((state) => state.animeReducer)
     const { animeListCurrentPage} = useAppSelector((state) => state.paginationReducer)
 
 
 
     async function onChangeHandler(e: any) {
         dispatch(animeSlice.actions.sortAnimeHandler(e.target.value))
+        const currentRequest = `&sort=${e.target.value}`
+        dispatch(animeSlice.actions.animeCurrentLinkAdd(currentRequest))
         dispatch(paginationSlice.actions.animeListSetCurrentPage(0))
-        dispatch(fetchAnimeList(animeListCurrentPage * 20, e.target.value))
+        dispatch(fetchAnimeList(currentLink))
     }
 
     function isActive(i: string) {

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { genresSlice } from '../../../store/reducers/GenresSlice'
 import { GenreData } from '../../../models/IGenre'
 import { animeSlice } from '../../../store/reducers/AnimeSlice'
-import { fetchSortedByGenresSearchedAnimeList } from '../../../store/reducers/ActionCreators'
+import { logDOM } from '@testing-library/react'
 
 type CheckboxProps = {
     label: string
@@ -18,7 +18,7 @@ const FilterPanelCheckbox = ({ label, checked, genre }:CheckboxProps) => {
     const { isSearched, searchValue } = useAppSelector(state => state.animeReducer)
     const { currentGenres } = useAppSelector(state => state.genresReducer)
 
-    const genresLink = currentGenres.length !=0 ? currentGenres.map(item=>item.attributes.name).join('&filter[genres]=') : ''
+    const genresLink = currentGenres.length !=0 ? '&filter[genres]=' + currentGenres.map(item=>item.attributes.name).join('&filter[genres]=') : ''
 
     const currentGenresHandler = () => {
         if (isChecked) {
@@ -32,10 +32,11 @@ const FilterPanelCheckbox = ({ label, checked, genre }:CheckboxProps) => {
         currentGenresHandler()
 
         if (isSearched) {
-            dispatch(fetchSortedByGenresSearchedAnimeList(searchValue, genresLink))
+            // dispatch(fetchSortedByGenresSearchedAnimeList(searchValue, genresLink))
         } else {
         }
 
+        console.log(genresLink)
         setIsChecked((prev) => !prev)
     }
 

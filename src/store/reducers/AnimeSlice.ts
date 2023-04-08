@@ -12,6 +12,7 @@ interface AnimeState {
     genres: IAnimeGenres
     categories: IAnimeCategories
     searchValue: string
+    currentLink: string
 }
 
 const initialState: AnimeState = {
@@ -70,7 +71,8 @@ const initialState: AnimeState = {
         meta: [],
         links: [],
     },
-    searchValue: ''
+    searchValue: '',
+    currentLink: '',
 }
 
 export const animeSlice = createSlice({
@@ -89,24 +91,14 @@ export const animeSlice = createSlice({
             state.isLoading = false
             state.error = action.payload
         },
-        animeSearchFetching(state, action: PayloadAction<string>) {
+        animeSearch(state, action: PayloadAction<string>) {
             state.isSearched = true
-            state.isLoading = true
             state.searchValue = action.payload
-        },
-        animeSearchSuccess(state, action: PayloadAction<IAnime>) {
-            state.isLoading = false
-            state.error = ''
-            state.animeList = action.payload
-        },
-        animeSearchFetchingError(state, action: PayloadAction<string>) {
-            state.isLoading = false
-            state.isSearched = false
-            state.error = action.payload
         },
         animeClearSearch(state) {
             state.isSearched = false
             state.searchValue = ''
+            state.currentLink = ''
         },
         sortAnimeHandler(state, action: PayloadAction<string>) {
             state.sortType = action.payload
@@ -126,6 +118,12 @@ export const animeSlice = createSlice({
         },
         modalSelectAnime(state, action: PayloadAction<AnimeData>) {
             state.selectedAnime = action.payload
+        },
+        animeCurrentLinkAdd(state, action: PayloadAction<string>) {
+            state.currentLink += action.payload
+        },
+        animeCurrentLinkRemove(state) {
+            state.currentLink = ''
         },
     },
 })

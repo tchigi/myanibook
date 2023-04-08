@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import AnimeCard from './AnimeCard'
 import ReactPaginate from 'react-paginate'
 import { paginationSlice } from '../../store/reducers/PaginationSlice'
-import { fetchAnimeList, fetchPaginateSearchedAnimeList, fetchSearchAnimeList } from '../../store/reducers/ActionCreators'
+import { fetchAnimeList } from '../../store/reducers/ActionCreators'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
 import AnimeModal from './AnimeModal'
 
 const AnimelistWrapper = () => {
     const dispatch = useAppDispatch()
-    const { animeList, isSearched, isLoading, sortType, searchValue } = useAppSelector((state) => state.animeReducer)
+    const { animeList, isSearched, isLoading, sortType, searchValue, currentLink } = useAppSelector((state) => state.animeReducer)
     const { animeListCurrentPage, animeListMaxOffset } = useAppSelector((state) => state.paginationReducer)
     const animeListPagesAmount = Math.ceil(animeListMaxOffset / 20) + 1
     const [random, setRandom] = useState(Math.random())
@@ -19,13 +19,14 @@ const AnimelistWrapper = () => {
             const currentLinkArr = animeList.links.last.split('=')
             const currentOffset = selected * 20
             currentLinkArr[3] = `${currentOffset}`
-            const currentLink = currentLinkArr.join('=')
+            const currentRequest = `&` + currentLinkArr.join('=')
+            console.log(currentRequest)
             dispatch(paginationSlice.actions.animeListSetCurrentPage(selected))
-            dispatch(fetchPaginateSearchedAnimeList(currentLink))
+            dispatch(fetchAnimeList(currentRequest, selected))
             return
         }
         dispatch(paginationSlice.actions.animeListSetCurrentPage(selected))
-        dispatch(fetchAnimeList(selected * 20, sortType))
+        dispatch(fetchAnimeList(currentLink, selected))
     }
 
     function getAnimeListSize() {
