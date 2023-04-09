@@ -6,8 +6,6 @@ import GenresFilter from './filterPanelComponents/genresFilters'
 import CategoriesFilter from './filterPanelComponents/categoriesFilter'
 
 const FilterPanel = () => {
-    const { isSearched } = useAppSelector((state) => state.animeReducer)
-
     return (
         <div className={'filter-panel-wrapper'}>
             <div className='filter-panel-pageinfo filter__panel__block'>
@@ -19,7 +17,7 @@ const FilterPanel = () => {
                 </NavLink>
             </div>
 
-            <div className={`sort-wrapper filter__panel__block ${isSearched ? 'hidden' : ''}`}>
+            <div className={`sort-wrapper filter__panel__block`}>
                 <h4 className="sort-title filter__panel__title">Recommended:</h4>
                 <RadioInput />
             </div>

@@ -1,23 +1,16 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
 import { paginationSlice } from '../../store/reducers/PaginationSlice'
-import { fetchAnimeList } from '../../store/reducers/ActionCreators'
 
 const RadioInput = () => {
     const dispatch = useAppDispatch()
-    const sortTypeArr = ['id', 'ratingRank', 'popularityRank']
+    const sortTypeArr = ['id', '-averageRating', 'popularityRank']
     const inputValueArr = ['Default', 'Rating', 'Popularity']
-    const {  sortType, currentLink } = useAppSelector((state) => state.animeReducer)
-    const { animeListCurrentPage} = useAppSelector((state) => state.paginationReducer)
-
-
+    const { sortType } = useAppSelector((state) => state.animeReducer)
 
     async function onChangeHandler(e: any) {
         dispatch(animeSlice.actions.sortAnimeHandler(e.target.value))
-        const currentRequest = `&sort=${e.target.value}`
-        dispatch(animeSlice.actions.animeCurrentLinkAdd(currentRequest))
         dispatch(paginationSlice.actions.animeListSetCurrentPage(0))
-        dispatch(fetchAnimeList(currentLink))
     }
 
     function isActive(i: string) {

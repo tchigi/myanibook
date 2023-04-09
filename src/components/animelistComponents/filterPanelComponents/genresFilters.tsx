@@ -18,7 +18,7 @@ const GenresFilter = () => {
             <h4 className='genres-filter-title filter__panel__title'>Genres:</h4>
             <div className='genres-filter-checkbox-container filter__panel__checkbox__container'>
                 {genres.data.map((item, index)=>(
-                    <FilterPanelCheckbox label={item.attributes.name} checked={false} key={index} genre={item}/>
+                    <FilterPanelCheckbox label={item.attributes.name} key={index} genre={item}/>
                 ))}
             </div>
         </div>

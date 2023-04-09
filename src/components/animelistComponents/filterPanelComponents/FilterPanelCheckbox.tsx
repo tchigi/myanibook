@@ -1,24 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { genresSlice } from '../../../store/reducers/GenresSlice'
 import { GenreData } from '../../../models/IGenre'
-import { animeSlice } from '../../../store/reducers/AnimeSlice'
-import { logDOM } from '@testing-library/react'
 
 type CheckboxProps = {
     label: string
-    checked: boolean
     genre: GenreData
 }
 
-const FilterPanelCheckbox = ({ label, checked, genre }:CheckboxProps) => {
+const FilterPanelCheckbox = ({ label,  genre }:CheckboxProps) => {
     const dispatch = useAppDispatch()
-    const defaultChecked = checked ? checked : false;
-    const [isChecked, setIsChecked] = useState(defaultChecked);
-    const { isSearched, searchValue } = useAppSelector(state => state.animeReducer)
     const { currentGenres } = useAppSelector(state => state.genresReducer)
 
-    const genresLink = currentGenres.length !=0 ? '&filter[genres]=' + currentGenres.map(item=>item.attributes.name).join('&filter[genres]=') : ''
+    const [isChecked, setIsChecked] = useState(false);
+
 
     const currentGenresHandler = () => {
         if (isChecked) {
@@ -31,19 +26,24 @@ const FilterPanelCheckbox = ({ label, checked, genre }:CheckboxProps) => {
     const onChangeHandler = () => {
         currentGenresHandler()
 
-        if (isSearched) {
-            // dispatch(fetchSortedByGenresSearchedAnimeList(searchValue, genresLink))
-        } else {
-        }
-
-        console.log(genresLink)
         setIsChecked((prev) => !prev)
     }
+
+    useEffect(() => {
+        const currentRequest = currentGenres.length !== 0
+        ? '&filter[genres]=' + currentGenres.map(item=>item.attributes.name).join('&filter[genres]=')
+        : ''
+
+        dispatch(genresSlice.actions.currentGenresRequestHandler(currentRequest))
+
+        setIsChecked(currentGenres.filter(item => item.id === genre.id).length !== 0)
+    }, [currentGenres])
 
     return (
         <div className={`filter__panel__checkbox__wrapper ${isChecked ? 'checked' : ''}`}>
             <label>
-                <input type="checkbox" checked={isChecked} onChange={onChangeHandler} className={`filter__panel__checkbox ${isChecked ? 'checked' : ''}`} />
+                <input type="checkbox" checked={isChecked} onChange={onChangeHandler}
+                       className={`filter__panel__checkbox ${isChecked ? 'checked' : ''}`} />
                 <span className="filter__panel__checkbox__label">{label}</span>
             </label>
         </div>

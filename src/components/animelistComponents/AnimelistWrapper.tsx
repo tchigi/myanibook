@@ -9,33 +9,23 @@ import AnimeModal from './AnimeModal'
 
 const AnimelistWrapper = () => {
     const dispatch = useAppDispatch()
-    const { animeList, isSearched, isLoading, sortType, searchValue, currentLink } = useAppSelector((state) => state.animeReducer)
+    const { animeList, isSearched, isLoading, sortType, searchValue } = useAppSelector((state) => state.animeReducer)
     const { animeListCurrentPage, animeListMaxOffset } = useAppSelector((state) => state.paginationReducer)
+    const { currentGenresRequest } = useAppSelector(state => state.genresReducer)
     const animeListPagesAmount = Math.ceil(animeListMaxOffset / 20) + 1
-    const [random, setRandom] = useState(Math.random())
 
     function pageChangeHandler({ selected }: { selected: number }) {
-        if (isSearched) {
-            const currentLinkArr = animeList.links.last.split('=')
-            const currentOffset = selected * 20
-            currentLinkArr[3] = `${currentOffset}`
-            const currentRequest = `&` + currentLinkArr.join('=')
-            console.log(currentRequest)
-            dispatch(paginationSlice.actions.animeListSetCurrentPage(selected))
-            dispatch(fetchAnimeList(currentRequest, selected))
-            return
-        }
+        window.scrollTo(0, 0)
         dispatch(paginationSlice.actions.animeListSetCurrentPage(selected))
-        dispatch(fetchAnimeList(currentLink, selected))
     }
 
     function getAnimeListSize() {
-        if (isSearched) {
-            dispatch(paginationSlice.actions.animeListSetMaxOffset(Number(animeList.links.last?.split('=')[3])))
-            return
-        }
+
+        const arr = animeList.links.last?.split('&')
+        const offset = arr.filter((i)=>i.match('offset')).join('').split('=')[1]
+
         if (animeList.data.length !== 0) {
-            dispatch(paginationSlice.actions.animeListSetMaxOffset(Number(animeList.links.last?.split('=')[2].split('&')[0])))
+            dispatch(paginationSlice.actions.animeListSetMaxOffset(Number(offset)))
         }
     }
 
@@ -44,14 +34,13 @@ const AnimelistWrapper = () => {
     }, [animeList])
 
     useEffect(() => {
-        if (isSearched !== true) {
-            dispatch(fetchAnimeList())
-        }
-        return
-    }, [])
+        dispatch(fetchAnimeList(sortType, currentGenresRequest, isSearched, searchValue, animeListCurrentPage))
+    }, [sortType, isSearched, currentGenresRequest, animeListCurrentPage])
+
+
 
     return (
-        <div className="animelist-wrapper" key={random}>
+        <div className="animelist-wrapper">
             <AnimeModal />
 
             {isSearched && animeList.data.length > 0 ? (

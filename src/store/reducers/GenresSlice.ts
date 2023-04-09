@@ -6,7 +6,8 @@ interface GenresState {
 
     isLoading: boolean,
     error: string,
-    currentGenres: GenreData[]
+    currentGenres: GenreData[],
+    currentGenresRequest: string
 }
 
 const initialState: GenresState = {
@@ -17,7 +18,8 @@ const initialState: GenresState = {
     },
     isLoading: false,
     error: '',
-    currentGenres: []
+    currentGenres: [],
+    currentGenresRequest: ''
 }
 export const genresSlice = createSlice({
     name: 'genres',
@@ -42,6 +44,12 @@ export const genresSlice = createSlice({
             state.currentGenres = state.currentGenres.filter(item => {
                 return item.id !== action.payload.id
             })
+        },
+        clearCurrentGenres(state) {
+            state.currentGenres = []
+        },
+        currentGenresRequestHandler(state, action: PayloadAction<string>) {
+            state.currentGenresRequest = action.payload
         }
     },
 })
