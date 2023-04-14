@@ -37,13 +37,8 @@ export const genresSlice = createSlice({
             state.isLoading = false
             state.error = action.payload
         },
-        addToCurrentGenres(state, action: PayloadAction<GenreData>) {
-            state.currentGenres.push(action.payload)
-        },
-        removeFromCurrentGenres(state, action: PayloadAction<GenreData>) {
-            state.currentGenres = state.currentGenres.filter(item => {
-                return item.id !== action.payload.id
-            })
+        addToCurrentGenres(state, action: PayloadAction<any>) {
+            state.currentGenres = action.payload
         },
         clearCurrentGenres(state) {
             state.currentGenres = []

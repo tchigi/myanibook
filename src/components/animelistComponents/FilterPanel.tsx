@@ -1,28 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import RadioInput from './RadioInput'
-import { useAppSelector } from '../../hooks/redux'
-import GenresFilter from './filterPanelComponents/genresFilters'
-import CategoriesFilter from './filterPanelComponents/categoriesFilter'
+import RadioInput from './filterPanelComponents/RadioInput'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import MultiSelect from './filterPanelComponents/MultiSelect'
+import { fetchCategoriesList, fetchGenresList } from '../../store/reducers/ActionCreators'
 
 const FilterPanel = () => {
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchGenresList())
+        dispatch(fetchCategoriesList())
+    }, [])
+
     return (
         <div className={'filter-panel-wrapper'}>
-            <div className='filter-panel-pageinfo filter__panel__block'>
-                <NavLink to={'/anime'} end>
-                    <div className={'filter-panel__button'}>Anime</div>
-                </NavLink>
-                <NavLink to={'/anime/viewed'}>
-                    <div className={'filter-panel__button'}>Viewed</div>
-                </NavLink>
-            </div>
-
             <div className={`sort-wrapper filter__panel__block`}>
-                <h4 className="sort-title filter__panel__title">Recommended:</h4>
+                <h4 className="sort-title filter__panel__title">Sort by:</h4>
                 <RadioInput />
             </div>
-            <GenresFilter/>
-            <CategoriesFilter/>
+            <div className={`select__wrapper`}>
+                <h4 className="select__title filter__panel__title">Select genres:</h4>
+                <div className='select__container'>
+                    <MultiSelect selectSortType={'genres'}/>
+                </div>
+            </div>
+            <div className={`select__wrapper`}>
+                <h4 className="select__title filter__panel__title">Select categories:</h4>
+                <div className='select__container'>
+                    <MultiSelect selectSortType={'categories'}/>
+                </div>
+            </div>
+
         </div>
     )
 }

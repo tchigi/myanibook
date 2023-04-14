@@ -3,9 +3,11 @@ import animeReducer from './reducers/AnimeSlice'
 import paginationReducer from './reducers/PaginationSlice'
 import viewedReducer from './reducers/ViewedSlice'
 import genresReducer from './reducers/GenresSlice'
+import userReducer from './reducers/UserSlice'
+import categoriesReducer from './reducers/CategoriesSlice'
 
 const rootReducer = combineReducers({
-    animeReducer, paginationReducer, viewedReducer, genresReducer
+    animeReducer, paginationReducer, viewedReducer, genresReducer, userReducer, categoriesReducer
 })
 
 export const setupStore = () => {

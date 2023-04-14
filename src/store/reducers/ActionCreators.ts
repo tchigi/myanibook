@@ -3,18 +3,19 @@ import axios from 'axios'
 import { AnimeData, IAnime, IAnimeCategories, IAnimeGenres } from '../../models/IAnime'
 import { animeSlice } from './AnimeSlice'
 import { genresSlice } from './GenresSlice'
-import { GenresURL, StartURL } from '../../constants/url'
+import { CategoriesURL, GenresURL, StartURL } from '../../constants/url'
 import { IGenre } from '../../models/IGenre'
-import { useAppSelector } from '../../hooks/redux'
+import { categoriesSlice } from './CategoriesSlice'
+import { ICategories } from '../../models/ICategories'
 
-export const fetchAnimeList = (sort: string, genres: string, isSearched: boolean, searchValue: string, page: number) => async (dispatch: AppDispatch) => {
+export const fetchAnimeList = (sort: string, genres: string, categories: string, isSearched: boolean, searchValue: string, page: number) => async (dispatch: AppDispatch) => {
     const currentOffset = page * 20
 
     const currentSortTypeRequest = `&sort=${sort}`
     const currentPageRequest = `page[limit]=20&page[offset]=${currentOffset}`
     const currentSearchedRequest = isSearched ? `&filter[text]=${searchValue}` : ''
 
-    const currentRequest = StartURL + currentPageRequest + currentSortTypeRequest + currentSearchedRequest + genres
+    const currentRequest = StartURL + currentPageRequest + currentSortTypeRequest + currentSearchedRequest + genres + categories
     console.log(currentRequest)
 
     try {
@@ -46,8 +47,7 @@ export const fetchAnimeCategories = (link: string) => async (dispatch: AppDispat
     }
 }
 
-export const fetchGenresList =
-    (link: string = GenresURL) =>
+export const fetchGenresList = (link: string = GenresURL) =>
     async (dispatch: AppDispatch) => {
         try {
             dispatch(genresSlice.actions.genresFetching)
@@ -55,5 +55,16 @@ export const fetchGenresList =
             dispatch(genresSlice.actions.genresFetchingSuccess(response.data))
         } catch (e: any) {
             dispatch(genresSlice.actions.animeListFetchingError(e.message))
+        }
+    }
+
+export const fetchCategoriesList = (link: string = CategoriesURL) =>
+    async (dispatch: AppDispatch) => {
+        try {
+            dispatch(categoriesSlice.actions.categoriesFetching)
+            const response = await axios.get<ICategories>(link)
+            dispatch(categoriesSlice.actions.categoriesFetchingSuccess(response.data))
+        } catch (e: any) {
+            dispatch(categoriesSlice.actions.animeListFetchingError(e.message))
         }
     }

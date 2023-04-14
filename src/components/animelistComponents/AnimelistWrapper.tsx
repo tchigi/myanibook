@@ -12,6 +12,7 @@ const AnimelistWrapper = () => {
     const { animeList, isSearched, isLoading, sortType, searchValue } = useAppSelector((state) => state.animeReducer)
     const { animeListCurrentPage, animeListMaxOffset } = useAppSelector((state) => state.paginationReducer)
     const { currentGenresRequest } = useAppSelector(state => state.genresReducer)
+    const { currentCategoriesRequest } = useAppSelector(state => state.categoriesReducer)
     const animeListPagesAmount = Math.ceil(animeListMaxOffset / 20) + 1
 
     function pageChangeHandler({ selected }: { selected: number }) {
@@ -34,8 +35,8 @@ const AnimelistWrapper = () => {
     }, [animeList])
 
     useEffect(() => {
-        dispatch(fetchAnimeList(sortType, currentGenresRequest, isSearched, searchValue, animeListCurrentPage))
-    }, [sortType, isSearched, currentGenresRequest, animeListCurrentPage])
+        dispatch(fetchAnimeList(sortType, currentGenresRequest, currentCategoriesRequest, isSearched, searchValue, animeListCurrentPage))
+    }, [sortType, isSearched, currentGenresRequest, animeListCurrentPage, currentCategoriesRequest])
 
 
 

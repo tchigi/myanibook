@@ -5,14 +5,16 @@ import { paginationSlice } from '../store/reducers/PaginationSlice'
 import { fetchAnimeList, fetchGenresList } from '../store/reducers/ActionCreators'
 import { animeSlice } from '../store/reducers/AnimeSlice'
 import { genresSlice } from '../store/reducers/GenresSlice'
+import { categoriesSlice } from '../store/reducers/CategoriesSlice'
 
-const setActive = ({ isActive }: any) => (isActive ? 'active-link' : '')
 
 function Header() {
     const dispatch = useAppDispatch()
     const [value, setValue] = useState('')
     let navigate = useNavigate()
     const { isSearched, sortType } = useAppSelector((state) => state.animeReducer)
+
+    const setActive = ({ isActive }: any) => (isActive ? 'active-link' : '')
 
     const onChange = (e: any) => {
         setValue(e.target.value)
@@ -32,6 +34,7 @@ function Header() {
         dispatch(animeSlice.actions.animeClearSearch())
         dispatch(genresSlice.actions.currentGenresRequestHandler(''))
         dispatch(genresSlice.actions.clearCurrentGenres())
+        dispatch(categoriesSlice.actions.clearCurrentCategories())
     }
 
      const onKeyPressEnter = (e: any) => {

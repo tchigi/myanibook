@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { animeSlice } from '../../store/reducers/AnimeSlice'
-import { paginationSlice } from '../../store/reducers/PaginationSlice'
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
+import { animeSlice } from '../../../store/reducers/AnimeSlice'
+import { paginationSlice } from '../../../store/reducers/PaginationSlice'
 
 const RadioInput = () => {
     const dispatch = useAppDispatch()

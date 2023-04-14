@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const HomePage = () => {
+
     return (
         <main className={'homepage-wrapper main'}>
             <div className="description-block">

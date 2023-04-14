@@ -4,7 +4,7 @@ import FilterPanel from '../components/animelistComponents/FilterPanel'
 import Loading from '../components/Loading'
 import ViewedList from '../components/ViewedList'
 
-const AnimeViewedList = () => {
+const UserAnimeList = () => {
     const { isLoading, error } = useAppSelector((state) => state.animeReducer)
 
     return (
@@ -17,4 +17,4 @@ const AnimeViewedList = () => {
     )
 }
 
-export default AnimeViewedList
+export default UserAnimeList
