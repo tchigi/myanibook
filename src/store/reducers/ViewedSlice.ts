@@ -1,6 +1,5 @@
 import {AnimeData} from "../../models/IAnime";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {log} from "util";
 
 interface ViewedState {
     animeList: AnimeData[];

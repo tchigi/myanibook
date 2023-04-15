@@ -1,37 +1,73 @@
-import React, { useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
-import RadioInput from './filterPanelComponents/RadioInput'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import MultiSelect from './filterPanelComponents/MultiSelect'
+import CustomSelect from './filterPanelComponents/CustomSelect'
 import { fetchCategoriesList, fetchGenresList } from '../../store/reducers/ActionCreators'
 
 const FilterPanel = () => {
     const dispatch = useAppDispatch()
+    const { genres, currentGenres } = useAppSelector((state) => state.genresReducer)
+    const { categories, currentCategories } = useAppSelector((state) => state.categoriesReducer)
+    const genresOptions: any[] = []
+    const categoriesOptions: any[] = []
+    const recommendedSortOptions: any[] = []
+    const [isLoad, setIsLoad] = useState<boolean>(false)
 
     useEffect(() => {
         dispatch(fetchGenresList())
         dispatch(fetchCategoriesList())
     }, [])
 
+    const createGenresOptions = () => {
+        if (genresOptions.length === 0) {
+            genres.data.map((item) => {
+                return genresOptions.push({ value: `${item.attributes.name}`, label: `${item.attributes.name}` })
+            })
+        }
+    }
+    const createCategoriesOptions = () => {
+        if (categoriesOptions.length === 0) {
+            categories.data.forEach((item) => {
+                return categoriesOptions.push({ value: `${item.attributes.title}`, label: `${item.attributes.title}` })
+            })
+        }
+    }
+
+    const createRecSortOptions = () => {
+        const valueArr = ['id', '-averageRating', 'popularityRank']
+        const labelArr = ['Default', 'Rating', 'Popularity']
+
+        if (recommendedSortOptions.length === 0) {
+            for (let i = 0; i < valueArr.length; i++) {
+                recommendedSortOptions.push({ value: `${valueArr[i]}`, label: `${labelArr[i]}` })
+            }
+        }
+    }
+    createGenresOptions()
+    createCategoriesOptions()
+    createRecSortOptions()
+
     return (
         <div className={'filter-panel-wrapper'}>
-            <div className={`sort-wrapper filter__panel__block`}>
-                <h4 className="sort-title filter__panel__title">Sort by:</h4>
-                <RadioInput />
-            </div>
-            <div className={`select__wrapper`}>
-                <h4 className="select__title filter__panel__title">Select genres:</h4>
-                <div className='select__container'>
-                    <MultiSelect selectSortType={'genres'}/>
+            <div className="filter__panel__container">
+                <div className={`select__wrapper`}>
+                    <h4 className="select__title filter__panel__title">Select genres:</h4>
+                    <div className="select__container">
+                        <CustomSelect selectSortType={'genres'} isMulti options={genresOptions} />
+                    </div>
+                </div>
+                <div className={`select__wrapper`}>
+                    <h4 className="select__title filter__panel__title">Select categories:</h4>
+                    <div className="select__container">
+                        <CustomSelect selectSortType={'categories'} isMulti options={categoriesOptions} />
+                    </div>
+                </div>
+                <div className={`sort-by-recs-container select__wrapper`}>
+                    <h4 className="select__title filter__panel__title">Sort by:</h4>
+                    <div className="select__container">
+                        <CustomSelect selectSortType={'recommended'} isMulti={false} options={recommendedSortOptions} />
+                    </div>
                 </div>
             </div>
-            <div className={`select__wrapper`}>
-                <h4 className="select__title filter__panel__title">Select categories:</h4>
-                <div className='select__container'>
-                    <MultiSelect selectSortType={'categories'}/>
-                </div>
-            </div>
-
         </div>
     )
 }

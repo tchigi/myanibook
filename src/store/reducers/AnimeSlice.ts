@@ -98,7 +98,6 @@ export const animeSlice = createSlice({
         animeClearSearch(state) {
             state.isSearched = false
             state.searchValue = ''
-            state.currentGenresLink = ''
         },
         sortAnimeHandler(state, action: PayloadAction<string>) {
             state.sortType = action.payload

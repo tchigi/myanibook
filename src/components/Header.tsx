@@ -29,12 +29,8 @@ function Header() {
 
     const onClickClear = (e: any) => {
         dispatch(paginationSlice.actions.animeListSetCurrentPage(0))
-        dispatch(animeSlice.actions.sortAnimeHandler('id'))
         setValue('')
         dispatch(animeSlice.actions.animeClearSearch())
-        dispatch(genresSlice.actions.currentGenresRequestHandler(''))
-        dispatch(genresSlice.actions.clearCurrentGenres())
-        dispatch(categoriesSlice.actions.clearCurrentCategories())
     }
 
      const onKeyPressEnter = (e: any) => {
