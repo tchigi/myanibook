@@ -1,6 +1,6 @@
 import { AppDispatch } from '../store'
 import axios from 'axios'
-import { AnimeData, IAnime, IAnimeCategories, IAnimeGenres } from '../../models/IAnime'
+import { IAnime, IAnimeCategories, IAnimeGenres } from '../../models/IAnime'
 import { animeSlice } from './AnimeSlice'
 import { genresSlice } from './GenresSlice'
 import { CategoriesURL, GenresURL, StartURL } from '../../constants/url'
@@ -16,7 +16,6 @@ export const fetchAnimeList = (sort: string, genres: string, categories: string,
     const currentSearchedRequest = isSearched ? `&filter[text]=${searchValue}` : ''
 
     const currentRequest = StartURL + currentPageRequest + currentSortTypeRequest + currentSearchedRequest + genres + categories
-    console.log(currentRequest)
 
     try {
         dispatch(animeSlice.actions.animeListFetching())

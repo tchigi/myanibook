@@ -94,6 +94,7 @@ img {
 body {
     background-color: #1c1f22;
     color: #ffffff;
+    scroll-behavior: smooth;
 }
 
 /*--------------MAIN----------------*/
@@ -122,9 +123,6 @@ body {
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
-    /*border-bottom: 3px #ff6600 solid;*/
-    /*border-radius: 20px;*/
-    /*!*border-radius: 0 0 20px 20px;*!*/
     background-color: #1c1f22;
 }
 
@@ -345,23 +343,30 @@ body {
 }
 
 .filter__panel__container {
-    position: fixed;
-    top: 70px;
+    position: sticky;
+    top: 75px;
     left: 0;
     width: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    gap: 15px;
 }
 
 .filter__panel__title {
-    text-align: center;
+    padding-left: 10px;
+    text-align: left;
     width: 100%;
     line-height: 18px;
     font-size: 18px;
-    font-weight: bold;
-    border: 2px #b84900 solid;
+    font-family: "Bahnschrift";
+}
+
+.filter__panel__horizontal-line {
+    width: 100%;
+    background-color: #ff6600;
+    height: 1px;
 }
 /*-----------------------------select---------*/
 @keyframes scaleIn {
