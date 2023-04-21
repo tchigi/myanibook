@@ -14,7 +14,8 @@ function Header() {
     let navigate = useNavigate()
     const { isSearched, sortType } = useAppSelector((state) => state.animeReducer)
 
-    const setActive = ({ isActive }: any) => (isActive ? 'active-link' : '')
+    const setActive = ({ isActive, isPending }:any) =>
+        isPending ? "pending-link" : isActive ? "active-link" : ""
 
     const onChange = (e: any) => {
         setValue(e.target.value)
@@ -54,7 +55,7 @@ function Header() {
                     <NavLink to="/anime" className={setActive}>
                         Anime
                     </NavLink>
-                    <NavLink to="/books" className={setActive}>
+                    <NavLink to="/user" className={setActive}>
                         {' '}
                         Books
                     </NavLink>

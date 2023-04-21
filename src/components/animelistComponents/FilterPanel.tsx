@@ -48,28 +48,24 @@ const FilterPanel = () => {
     return (
         <div className={'filter-panel-wrapper'}>
             <div className="filter__panel__container">
-                <div className={'filter__panel__horizontal-line'}></div>
                 <div className={`select__wrapper`}>
                     <h4 className="select__title filter__panel__title">Select genres:</h4>
                     <div className="select__container">
                         <CustomSelect selectSortType={'genres'} isMulti options={genresOptions} />
                     </div>
                 </div>
-                <div className={'filter__panel__horizontal-line'}></div>
                 <div className={`select__wrapper`}>
                     <h4 className="select__title filter__panel__title">Select categories:</h4>
                     <div className="select__container">
                         <CustomSelect selectSortType={'categories'} isMulti options={categoriesOptions} />
                     </div>
                 </div>
-                <div className={'filter__panel__horizontal-line'}></div>
                 <div className={`sort-by-recs-container select__wrapper`}>
                     <h4 className="select__title filter__panel__title">Sort by:</h4>
                     <div className="select__container">
                         <CustomSelect selectSortType={'recommended'} isMulti={false} options={recommendedSortOptions} />
                     </div>
                 </div>
-                <div className={'filter__panel__horizontal-line'}></div>
             </div>
         </div>
     )

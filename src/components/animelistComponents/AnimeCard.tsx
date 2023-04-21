@@ -24,10 +24,10 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
 
     const dispatch = useAppDispatch()
 
-    const { animeList } = useAppSelector((state) => state.viewedReducer)
+    const { viewedAnimeList } = useAppSelector((state) => state.viewedReducer)
 
     function checkAnimeInList(animeId: string) {
-        return !!animeList.find((i) => i.id === animeId)
+        return !!viewedAnimeList.find((i) => i.id === animeId)
     }
 
     function onClickHandler(e:any) {

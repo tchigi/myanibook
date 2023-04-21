@@ -2,13 +2,13 @@ import {AnimeData} from "../../models/IAnime";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface ViewedState {
-    animeList: AnimeData[];
+    viewedAnimeList: AnimeData[];
     bookList: any
 }
 
 
 const initialState: ViewedState = {
-    animeList: [],
+    viewedAnimeList: [],
     bookList: ''
 }
 
@@ -17,10 +17,10 @@ export const viewedSlice = createSlice({
     initialState,
     reducers: {
         addAnimeToViewedList(state, action: PayloadAction<AnimeData>) {
-            state.animeList.push(action.payload)
+            state.viewedAnimeList.push(action.payload)
         },
         removeAnimeFromViewedList(state, action: PayloadAction<AnimeData>) {
-            state.animeList = state.animeList.filter(item => {
+            state.viewedAnimeList = state.viewedAnimeList.filter(item => {
                 return item.id !== action.payload.id
             })
         },

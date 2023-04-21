@@ -12,7 +12,6 @@ interface AnimeState {
     genres: IAnimeGenres
     categories: IAnimeCategories
     searchValue: string
-    currentGenresLink: string
 }
 
 const initialState: AnimeState = {
@@ -72,7 +71,6 @@ const initialState: AnimeState = {
         links: [],
     },
     searchValue: '',
-    currentGenresLink: '',
 }
 
 export const animeSlice = createSlice({
@@ -117,12 +115,6 @@ export const animeSlice = createSlice({
         },
         modalSelectAnime(state, action: PayloadAction<AnimeData>) {
             state.selectedAnime = action.payload
-        },
-        animeCurrentGenresLinkAdd(state, action: PayloadAction<string>) {
-            state.currentGenresLink += action.payload
-        },
-        animeCurrentGenresLinkRemove(state) {
-            state.currentGenresLink = ''
         },
     },
 })

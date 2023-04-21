@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage"
 import AnimeList from "./pages/AnimeList"
 import BookList from "./pages/BookList"
 import NotFoundPage from "./pages/NotFoundPage";
-import UserAnimeList from './pages/UserAnimeList'
+import UserInfo from './pages/UserInfo'
 
 function App() {
     return (
@@ -15,7 +15,7 @@ function App() {
                 <Route path="/" element={<Layout/>}>
                     <Route index element={<HomePage/>}/>
                     <Route path="anime" element={<AnimeList/>}/>
-                    <Route path="user/animelist" element={<UserAnimeList/>}/>
+                    <Route path="user" element={<UserInfo/>}/>
                     <Route path="books" element={<BookList/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                 </Route>

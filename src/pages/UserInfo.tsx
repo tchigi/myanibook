@@ -2,19 +2,20 @@ import React from 'react'
 import { useAppSelector } from '../hooks/redux'
 import FilterPanel from '../components/animelistComponents/FilterPanel'
 import Loading from '../components/Loading'
-import ViewedList from '../components/ViewedList'
+import ViewedList from '../components/userInfoComponents/ViewedList'
+import UserPanel from '../components/userInfoComponents/UserPanel'
 
-const UserAnimeList = () => {
+const UserInfo = () => {
     const { isLoading, error } = useAppSelector((state) => state.animeReducer)
 
     return (
-        <main className={'animelist-page-wrapper main'}>
-            <FilterPanel />
+        <main className={'userinfo-page-wrapper main'}>
             {isLoading && <Loading></Loading>}
             {error && <h1>{error}</h1>}
+            <UserPanel />
             <ViewedList />
         </main>
     )
 }
 
-export default UserAnimeList
+export default UserInfo

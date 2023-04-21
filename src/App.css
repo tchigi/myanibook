@@ -161,15 +161,17 @@ body {
     gap: 30px;
 }
 
-.nav a:visited {
+.nav a {
     color: #ffffff;
 }
 .nav a:hover {
     color: #b84900;
 }
+
 .active-link {
     color: #ff6600 !important;
 }
+
 
 .search-wrapper {
     display: flex;
@@ -335,16 +337,15 @@ body {
 
 .filter-panel-wrapper {
     position: relative;
-    padding-top: 15px;
     width: 20%;
-
-    border-radius: 20px;
     background-color: #2e3338;
+    border-radius: 20px;
 }
 
 .filter__panel__container {
+    padding-top: 15px;
     position: sticky;
-    top: 75px;
+    top: 70px;
     left: 0;
     width: auto;
     display: flex;
@@ -352,22 +353,20 @@ body {
     justify-content: flex-start;
     align-items: center;
     gap: 15px;
+    border-radius: 20px;
 }
 
 .filter__panel__title {
     padding-left: 10px;
     text-align: left;
     width: 100%;
-    line-height: 18px;
+    line-height: 30px;
     font-size: 18px;
     font-family: "Bahnschrift";
+    background-color: #25292D;
+    border-left: 5px solid #b84900;
 }
 
-.filter__panel__horizontal-line {
-    width: 100%;
-    background-color: #ff6600;
-    height: 1px;
-}
 /*-----------------------------select---------*/
 @keyframes scaleIn {
     0% {
@@ -469,12 +468,10 @@ body {
     background-color: #b84900 !important;
 }
 
-.sort-by-recs-container .custom-select__value-container {
-    cursor: pointer !important;
-}
 .custom-select__single-value {
     color: #ffffff !important;
     margin-left: 30px !important;
+    cursor: pointer !important;
 }
 
 .custom-select__option--is-selected {
@@ -484,7 +481,7 @@ body {
     background-color: #b84900 !important;
 }
 
-.sort-by-recs-container .custom-select__single-value:before {
+.custom-select__single-value:before {
     background-color: #ff6600;
     border-radius: 50%;
     content: ' ';
@@ -822,23 +819,8 @@ body {
     flex-wrap: wrap;
     gap: 5px;
 }
-/*.anime-card-modal-genres-wrapper > span {*/
-/*    text-decoration: underline;*/
-/*    transition: 0.5s;*/
-/*    cursor: pointer;*/
-/*}*/
-/*.anime-card-modal-genres-wrapper > span:hover {*/
-/*    color: #ff6600;*/
-/*}*/
 
-/*.anime-card-modal-categories-wrapper > span {*/
-/*    text-decoration: underline;*/
-/*    transition: 0.5s;*/
-/*    cursor: pointer;*/
-/*}*/
-/*.anime-card-modal-categories-wrapper > span:hover {*/
-/*    color: #ff6600;*/
-/*}*/
+/*----------loader--------*/
 
 .loader-wrapper {
     width: 100vw;
@@ -850,18 +832,57 @@ body {
     z-index: 1001;
 }
 
+/*-----------------------------User Info--------------*/
+
+.userinfo-page-wrapper {
+    background-color: #1c1f22;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.user-panel-wrapper {
+    position: relative;
+    width: 20%;
+    background-color: #2e3338;
+    border-radius: 20px;
+}
+
+
+
+
 /*-----------------------------Viewed List------------*/
 
 .viewed-list-wrapper {
     width: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
     border-radius: 20px;
-    padding: 10px;
+    padding: 15px;
     background-color: #2e3338;
 }
+
+.viewed-list-container {
+
+}
+.viewed-list-title-container {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #25292D;
+    border-left: 5px solid #b84900;
+}
+.viewed-list__title {
+    text-align: left;
+    line-height: 60px;
+    font-size: 28px;
+    font-family: "Bahnschrift";
+}
+
+
+
+
 
 .footer {
     height: 20px;
