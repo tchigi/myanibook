@@ -16,9 +16,10 @@ const UserCustomSelect = () => {
     const [currentValue, setCurrentValue] = useState<String[] | String>([])
 
     const animeSortOptions = [
-        { value: `sortByDate`, label: `Sort by date of addition` },
-        { value: `sortByNameAZ`, label: `Sort by name(A-Z)` },
-        { value: `sortByNameZA`, label: `Sort by name(Z-A)` },
+        { value: `sortByDateFirstOld`, label: `Sort by date of addition (first old)` },
+        { value: `sortByDateFirstNew`, label: `Sort by date of addition (first new)` },
+        { value: `sortByNameAZ`, label: `Sort by name (A-Z)` },
+        { value: `sortByNameZA`, label: `Sort by name (Z-A)` },
     ]
 
     const getValue = () => {
@@ -34,8 +35,6 @@ const UserCustomSelect = () => {
         )
 
         dispatch(userSlice.actions.userInfoAnimeSortHandler((newValue as OptionsData).value))
-
-        window.scrollTo(0,0)
     }
 
     return (

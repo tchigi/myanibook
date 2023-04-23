@@ -20,6 +20,7 @@ const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index 
         <div className='viewed-list-item'>
             <div className='viewed-list-item__current-order'>{currentOrder}</div>
             <div className='viewed-list-item__title'>{title}</div>
+            <div className='viewed-list-item__kind'>{showType}</div>
             <button className='viewed-list-item__delete-button'>Delete</button>
         </div>
     );
