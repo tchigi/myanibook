@@ -862,7 +862,8 @@ body {
 }
 
 .viewed-list-container {
-
+    display: flex;
+    flex-direction: column;
 }
 .viewed-list-title-container {
     padding-left: 10px;
@@ -880,7 +881,87 @@ body {
     font-family: "Bahnschrift";
 }
 
+.viewed-list-table-wrapper {
+    display: flex;
+    flex-direction: column;
+}
 
+.viewed-list__grid__item {
+    display: grid;
+    grid-template-columns: 5% 60% 10% 15% 10%;
+    grid-auto-rows: 30px;
+    align-items: center;
+    justify-items: center;
+}
+
+.viewed-list-order-control {
+    font-size: 14px;
+    background-color: #b84900;
+    font-weight: bold;
+}
+
+.viewed-list-item-wrapper {
+    background-color: #1c1f22;
+    line-height: 30px;
+    cursor: pointer;
+}
+.viewed-list-item-wrapper.white{
+    background-color: inherit;
+}
+.viewed-list-item-wrapper:hover {
+    background-color: #535b65;
+}
+.viewed-list-item__current-order {
+    font-size: 18px;
+}
+
+.viewed-list-item__title {
+    font-size: 18px;
+}
+
+.viewed-list-item__kind {
+    font-size: 16px;
+}
+
+.viewed-list-item__date-of-addition {
+    font-size: 16px;
+}
+
+.viewed-list-item__delete-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+}
+
+.viewed-list-item__delete-button {
+    width: 40px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff7f7f;
+    transition: 0.3s;
+    font-size: 20px;
+}
+
+.viewed-list-item__delete-button-icon {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.viewed-list-item__delete-button:hover {
+    background-color: #FF0000;
+    transform: scale(0.95);
+}
+.viewed-list-item__delete-button:active {
+    transform: scale(1);
+}
 
 
 

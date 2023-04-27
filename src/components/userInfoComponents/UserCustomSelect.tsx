@@ -1,5 +1,5 @@
 import { OptionsData } from '../../models/ISelect'
-import { useAppDispatch } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import makeAnimated from 'react-select/animated'
 import React, { useEffect, useState } from 'react'
 import { genresSlice } from '../../store/reducers/GenresSlice'
@@ -13,7 +13,9 @@ import { userSlice } from '../../store/reducers/UserSlice'
 const UserCustomSelect = () => {
     const dispatch = useAppDispatch()
     const animatedComponents = makeAnimated();
-    const [currentValue, setCurrentValue] = useState<String[] | String>([])
+    const { viewedAnimeSortType } = useAppSelector(state => state.userReducer)
+    const [currentValue, setCurrentValue] = useState<String>(viewedAnimeSortType)
+
 
     const animeSortOptions = [
         { value: `sortByDateFirstOld`, label: `Sort by date of addition (first old)` },
@@ -47,7 +49,7 @@ const UserCustomSelect = () => {
             components={animatedComponents}
             closeMenuOnSelect={true}
             isSearchable={false}
-            defaultValue={animeSortOptions[0]}
+            defaultValue={viewedAnimeSortType}
         />
 
     )

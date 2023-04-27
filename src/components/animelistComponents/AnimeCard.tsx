@@ -30,14 +30,35 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
         return !!viewedAnimeList.find((i) => i.id === animeId)
     }
 
+    function getCurrentDate() {
+        const currentDate = new Date();
+
+        const currentDayOfMonth = currentDate.getDate();
+        const currentMonth = currentDate.getMonth() > 9 ? currentDate.getMonth() + 1 : `0${currentDate.getMonth() + 1}`
+        const currentYear = currentDate.getFullYear();
+
+        const dateString = `${currentDayOfMonth}/${currentMonth}/${currentYear}`;
+
+        return dateString
+    }
+
+    function addToViewedAnimeDateOfAdditionList() {
+        const currentDate = getCurrentDate()
+        return {
+            id: id,
+            dateOfAddition: currentDate
+        }
+    }
+
     function onClickHandler(e:any) {
         if (wasViewed) {
             dispatch(viewedSlice.actions.removeAnimeFromViewedList(anime))
             setWasViewed(false)
-        }
-        if (!wasViewed) {
+            dispatch(viewedSlice.actions.removeAnimeFromDateOfAdditionList(id))
+        } else {
             dispatch(viewedSlice.actions.addAnimeToViewedList(anime))
             setWasViewed(true)
+            dispatch(viewedSlice.actions.addAnimeToDateOfAdditionList(addToViewedAnimeDateOfAdditionList()))
         }
     }
 

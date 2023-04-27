@@ -8,7 +8,7 @@ interface UserState {
 
 const initialState: UserState = {
     isAuthorized: false,
-    viewedAnimeSortType: 'sortByDate'
+    viewedAnimeSortType: 'sortByDateFirstOld'
 }
 export const userSlice = createSlice({
     name: 'user',

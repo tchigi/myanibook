@@ -3,6 +3,7 @@ import { useAppSelector } from '../../hooks/redux'
 import ViewedAnimeListItem from './ViewedAnimeListItem'
 import UserCustomSelect from './UserCustomSelect'
 import { AnimeData } from '../../models/IAnime'
+import AnimeModal from '../animelistComponents/AnimeModal'
 
 const ViewedList = () => {
     const { viewedAnimeList } = useAppSelector((state) => state.viewedReducer)
@@ -46,11 +47,15 @@ const ViewedList = () => {
 
     useEffect(() => {
         arraySortHandler()
-    }, [viewedAnimeSortType])
+    }, [viewedAnimeSortType, viewedAnimeList])
 
     return (
         <div className="viewed-list-wrapper">
-            <div className="viewed-list-container">
+            <AnimeModal />
+
+            {viewedAnimeList.length === 0 ? <h2>Your anime list is empty</h2> : ''}
+
+            <div className={`viewed-list-container ${viewedAnimeList.length > 0 ? '' : 'hidden'}`}>
                 <div className="viewed-list-title-container">
                     <div className="viewed-list__title">ANIME LIST</div>
                     <div className={`viewed-list-select-wrapper`}>
@@ -59,20 +64,27 @@ const ViewedList = () => {
                         </div>
                     </div>
                 </div>
-                <div className="viewed-list-item-container">{
-                    sortedArray.map((item, index) => (
-                            <ViewedAnimeListItem
-                                image={item.attributes.posterImage.original}
-                                title={item.attributes.canonicalTitle}
-                                showType={item.attributes.showType}
-                                key={item.id}
-                                id={item.id}
-                                anime={item}
-                                rating={item.attributes.averageRating}
-                                index={index}
-                            />
-                        ))
-                }</div>
+
+                <div className={`viewed-list-table-wrapper`}>
+                    <div className="viewed-list-order-control viewed-list__grid__item">
+                        <p>#</p>
+                        <p>Name</p>
+                        <p>Type</p>
+                        <p>Date Of Addition</p>
+                    </div>
+                    {sortedArray.map((item, index) => (
+                        <ViewedAnimeListItem
+                            image={item.attributes.posterImage.original}
+                            title={item.attributes.canonicalTitle}
+                            showType={item.attributes.showType}
+                            key={item.id}
+                            id={item.id}
+                            anime={item}
+                            rating={item.attributes.averageRating}
+                            index={index}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     )
