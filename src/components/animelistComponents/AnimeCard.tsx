@@ -31,15 +31,9 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
     }
 
     function getCurrentDate() {
-        const currentDate = new Date();
+        const currentDate = new Date().toString();
 
-        const currentDayOfMonth = currentDate.getDate();
-        const currentMonth = currentDate.getMonth() > 9 ? currentDate.getMonth() + 1 : `0${currentDate.getMonth() + 1}`
-        const currentYear = currentDate.getFullYear();
-
-        const dateString = `${currentDayOfMonth}/${currentMonth}/${currentYear}`;
-
-        return dateString
+        return currentDate
     }
 
     function addToViewedAnimeDateOfAdditionList() {

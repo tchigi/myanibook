@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AnimeData } from '../../models/IAnime'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
@@ -18,10 +18,24 @@ const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index 
     const dispatch = useAppDispatch()
     const currentOrder = index + 1
     const { viewedAnimeDayOfAdditionList } = useAppSelector(state => state.viewedReducer)
+    const [dateOfAdd, setDateOfAdd] = useState('')
 
-    function getDateOfAddition() {
-        return viewedAnimeDayOfAdditionList.find(item => item.id === id)?.dateOfAddition
+    function getDateOfAddition(dateOfAddition: string) {
+        const currentDate = new Date(dateOfAddition)
+
+        const currentDayOfMonth = currentDate.getDate();
+        const currentMonth = currentDate.getMonth() > 9 ? currentDate.getMonth() + 1 : `0${currentDate.getMonth() + 1}`
+        const currentYear = currentDate.getFullYear();
+
+        const dateString = `${currentDayOfMonth}/${currentMonth}/${currentYear}`;
+
+        return dateString
     }
+
+    useEffect(() => {
+        const currentDate = getDateOfAddition(viewedAnimeDayOfAdditionList.filter(item => item.id === id)[0].dateOfAddition)
+        setDateOfAdd(currentDate)
+    },[])
 
     function modalOnClickHandler() {
         dispatch(animeSlice.actions.modalHandler(true))
@@ -40,7 +54,7 @@ const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index 
             <div className="viewed-list-item__current-order" onClick={modalOnClickHandler}>{currentOrder}</div>
             <div className="viewed-list-item__title" onClick={modalOnClickHandler}>{title}</div>
             <div className="viewed-list-item__kind" onClick={modalOnClickHandler}>{showType}</div>
-            <div className="viewed-list-item__date-of-addition" onClick={modalOnClickHandler}>{getDateOfAddition()}</div>
+            <div className="viewed-list-item__date-of-addition" onClick={modalOnClickHandler}>{dateOfAdd}</div>
             <div className='viewed-list-item__delete-button-wrapper'>
                 <button className="viewed-list-item__delete-button" onClick={onClickDeleteButtonHandler}>
                     <span className='viewed-list-item__delete-button-icon'>✖</span>
