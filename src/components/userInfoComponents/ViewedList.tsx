@@ -6,41 +6,42 @@ import { AnimeData } from '../../models/IAnime'
 import AnimeModal from '../animelistComponents/AnimeModal'
 
 const ViewedList = () => {
-    const { viewedAnimeList } = useAppSelector((state) => state.viewedReducer)
+    const { viewedAnimeList, viewedAnimeDayOfAdditionList } = useAppSelector((state) => state.viewedReducer)
     const { viewedAnimeSortType } = useAppSelector((state) => state.userReducer)
     const [sortedArray, setSortedArray] = useState(viewedAnimeList)
     const viewedAnimeListClone = viewedAnimeList.slice()
 
-    const sortAZ = (a: AnimeData, b: AnimeData) => {
+    const sortByName = (a: AnimeData, b: AnimeData) => {
         const newA = a.attributes.canonicalTitle
         const newB = b.attributes.canonicalTitle
         if (newA > newB) return 1
         else if (newA < newB) return -1
         else return 0
     }
-    const sortZA = (a: AnimeData, b: AnimeData) => {
-        const newA = a.attributes.canonicalTitle
-        const newB = b.attributes.canonicalTitle
+    const sortByDate = (a: AnimeData, b: AnimeData) => {
+        const newA = viewedAnimeDayOfAdditionList.find(x=>x.id === a.id)?.dateOfAddition || 0
+        const newB = viewedAnimeDayOfAdditionList.find(x=>x.id === b.id)?.dateOfAddition || 0
         if (newA < newB) return 1
         else if (newA > newB) return -1
         else return 0
     }
 
     const arraySortHandler = () => {
-        const a = viewedAnimeListClone.reverse().slice()
-        const b = viewedAnimeListClone.sort(sortAZ).slice()
-        const c = viewedAnimeListClone.sort(sortZA).slice()
+        const a = viewedAnimeListClone.sort(sortByName).slice()
+        const b = viewedAnimeListClone.sort(sortByName).reverse().slice()
+        const c = viewedAnimeListClone.sort(sortByDate).slice()
+        const d = viewedAnimeListClone.sort(sortByDate).reverse().slice()
 
-        if (viewedAnimeSortType === `sortByDateFirstOld`) {
-            setSortedArray(viewedAnimeList)
-        }
-        if (viewedAnimeSortType === `sortByDateFirstNew`) {
+        if (viewedAnimeSortType === `sortByNameAZ`) {
             setSortedArray(a)
         }
-        if (viewedAnimeSortType === `sortByNameAZ`) {
+        if (viewedAnimeSortType === `sortByNameZA`) {
             setSortedArray(b)
         }
-        if (viewedAnimeSortType === `sortByNameZA`) {
+        if (viewedAnimeSortType === `sortByDateFirstOld`) {
+            setSortedArray(d)
+        }
+        if (viewedAnimeSortType === `sortByDateFirstNew`) {
             setSortedArray(c)
         }
     }
