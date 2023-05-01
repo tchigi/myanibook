@@ -31,7 +31,7 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
     }
 
     function getCurrentDate() {
-        const currentDate = new Date().toString();
+        const currentDate = new Date().getTime().toString();
 
         return currentDate
     }

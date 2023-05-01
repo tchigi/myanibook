@@ -21,7 +21,7 @@ const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index 
     const [dateOfAdd, setDateOfAdd] = useState('')
 
     function getDateOfAddition(dateOfAddition: string) {
-        const currentDate = new Date(dateOfAddition)
+        const currentDate = new Date(Number(dateOfAddition))
 
         const currentDayOfMonth = currentDate.getDate();
         const currentMonth = currentDate.getMonth() > 9 ? currentDate.getMonth() + 1 : `0${currentDate.getMonth() + 1}`
