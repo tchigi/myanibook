@@ -3,11 +3,13 @@ import { AnimeData } from '../../models/IAnime'
 
 interface UserState {
     isAuthorized: boolean,
+    nickname: string,
     viewedAnimeSortType: string
 }
 
 const initialState: UserState = {
     isAuthorized: false,
+    nickname: '',
     viewedAnimeSortType: 'sortByDateFirstOld'
 }
 export const userSlice = createSlice({

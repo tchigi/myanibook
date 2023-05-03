@@ -4,9 +4,10 @@ import Layout from "./components/Layout";
 import {Routes, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage"
 import AnimeList from "./pages/AnimeList"
-import BookList from "./pages/BookList"
 import NotFoundPage from "./pages/NotFoundPage";
 import UserInfo from './pages/UserInfo'
+import AuthLogIn from './pages/AuthLogIn'
+import AuthSignIn from './pages/AuthSignIn'
 
 function App() {
     return (
@@ -16,9 +17,10 @@ function App() {
                     <Route index element={<HomePage/>}/>
                     <Route path="anime" element={<AnimeList/>}/>
                     <Route path="user" element={<UserInfo/>}/>
-                    <Route path="books" element={<BookList/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
+                <Route path="login" element={<AuthLogIn/>}/>
+                <Route path="signin" element={<AuthSignIn/>}/>
             </Routes>
         </div>
     );

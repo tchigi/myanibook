@@ -54,7 +54,7 @@ const ViewedList = () => {
         <div className="viewed-list-wrapper">
             <AnimeModal />
 
-            {viewedAnimeList.length === 0 ? <h2>Your anime list is empty</h2> : ''}
+            {viewedAnimeList.length === 0 ? <h1>Your anime list is empty</h1> : ''}
 
             <div className={`viewed-list-container ${viewedAnimeList.length > 0 ? '' : 'hidden'}`}>
                 <div className="viewed-list-title-container">

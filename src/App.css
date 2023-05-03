@@ -172,7 +172,6 @@ body {
     color: #ff6600 !important;
 }
 
-
 .search-wrapper {
     display: flex;
     flex-direction: row;
@@ -183,7 +182,7 @@ body {
 
 .animelist-search-input {
     width: 250px;
-    border-radius: 10px;
+    border-radius: 5px;
     padding-left: 10px;
     height: 30px;
     font-size: 18px;
@@ -215,7 +214,7 @@ body {
     line-height: 20px;
     align-self: center;
     border: 2px inherit solid;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .blue__button {
@@ -234,19 +233,99 @@ body {
 
 .small__button:active {
     transform: scale(1.1);
-    transition: all 0.1s;
 }
 
-.auth-container {
+.header-auth-container {
 }
-.auth-container div {
+
+.header-auth-buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.header-auth__button {
+    width: 70px;
+    height: 30px;
+    background-color: #535b65;
+    border-radius: 5px;
+}
+
+.header-auth__button__sign {
+    background-color: #ff6600;
+}
+
+.header-auth__button__label {
+    font-family: Bahnschrift;
+    font-size: 16px;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+.header-auth__button:hover {
+    background-color: #2e3338;
+}
+
+.header-auth__button__sign:hover {
+    background-color: #b84900;
+}
+
+.header-auth__button:active {
+    transform: scale(1.1);
+}
+
+.header-user-avatar-wrapper {
+
+}
+
+.header-user-avatar {
+    position: relative;
     width: 50px;
     height: 50px;
-    background: url('assets/images/Lenore_Infobox.png') no-repeat center;
+    background: no-repeat center;
     -webkit-background-size: cover;
     background-size: cover;
     border-radius: 50%;
-    border: 2px #ff6600 solid;
+    border: 3px #ff6600 solid;
+    cursor: pointer;
+}
+
+.header-user-avatar:before {
+    display: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #2e3338;
+    opacity: 0.5;
+}
+
+.header-user-avatar:after {
+    display: none;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 60%;
+    height: 60%;
+    background-image: url("assets/images/logout.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: invert(100%) sepia(40%) saturate(0%) hue-rotate(77deg) brightness(108%) contrast(101%);
+}
+
+.header-user-avatar:hover:after,
+.header-user-avatar:hover:before {
+    display: block;
+}
+
+.header-user-avatar:active {
+    transform: scale(1.1);
 }
 
 .main {
@@ -362,8 +441,8 @@ body {
     width: 100%;
     line-height: 30px;
     font-size: 18px;
-    font-family: "Bahnschrift";
-    background-color: #25292D;
+    font-family: 'Bahnschrift';
+    background-color: #25292d;
     border-left: 5px solid #b84900;
 }
 
@@ -917,11 +996,7 @@ body {
 /*    transform: scale(1);*/
 /*}*/
 
-
-
-
-
-    /*-----------------------------Viewed List------------*/
+/*-----------------------------Viewed List------------*/
 
 .viewed-list-wrapper {
     width: 80%;
@@ -940,14 +1015,14 @@ body {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    background-color: #25292D;
+    background-color: #25292d;
     border-left: 5px solid #b84900;
 }
 .viewed-list__title {
     text-align: left;
     line-height: 60px;
     font-size: 28px;
-    font-family: "Bahnschrift";
+    font-family: 'Bahnschrift';
 }
 
 .viewed-list-table-wrapper {
@@ -976,7 +1051,7 @@ body {
     line-height: 30px;
     cursor: pointer;
 }
-.viewed-list-item-wrapper.white{
+.viewed-list-item-wrapper.white {
     background-color: inherit;
 }
 .viewed-list-item-wrapper:hover {
@@ -1027,20 +1102,114 @@ body {
 }
 
 .viewed-list-item__delete-button:hover {
-    background-color: #FF0000;
+    background-color: #ff0000;
     transform: scale(0.95);
 }
 .viewed-list-item__delete-button:active {
     transform: scale(1);
 }
 
-
-
 .footer {
     height: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+/*----------------------------------auth-login---------------*/
+
+.auth__page__wrapper {
+    padding-top: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2e3338;
+    border-radius: 5px;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: Bahnschrift;
+    box-shadow: #b84900 0 0 20px;
+}
+
+.auth__form__wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.auth__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 350px;
+}
+
+.auth__form__item__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 35px;
+}
+
+.auth__form__item__label {
+    font-size: 24px;
+    line-height: 35px;
+}
+
+.auth__form__item__input {
+    padding-left: 5px;
+    width: 100%;
+    background: inherit;
+    color: #ffffff;
+    font-size: 24px;
+    box-shadow: #b84900 0 0 10px;
+    border-radius: 5px;
+}
+
+.auth__form__item__input:focus {
+    box-shadow: #ffffff 0 0 10px;
+}
+
+.auth__form__button {
+}
+
+.auth__form__button__label {
+}
+
+.auth-home-button {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: auto;
+    height: 30px;
+    background: inherit;
+    color: #ff6600;
+}
+
+.auth-home-button-label {
+    pointer-events: none;
+    font-size: 18px;
+}
+.auth-home-button:hover {
+    color: #b84900;
+}
+
+.auth-home-button:active {
+    transform: scale(1.05);
+}
+
+/*----------------------*/
+
+
+h1 {
+    width: 100%;
+    text-align: center;
 }
 
 .hidden {

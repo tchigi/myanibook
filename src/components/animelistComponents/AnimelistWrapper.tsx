@@ -45,7 +45,7 @@ const AnimelistWrapper = () => {
             <AnimeModal />
 
             {isSearched && animeList.data.length > 0 ? (
-                <h2 style={{ width: '100%', textAlign: 'center' }}>
+                <h2>
                     Found for your request "{searchValue}"
                 </h2>
             ) : (
@@ -54,7 +54,7 @@ const AnimelistWrapper = () => {
 
             <div className="anime-cards-container">
                 {animeList.data.length === 0 && isSearched ? (
-                    <h1>Не найдено аниме...</h1>
+                    <h1>No anime found...</h1>
                 ) : (
                     animeList.data.map((item) => (
                         <AnimeCard
@@ -71,7 +71,7 @@ const AnimelistWrapper = () => {
             </div>
 
             <ReactPaginate
-                className={animeListMaxOffset === 0 || isLoading ? 'hidden' : ''}
+                className={animeListMaxOffset === 0 || (isLoading || animeList.data.length === 0) ? 'hidden' : ''}
                 breakLabel="..."
                 nextLabel=">"
                 onPageChange={pageChangeHandler}
