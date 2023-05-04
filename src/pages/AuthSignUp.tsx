@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const AuthLogIn = () => {
+const AuthSignUp = () => {
     let navigate = useNavigate()
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -21,20 +21,23 @@ const AuthLogIn = () => {
         setEmail(event.target.value);
     };
 
+
     const onClickHomeHandler = () => {
         navigate('/')
     }
 
 
-    const onClickSignUpHandler = () => {
-        navigate('/signup')
+    const onClickLogInHandler = () => {
+        navigate('/login')
     }
 
     return (
-        <div className={'auth-login-wrapper auth__page__wrapper'}>
-            <div className='auth__page__info_container auth-login-info-container'>
-                <h1 className='auth__page__title'>Welcome back</h1>
-                <h4 className='auth__page__subtitle'>Welcome back! Please enter your details.</h4>
+        <div className={'auth-signup-wrapper auth__page__wrapper'}>
+            <div className='auth__page__info_container auth-signup-info-container'>
+                <h1 className='auth__page__title'>Start Using MyAniBook</h1>
+                <h4 className='auth__page__subtitle'>
+                    Join MyAniBook to catalog your anime, compare with your friends, create your own profile, and plenty more. It's Free.
+                </h4>
                 <div className='auth__form__wrapper'>
                     <form action='' className='auth__form'>
                         <div className='auth__form__item__wrapper'>
@@ -62,14 +65,14 @@ const AuthLogIn = () => {
                             />
                         </div>
                         <button className='auth__form__button'>
-                            <label className='auth__form__button__label'>Log In</label>
+                            <label className='auth__form__button__label'>Sign Up</label>
                         </button>
                     </form>
                 </div>
                 <h4 className='auth__page__subtitle'>
-                    Don't have an account?
-                    <button className='auth-signup-button' onClick={onClickSignUpHandler}>
-                        <label className='auth-signup-button-label'>Sign Up</label>
+                    Already have an account?
+                    <button className='auth-signup-button' onClick={onClickLogInHandler}>
+                        <label className='auth-signup-button-label'>Log In</label>
                     </button>
                 </h4>
                 <button className='auth-home-button' onClick={onClickHomeHandler}>
@@ -80,4 +83,4 @@ const AuthLogIn = () => {
     )
 }
 
-export default AuthLogIn
+export default AuthSignUp

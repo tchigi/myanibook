@@ -8,7 +8,7 @@ const HeaderAuthButtons = () => {
     }
 
     const onClickSignInHandler = () => {
-        navigate('/signin')
+        navigate('/signup')
     }
 
     return (

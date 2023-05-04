@@ -7,7 +7,7 @@ import AnimeList from "./pages/AnimeList"
 import NotFoundPage from "./pages/NotFoundPage";
 import UserInfo from './pages/UserInfo'
 import AuthLogIn from './pages/AuthLogIn'
-import AuthSignIn from './pages/AuthSignIn'
+import AuthSignUp from './pages/AuthSignUp'
 
 function App() {
     return (
@@ -20,7 +20,7 @@ function App() {
                     <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
                 <Route path="login" element={<AuthLogIn/>}/>
-                <Route path="signin" element={<AuthSignIn/>}/>
+                <Route path="signup" element={<AuthSignUp/>}/>
             </Routes>
         </div>
     );
