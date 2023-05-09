@@ -18,9 +18,9 @@ function App() {
                     <Route path="anime" element={<AnimeList/>}/>
                     <Route path="user" element={<UserInfo/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
+                    <Route path="login" element={<AuthLogIn/>}/>
+                    <Route path="signup" element={<AuthSignUp/>}/>
                 </Route>
-                <Route path="login" element={<AuthLogIn/>}/>
-                <Route path="signup" element={<AuthSignUp/>}/>
             </Routes>
         </div>
     );

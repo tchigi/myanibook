@@ -1117,44 +1117,24 @@ body {
 }
 
 /*----------------------------------auth-login---------------*/
-.auth-login-wrapper {
-    background-image: url("assets/images/login-bg.jpg");
-}
-.auth-signup-wrapper {
-    background-image: url("assets/images/signup-bg.jpg");
-}
 
 .auth__page__wrapper {
     display: flex;
     flex-direction: row;
-    width: 1400px;
-    height: 1000px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    box-shadow: #ffffff 0 0 20px;
-    color: #000000;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    color: #FFFFFF;
     border-radius: 5px;
-}
-
-.auth-login-info-container {
-    margin-left: 60%;
-}
-.auth-signup-info-container {
-    margin-left: 20%;
 }
 
 .auth__page__info_container {
     position: relative;
-    width: 25%;
+    width: 600px;
+    height: 800px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 30px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #25292d;
 }
 
 .auth__page__title {
@@ -1172,6 +1152,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-items: center;
 }
 
 .auth__form__item__wrapper {
@@ -1181,24 +1162,24 @@ body {
 }
 
 .auth__form__item__label {
-    font-weight: bold;
     font-size: 20px;
 }
 
 .auth__form__item__input {
-    border-radius: 5px;
-    border: 3px #ADADAD solid;
+    background: #535b65;
     font-size: 20px;
     padding: 5px;
+    color: #FFFFFF;
+    width: 400px;
 }
 
 .auth__form__button {
-    background-color: #9600FF;
+    background: linear-gradient(to bottom, #ff6600, #b84900);
     height: 30px;
-    border-radius: 5px;
+    width: 400px;
 }
 .auth__form__button:hover {
-    background-color: #7700CC;
+    background: linear-gradient(to bottom, rgba(255, 102, 0, 0.5), rgba(184, 73, 0, 0.5));
 }
 
 .auth__form__button__label {
@@ -1208,12 +1189,12 @@ body {
 }
 
 .auth-signup-button {
-    color: #7700CC;
+    color: #ff6600;
     background: inherit;
 }
 
 .auth-signup-button:hover {
-    color: #53008F;
+    color: #b84900;
 }
 
 .auth-signup-button-label {
@@ -1229,7 +1210,7 @@ body {
     width: auto;
     height: 30px;
     background: inherit;
-    color: #7700CC;
+    color: #ff6600;
 }
 
 .auth-home-button-label {
@@ -1237,11 +1218,15 @@ body {
     font-size: 20px;
 }
 .auth-home-button:hover {
-    color: #53008F;
+    color: #b84900;
 }
 
 .auth-home-button:active {
     transform: scale(1.05);
+}
+
+.auth__error__label {
+    color: #ff7f7f;
 }
 
 /*----------------------*/

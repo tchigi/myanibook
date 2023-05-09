@@ -31,9 +31,9 @@ const AuthLogIn = () => {
     }
 
     return (
-        <div className={'auth-login-wrapper auth__page__wrapper'}>
+        <div className={'auth-login-wrapper auth__page__wrapper main'}>
             <div className='auth__page__info_container auth-login-info-container'>
-                <h1 className='auth__page__title'>Welcome back</h1>
+                <h1 className='auth__page__title'>Log In</h1>
                 <h4 className='auth__page__subtitle'>Welcome back! Please enter your details.</h4>
                 <div className='auth__form__wrapper'>
                     <form action='' className='auth__form'>
@@ -48,7 +48,7 @@ const AuthLogIn = () => {
                                 type='text'
                                 className='auth__form__item__input'
                             />
-                            {error && <h4>{error}</h4>}
+                            {error && <h4 className={'auth__error__label'}>{error}</h4>}
                         </div>
                         <div className='auth__form__item__wrapper'>
                             <span className='auth__form__item__label'>Password</span>

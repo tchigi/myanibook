@@ -32,7 +32,7 @@ const AuthSignUp = () => {
     }
 
     return (
-        <div className={'auth-signup-wrapper auth__page__wrapper'}>
+        <div className={'auth-signup-wrapper auth__page__wrapper main'}>
             <div className='auth__page__info_container auth-signup-info-container'>
                 <h1 className='auth__page__title'>Start Using MyAniBook</h1>
                 <h4 className='auth__page__subtitle'>
@@ -51,7 +51,7 @@ const AuthSignUp = () => {
                                 type='text'
                                 className='auth__form__item__input'
                             />
-                            {error && <h4>{error}</h4>}
+                            {error && <h4 className={'auth__error__label'}>{error}</h4>}
                         </div>
                         <div className='auth__form__item__wrapper'>
                             <span className='auth__form__item__label'>Password</span>
