@@ -20,7 +20,7 @@ function Header() {
     const setActive = ({ isActive, isPending }:any) =>
         isPending ? "pending-link" : isActive ? "active-link" : ""
 
-    const onChange = (e: any) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
     }
 

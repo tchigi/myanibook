@@ -51,7 +51,7 @@ const AuthSignUp = () => {
                                 type='text'
                                 className='auth__form__item__input'
                             />
-                            {error && <h4 className={'auth__error__label'}>{error}</h4>}
+                            {error && <h4 className={'error__label'}>{error}</h4>}
                         </div>
                         <div className='auth__form__item__wrapper'>
                             <span className='auth__form__item__label'>Password</span>

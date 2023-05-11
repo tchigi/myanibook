@@ -4,7 +4,8 @@ import UserPanelContainer from './UserPanelContainer'
 
 
 const UserPanel = () => {
-    const { isAuthorized } = useAppSelector(state => state.userReducer)
+    // const { isAuthorized } = useAppSelector(state => state.userReducer)
+    const  isAuthorized  = true
 
 
     return (
