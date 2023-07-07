@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../hooks/redux'
+import { userSlice } from '../store/reducers/UserSlice'
+import axios from 'axios'
+import { ApiURL } from '../constants/url'
 
 const AuthSignUp = () => {
     let navigate = useNavigate()
+    const dispatch = useAppDispatch()
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [error, setError] = useState('');
@@ -29,6 +34,32 @@ const AuthSignUp = () => {
 
     const onClickLogInHandler = () => {
         navigate('/login')
+    }
+
+
+    const signUpOnClickHandler = (e: any) =>{
+        e.preventDefault()
+        axios
+            .post(
+                `${ApiURL}/auth/registration`,
+                {
+                    email: email,
+                    password: password,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            .then((res) => {
+                dispatch(userSlice.actions.userTokenHandler(res.data.token))
+                dispatch(userSlice.actions.userAuthHandler(true))
+                navigate('/')
+            })
+            .catch((e) => {
+                setError(e.response.data.message)
+            })
     }
 
     return (
@@ -64,7 +95,7 @@ const AuthSignUp = () => {
                                 className='auth__form__item__input'
                             />
                         </div>
-                        <button className='auth__form__button'>
+                        <button className='auth__form__button' onClick={signUpOnClickHandler}>
                             <label className='auth__form__button__label'>Sign Up</label>
                         </button>
                     </form>

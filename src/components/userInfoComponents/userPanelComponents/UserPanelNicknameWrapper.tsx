@@ -3,8 +3,10 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { userSlice } from '../../../store/reducers/UserSlice'
 
 const UserPanelNicknameWrapper = () => {
-    const nickname = 'Tchigi'
     const dispatch = useAppDispatch()
+    const { decodedUserInfo, email } = useAppSelector(state => state.userReducer)
+    // @ts-ignore
+    const nickname = decodedUserInfo.nickname || email
 
     const onClickHandler = () => {
         dispatch(userSlice.actions.userInfoChangeNicknameBooleanHandler(true))

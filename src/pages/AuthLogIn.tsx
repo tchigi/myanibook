@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { ApiURL } from '../constants/url'
+import { userSlice } from '../store/reducers/UserSlice'
+import { useAppDispatch } from '../hooks/redux'
 
 const AuthLogIn = () => {
     let navigate = useNavigate()
+    const dispatch = useAppDispatch()
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [error, setError] = useState('');
@@ -28,6 +33,31 @@ const AuthLogIn = () => {
 
     const onClickSignUpHandler = () => {
         navigate('/signup')
+    }
+
+    const logInOnClickHandler = (e: any) =>{
+        e.preventDefault()
+        axios
+            .post(
+                `${ApiURL}/auth/login`,
+                {
+                    email: email,
+                    password: password,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            .then((res) => {
+                dispatch(userSlice.actions.userTokenHandler(res.data.token))
+                dispatch(userSlice.actions.userAuthHandler(true))
+                navigate('/')
+            })
+            .catch((e) => {
+                setError(e.response.data.message)
+            })
     }
 
     return (
@@ -61,7 +91,7 @@ const AuthLogIn = () => {
                                 className='auth__form__item__input'
                             />
                         </div>
-                        <button className='auth__form__button'>
+                        <button className='auth__form__button' onClick={logInOnClickHandler}>
                             <label className='auth__form__button__label'>Log In</label>
                         </button>
                     </form>

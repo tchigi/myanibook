@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useAppSelector } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import ViewedAnimeListItem from './ViewedAnimeListItem'
 import UserCustomSelect from './UserCustomSelect'
 import { AnimeData } from '../../models/IAnime'
 import AnimeModal from '../animelistComponents/AnimeModal'
+import axios from 'axios'
+import { ApiURL } from '../../constants/url'
+import { userSlice } from '../../store/reducers/UserSlice'
 
 const ViewedList = () => {
+    const dispatch = useAppDispatch()
     const { viewedAnimeList, viewedAnimeDayOfAdditionList } = useAppSelector((state) => state.viewedReducer)
-    const { viewedAnimeSortType } = useAppSelector((state) => state.userReducer)
+    const { viewedAnimeSortType, isAuthorized, userId } = useAppSelector((state) => state.userReducer)
     const [sortedArray, setSortedArray] = useState(viewedAnimeList)
     const viewedAnimeListClone = viewedAnimeList.slice()
+
 
     const sortByName = (a: AnimeData, b: AnimeData) => {
         const newA = a.attributes.canonicalTitle
@@ -49,6 +54,35 @@ const ViewedList = () => {
     useEffect(() => {
         arraySortHandler()
     }, [viewedAnimeSortType, viewedAnimeList])
+
+    useEffect(() => {
+        if (isAuthorized) {
+            const myJson = JSON.stringify(viewedAnimeList)
+            const myJson2 = myJson.replaceAll(/"/g, "'")
+            // axios
+            //     .post(
+            //         `${ApiURL}/users-info/anime-list`,
+            //         {
+            //             userId: userId,
+            //             value: myJson,
+            //         },
+            //         {
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //             },
+            //         }
+            //     )
+            //     .then((res)=> {
+            //         // dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
+            //         console.log(res.data)
+            //     })
+            //     .catch((e) => {
+            //         console.log(e)
+            //     })
+            console.log(myJson2)
+        }
+    }, [viewedAnimeList])
+
 
     return (
         <div className="viewed-list-wrapper">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink, redirect, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { paginationSlice } from '../store/reducers/PaginationSlice'
@@ -8,6 +8,7 @@ import { genresSlice } from '../store/reducers/GenresSlice'
 import { categoriesSlice } from '../store/reducers/CategoriesSlice'
 import HeaderAuthButtons from './authComponents/HeaderAuthButtons'
 import HeaderUserAvatar from './authComponents/HeaderUserAvatar'
+import { useJwt } from 'react-jwt'
 
 
 function Header() {
@@ -15,7 +16,7 @@ function Header() {
     const [value, setValue] = useState('')
     let navigate = useNavigate()
     const { isSearched, sortType } = useAppSelector((state) => state.animeReducer)
-    const { isAuthorized } = useAppSelector(state => state.userReducer)
+    const { isAuthorized, userToken } = useAppSelector(state => state.userReducer)
 
     const setActive = ({ isActive, isPending }:any) =>
         isPending ? "pending-link" : isActive ? "active-link" : ""
@@ -43,7 +44,6 @@ function Header() {
             onClickSearch(e)
         }
     }
-
 
     return (
         <header className={'header'}>

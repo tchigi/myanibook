@@ -3,10 +3,11 @@ import axios from 'axios'
 import { IAnime, IAnimeCategories, IAnimeGenres } from '../../models/IAnime'
 import { animeSlice } from './AnimeSlice'
 import { genresSlice } from './GenresSlice'
-import { CategoriesURL, GenresURL, StartURL } from '../../constants/url'
+import { ApiURL, CategoriesURL, GenresURL, StartURL } from '../../constants/url'
 import { IGenre } from '../../models/IGenre'
 import { categoriesSlice } from './CategoriesSlice'
 import { ICategories } from '../../models/ICategories'
+import { userSlice } from './UserSlice'
 
 export const fetchAnimeList = (sort: string, genres: string, categories: string, isSearched: boolean, searchValue: string, page: number) => async (dispatch: AppDispatch) => {
     const currentOffset = page * 20
@@ -46,7 +47,8 @@ export const fetchAnimeCategories = (link: string) => async (dispatch: AppDispat
     }
 }
 
-export const fetchGenresList = (link: string = GenresURL) =>
+export const fetchGenresList =
+    (link: string = GenresURL) =>
     async (dispatch: AppDispatch) => {
         try {
             dispatch(genresSlice.actions.genresFetching)
@@ -57,7 +59,8 @@ export const fetchGenresList = (link: string = GenresURL) =>
         }
     }
 
-export const fetchCategoriesList = (link: string = CategoriesURL) =>
+export const fetchCategoriesList =
+    (link: string = CategoriesURL) =>
     async (dispatch: AppDispatch) => {
         try {
             dispatch(categoriesSlice.actions.categoriesFetching)
@@ -67,3 +70,4 @@ export const fetchCategoriesList = (link: string = CategoriesURL) =>
             dispatch(categoriesSlice.actions.animeListFetchingError(e.message))
         }
     }
+

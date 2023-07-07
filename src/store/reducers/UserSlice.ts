@@ -1,23 +1,56 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AnimeData } from '../../models/IAnime'
+import { ICategories } from '../../models/ICategories'
+import { IDecodedToken, IDecodedUserInfo } from '../../models/IDecodedToken'
 
 interface UserState {
-    isAuthorized: boolean,
-    nickname: string,
-    isNicknameChanging: boolean,
-    viewedAnimeSortType: string,
+    isAuthorized: boolean
+    nickname: string
+    isNicknameChanging: boolean
+    email: string,
+    avatar: string
+    viewedAnimeSortType: string
+    userToken: string
+    userId: number
+    error: string
+    isLoading: boolean
+    decodedToken: string | IDecodedToken,
+    decodedUserInfo: string | IDecodedUserInfo,
 }
 
 const initialState: UserState = {
     isAuthorized: false,
     nickname: '',
     isNicknameChanging: false,
-    viewedAnimeSortType: 'sortByDateFirstOld'
+    email: '',
+    avatar: '',
+    viewedAnimeSortType: 'sortByDateFirstOld',
+    userToken: '',
+    userId: NaN,
+    error: '',
+    isLoading: false,
+    decodedToken: '',
+    decodedUserInfo: '',
 }
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        userAuthHandler(state, action: PayloadAction<boolean>) {
+            state.isAuthorized = action.payload
+        },
+        userTokenHandler(state, action: PayloadAction<string>) {
+            state.userToken = action.payload
+        },
+        userAvatarHandler(state, action: PayloadAction<string>) {
+            state.avatar = action.payload
+        },
+        userDecodedTokenHandler(state, action: PayloadAction<IDecodedToken>) {
+            state.decodedToken = action.payload
+        },
+        userDecodedUserInfoHandler(state, action: PayloadAction<IDecodedUserInfo>) {
+            state.decodedUserInfo = action.payload
+        },
         userInfoAnimeSortHandler(state, action: PayloadAction<string>) {
             state.viewedAnimeSortType = action.payload
         },
@@ -26,6 +59,26 @@ export const userSlice = createSlice({
         },
         userInfoChangeNicknameHandler(state, action: PayloadAction<string>) {
             state.nickname = action.payload
+        },
+        userInfoChangeEmailHandler(state, action: PayloadAction<string>) {
+            state.email = action.payload
+        },
+        userInfoChangeUserIdHandler(state, action: PayloadAction<number>) {
+            state.userId = action.payload
+        },
+        userResetUserInfo(state) {
+            state.isAuthorized = false
+            state.nickname = ''
+            state.isNicknameChanging = false
+            state.email = ''
+            state.avatar = ''
+            state.viewedAnimeSortType = 'sortByDateFirstOld'
+            state.userToken = ''
+            state.userId = NaN
+            state.error = ''
+            state.isLoading = false
+            state.decodedToken = ''
+            state.decodedUserInfo = ''
         },
     },
 })
