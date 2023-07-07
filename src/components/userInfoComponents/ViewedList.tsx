@@ -55,33 +55,7 @@ const ViewedList = () => {
         arraySortHandler()
     }, [viewedAnimeSortType, viewedAnimeList])
 
-    useEffect(() => {
-        if (isAuthorized) {
-            const myJson = JSON.stringify(viewedAnimeList)
-            const myJson2 = myJson.replaceAll(/"/g, "'")
-            // axios
-            //     .post(
-            //         `${ApiURL}/users-info/anime-list`,
-            //         {
-            //             userId: userId,
-            //             value: myJson,
-            //         },
-            //         {
-            //             headers: {
-            //                 'Content-Type': 'application/json',
-            //             },
-            //         }
-            //     )
-            //     .then((res)=> {
-            //         // dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
-            //         console.log(res.data)
-            //     })
-            //     .catch((e) => {
-            //         console.log(e)
-            //     })
-            console.log(myJson2)
-        }
-    }, [viewedAnimeList])
+
 
 
     return (

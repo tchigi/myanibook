@@ -13,7 +13,7 @@ interface UserState {
     userToken: string
     userId: number
     error: string
-    isLoading: boolean
+    isLoaded: boolean
     decodedToken: string | IDecodedToken,
     decodedUserInfo: string | IDecodedUserInfo,
 }
@@ -28,7 +28,7 @@ const initialState: UserState = {
     userToken: '',
     userId: NaN,
     error: '',
-    isLoading: false,
+    isLoaded: false,
     decodedToken: '',
     decodedUserInfo: '',
 }
@@ -38,6 +38,9 @@ export const userSlice = createSlice({
     reducers: {
         userAuthHandler(state, action: PayloadAction<boolean>) {
             state.isAuthorized = action.payload
+        },
+        userFlagHandler(state) {
+            state.isLoaded = !state.isLoaded
         },
         userTokenHandler(state, action: PayloadAction<string>) {
             state.userToken = action.payload
@@ -76,7 +79,7 @@ export const userSlice = createSlice({
             state.userToken = ''
             state.userId = NaN
             state.error = ''
-            state.isLoading = false
+            state.isLoaded = false
             state.decodedToken = ''
             state.decodedUserInfo = ''
         },
