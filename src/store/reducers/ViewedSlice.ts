@@ -23,8 +23,7 @@ export const viewedSlice = createSlice({
             state.viewedAnimeList.push(action.payload)
         },
         addListToViewedList(state, action: PayloadAction<string>) {
-            const list = action.payload.replaceAll(/'/g, '"')
-            const parsedList = JSON.parse(list)
+            const parsedList = JSON.parse(action.payload)
             state.viewedAnimeList = parsedList
         },
         removeAnimeFromViewedList(state, action: PayloadAction<AnimeData>) {
@@ -36,8 +35,7 @@ export const viewedSlice = createSlice({
             state.viewedAnimeDayOfAdditionList.push(action.payload)
         },
         addListToDateOfAdditionList(state, action: PayloadAction<string>) {
-            const listDate = action.payload.replaceAll(/'/g, '"')
-            const parsedListDate = JSON.parse(listDate)
+            const parsedListDate = JSON.parse(action.payload)
             state.viewedAnimeDayOfAdditionList = parsedListDate
         },
         removeAnimeFromDateOfAdditionList(state, action: PayloadAction<string>) {

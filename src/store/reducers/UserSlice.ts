@@ -39,8 +39,8 @@ export const userSlice = createSlice({
         userAuthHandler(state, action: PayloadAction<boolean>) {
             state.isAuthorized = action.payload
         },
-        userFlagHandler(state) {
-            state.isLoaded = !state.isLoaded
+        userFlagHandler(state, action: PayloadAction<boolean>) {
+            state.isLoaded = action.payload
         },
         userTokenHandler(state, action: PayloadAction<string>) {
             state.userToken = action.payload

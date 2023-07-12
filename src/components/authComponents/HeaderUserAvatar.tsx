@@ -16,7 +16,9 @@ const HeaderUserAvatar = () => {
     const nickname = decodedUserInfo.nickname || email
 
     const onClickLogOutHandler = () => {
-        // dispatch(userSlice.actions.userResetUserInfo())
+        dispatch(userSlice.actions.userResetUserInfo())
+        dispatch(viewedSlice.actions.addListToViewedList('[]'))
+        dispatch(viewedSlice.actions.addListToDateOfAdditionList('[]'))
     }
 
     useEffect(() => {
@@ -30,7 +32,7 @@ const HeaderUserAvatar = () => {
 
     useEffect(() => {
         if (error) {
-            alert(error)
+            console.log(error)
         }
     }, [error])
 
@@ -43,77 +45,61 @@ const HeaderUserAvatar = () => {
                 .then((res) => {
                     dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
                     dispatch(userSlice.actions.userAvatarHandler(res.data.avatar))
+                    // @ts-ignore
+                    dispatch(viewedSlice.actions.addListToViewedList(res.data.animeList))
+                    // @ts-ignore
+                    dispatch(viewedSlice.actions.addListToDateOfAdditionList(res.data.animeDayOfAdditionList))
+                    dispatch(userSlice.actions.userFlagHandler(true))
                 })
-                .then((d) => {
-                    // // @ts-ignore
-                    // dispatch(viewedSlice.actions.addListToViewedList(decodedUserInfo.animeList))
-                    // // @ts-ignore
-                    // dispatch(viewedSlice.actions.addListToDateOfAdditionList(decodedUserInfo.animeDayOfAdditionList))
-                    // dispatch(userSlice.actions.userFlagHandler())
-                })
-
-
                 .catch((e) => {
                     setError(e.response.data.message)
                 })
         }
     },[decodedToken])
 
-    // useEffect(() => {
-    //     if (isLoaded) {
-    //         if (isAuthorized) {
-    //             const myJson = JSON.stringify(viewedAnimeList)
-    //             const myJsonReplaced = myJson.replaceAll(/"/g, "'")
-    //             axios
-    //                 .post(
-    //                     `${ApiURL}/users-info/anime-list`,
-    //                     {
-    //                         userId: userId,
-    //                         value: myJsonReplaced,
-    //                     },
-    //                     {
-    //                         headers: {
-    //                             'Content-Type': 'application/json',
-    //                         },
-    //                     }
-    //                 )
-    //                 .then((res)=> {
-    //                     dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
-    //                 })
-    //                 .catch((e) => {
-    //                     console.log(e)
-    //                 })
-    //         }
-    //     }
-    // }, [viewedAnimeList])
-    //
-    // useEffect(() => {
-    //     if (isLoaded) {
-    //         if (isAuthorized) {
-    //             const myJson = JSON.stringify(viewedAnimeDayOfAdditionList)
-    //             const myJsonReplaced = myJson.replaceAll(/"/g, "'")
-    //             axios
-    //                 .post(
-    //                     `${ApiURL}/users-info/anime-day-of-addition-list`,
-    //                     {
-    //                         userId: userId,
-    //                         value: myJsonReplaced,
-    //                     },
-    //                     {
-    //                         headers: {
-    //                             'Content-Type': 'application/json',
-    //                         },
-    //                     }
-    //                 )
-    //                 .then((res)=> {
-    //                     dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
-    //                 })
-    //                 .catch((e) => {
-    //                     console.log(e)
-    //                 })
-    //         }
-    //     }
-    // }, [viewedAnimeDayOfAdditionList])
+    useEffect(() => {
+        if (isLoaded) {
+            if (isAuthorized) {
+                const myJson = JSON.stringify(viewedAnimeList)
+                axios
+                    .post(
+                        `${ApiURL}/users-info/anime-list`,
+                        {
+                            userId: userId,
+                            value: myJson,
+                        },
+                    )
+                    .then((res)=> {
+                        dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
+                    })
+                    .catch((e) => {
+                        console.log(e)
+                    })
+            }
+        }
+    }, [viewedAnimeList])
+
+    useEffect(() => {
+        if (isLoaded) {
+            if (isAuthorized) {
+                const myJson = JSON.stringify(viewedAnimeDayOfAdditionList)
+                axios
+                    .post(
+                        `${ApiURL}/users-info/anime-day-of-addition-list`,
+                        {
+                            userId: userId,
+                            value: myJson,
+                        },
+                    )
+                    .then((res)=> {
+                        dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
+                    })
+                    .catch((e) => {
+                        console.log(e)
+                    })
+            }
+        }
+    }, [viewedAnimeDayOfAdditionList])
 
     return (
         <div className="header-user-avatar-wrapper" title={'Log Out'} onClick={onClickLogOutHandler}>
