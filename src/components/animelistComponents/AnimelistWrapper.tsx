@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import AnimeCard from './AnimeCard'
 import ReactPaginate from 'react-paginate'
 import { paginationSlice } from '../../store/reducers/PaginationSlice'
 import { fetchAnimeList } from '../../store/reducers/ActionCreators'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { animeSlice } from '../../store/reducers/AnimeSlice'
 import AnimeModal from './AnimeModal'
 
 const AnimelistWrapper = () => {

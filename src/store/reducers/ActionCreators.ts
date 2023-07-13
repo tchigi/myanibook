@@ -3,11 +3,10 @@ import axios from 'axios'
 import { IAnime, IAnimeCategories, IAnimeGenres } from '../../models/IAnime'
 import { animeSlice } from './AnimeSlice'
 import { genresSlice } from './GenresSlice'
-import { ApiURL, CategoriesURL, GenresURL, StartURL } from '../../constants/url'
+import { CategoriesURL, GenresURL, StartURL } from '../../constants/url'
 import { IGenre } from '../../models/IGenre'
 import { categoriesSlice } from './CategoriesSlice'
 import { ICategories } from '../../models/ICategories'
-import { userSlice } from './UserSlice'
 
 export const fetchAnimeList = (sort: string, genres: string, categories: string, isSearched: boolean, searchValue: string, page: number) => async (dispatch: AppDispatch) => {
     const currentOffset = page * 20

@@ -7,7 +7,7 @@ import { ApiURL } from '../../../constants/url'
 const UserPanelChangeNicknameInput = () => {
     const [nickname, setNickname] = useState('')
     const [error, setError] = useState('');
-    const { isNicknameChanging, userId } = useAppSelector(state => state.userReducer)
+    const { userId } = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch()
 
     function isValidNickname(nickname: string) {

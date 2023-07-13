@@ -8,7 +8,7 @@ import { ApiURL } from '../../constants/url'
 
 const UserPanelContainer = () => {
     const dispatch = useAppDispatch()
-    const { isNicknameChanging, decodedUserInfo, userId, avatar } = useAppSelector(state => state.userReducer)
+    const { isNicknameChanging, userId, avatar } = useAppSelector(state => state.userReducer)
     const [isAvatarChanging, setIsAvatarChanging] = useState(false)
 
     const onChangeAvatarHandler = (e: any) => {
@@ -24,7 +24,7 @@ const UserPanelContainer = () => {
                 dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
                 dispatch(userSlice.actions.userAvatarHandler(res.data.avatar))
             })
-            .then((data)=> {
+            .then(()=> {
                 setIsAvatarChanging(false)
                 alert('Your avatar has been changed.')
             })

@@ -1,4 +1,4 @@
-import { AnimeAttributes, AnimeData, AnimeRelationships, IAnime, IAnimeCategories, IAnimeGenres, PosterImage } from '../../models/IAnime'
+import { AnimeData, IAnime, IAnimeCategories, IAnimeGenres } from '../../models/IAnime'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface AnimeState {

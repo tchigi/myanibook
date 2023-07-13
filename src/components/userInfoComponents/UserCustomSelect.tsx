@@ -1,11 +1,7 @@
 import { OptionsData } from '../../models/ISelect'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import makeAnimated from 'react-select/animated'
-import React, { useEffect, useState } from 'react'
-import { genresSlice } from '../../store/reducers/GenresSlice'
-import { paginationSlice } from '../../store/reducers/PaginationSlice'
-import { categoriesSlice } from '../../store/reducers/CategoriesSlice'
-import { animeSlice } from '../../store/reducers/AnimeSlice'
+import React, { useState } from 'react'
 import Select, { ActionMeta, SingleValue } from 'react-select'
 import { userSlice } from '../../store/reducers/UserSlice'
 

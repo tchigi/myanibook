@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AnimeData } from '../../models/IAnime'
-import { ICategories } from '../../models/ICategories'
 import { IDecodedToken, IDecodedUserInfo } from '../../models/IDecodedToken'
 
 interface UserState {

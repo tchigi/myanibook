@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { AnimeData } from '../../models/IAnime'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { viewedSlice } from '../../store/reducers/ViewedSlice'
-import AnimeModal from './AnimeModal'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
 import { fetchAnimeCategories, fetchAnimeGenres } from '../../store/reducers/ActionCreators'
 
@@ -31,9 +30,7 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
     }
 
     function getCurrentDate() {
-        const currentDate = new Date().getTime().toString();
-
-        return currentDate
+        return new Date().getTime().toString()
     }
 
     function addToViewedAnimeDateOfAdditionList() {
@@ -44,7 +41,7 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
         }
     }
 
-    function onClickHandler(e:any) {
+    function onClickHandler() {
         if (wasViewed) {
             dispatch(viewedSlice.actions.removeAnimeFromViewedList(anime))
             setWasViewed(false)

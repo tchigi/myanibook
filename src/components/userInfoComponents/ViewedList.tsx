@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { useAppSelector } from '../../hooks/redux'
 import ViewedAnimeListItem from './ViewedAnimeListItem'
 import UserCustomSelect from './UserCustomSelect'
 import { AnimeData } from '../../models/IAnime'
 import AnimeModal from '../animelistComponents/AnimeModal'
-import axios from 'axios'
-import { ApiURL } from '../../constants/url'
-import { userSlice } from '../../store/reducers/UserSlice'
 
 const ViewedList = () => {
-    const dispatch = useAppDispatch()
     const { viewedAnimeList, viewedAnimeDayOfAdditionList } = useAppSelector((state) => state.viewedReducer)
-    const { viewedAnimeSortType, isAuthorized, userId } = useAppSelector((state) => state.userReducer)
+    const { viewedAnimeSortType } = useAppSelector((state) => state.userReducer)
     const [sortedArray, setSortedArray] = useState(viewedAnimeList)
     const viewedAnimeListClone = viewedAnimeList.slice()
 

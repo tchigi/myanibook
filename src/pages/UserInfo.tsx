@@ -1,6 +1,5 @@
 import React from 'react'
 import { useAppSelector } from '../hooks/redux'
-import FilterPanel from '../components/animelistComponents/FilterPanel'
 import Loading from '../components/Loading'
 import ViewedList from '../components/userInfoComponents/ViewedList'
 import UserPanel from '../components/userInfoComponents/UserPanel'
