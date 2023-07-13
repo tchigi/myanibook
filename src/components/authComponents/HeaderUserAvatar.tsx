@@ -44,10 +44,12 @@ const HeaderUserAvatar = () => {
                 .then((res) => {
                     dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
                     dispatch(userSlice.actions.userAvatarHandler(res.data.avatar))
-                    // @ts-ignore
-                    dispatch(viewedSlice.actions.addListToViewedList(res.data.animeList))
-                    // @ts-ignore
-                    dispatch(viewedSlice.actions.addListToDateOfAdditionList(res.data.animeDayOfAdditionList))
+                    console.log(res.data.animeList, typeof (res.data.animeList))
+                    console.log(res.data.animeDayOfAdditionList, typeof (res.data.animeDayOfAdditionList))
+                    if (res.data.animeDayOfAdditionList !== null && res.data.animeList !== null) {
+                        dispatch(viewedSlice.actions.addListToViewedList(res.data.animeList))
+                        dispatch(viewedSlice.actions.addListToDateOfAdditionList(res.data.animeDayOfAdditionList))
+                    }
                     dispatch(userSlice.actions.userFlagHandler(true))
                 })
                 .catch((e) => {
