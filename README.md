@@ -8,7 +8,7 @@ MyAniBook - это приложение, которое позволит Вам 
   * TypeScript
   * React
   * Redux
-  * Деплой []()
+  * Деплой [https://myanibook.vercel.app/](https://myanibook.vercel.app/)
 
 * Backend:
   * NestJS
