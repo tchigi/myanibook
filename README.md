@@ -10,7 +10,7 @@ MyAniBook - это приложение, которое позволит Вам 
   * Redux
   * Деплой [https://myanibook.vercel.app/](https://myanibook.vercel.app/)
 
-* Backend:
+* Backend (возможно не работает из-за проблем с оплатой):
   * NestJS
   * PostgresSQL
   * Sequelize
