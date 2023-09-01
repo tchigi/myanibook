@@ -8,7 +8,7 @@ const HomePage = () => {
             <div className="description-block">
                 <div className="description-title">Создай свой список. Ничего не забудь!</div>
                 <div className="description-text">
-                    MyAnibook - это проект разработанный для создания списка просмотренных аниме и прочитанных книг.
+                    MyAnibook - это проект разработанный для создания списка просмотренных аниме.
                 </div>
                 <Link className={'big__button'} to={'anime'} style={{ textDecoration: 'none' , color: '#FFFFFF'}}>
                     Start
