@@ -55,7 +55,6 @@ const ViewedListTitleStyled = styled.div`
     }
 `
 const ViewedListSelectWrapperStyled = styled.div`
-    width: 100%;
 `
 const ViewedListTableWrapperStyled = styled.div`
     display: flex;
@@ -95,7 +94,7 @@ const SelectContainerStyled = styled.div`
     @media (max-width: 720px) {
         display: block;
         font-size: 14px;
-        padding: 5px;
+        padding: 0;
     }
 `
 
