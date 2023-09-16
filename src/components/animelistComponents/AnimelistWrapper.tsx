@@ -1,17 +1,53 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import AnimeCard from './AnimeCard'
 import ReactPaginate from 'react-paginate'
 import { paginationSlice } from '../../store/reducers/PaginationSlice'
 import { fetchAnimeList } from '../../store/reducers/ActionCreators'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import AnimeModal from './AnimeModal'
+import styled from 'styled-components'
+import './Pagination.css'
+
+const AnimelistWrapperStyled = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+
+    & h2 {
+        font-size: 24px;
+    }
+
+    @media (max-width: 720px) {
+        & h2 {
+            font-size: 18px;
+        }
+    }
+`
+
+const AnimeCardsContainerStyled = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+
+    @media (max-width: 720px) {
+        gap: 5px;
+    }
+`
 
 const AnimelistWrapper = () => {
     const dispatch = useAppDispatch()
     const { animeList, isSearched, isLoading, sortType, searchValue } = useAppSelector((state) => state.animeReducer)
     const { animeListCurrentPage, animeListMaxOffset } = useAppSelector((state) => state.paginationReducer)
-    const { currentGenresRequest } = useAppSelector(state => state.genresReducer)
-    const { currentCategoriesRequest } = useAppSelector(state => state.categoriesReducer)
+    const { currentGenresRequest } = useAppSelector((state) => state.genresReducer)
+    const { currentCategoriesRequest } = useAppSelector((state) => state.categoriesReducer)
     const animeListPagesAmount = Math.ceil(animeListMaxOffset / 20) + 1
 
     function pageChangeHandler({ selected }: { selected: number }) {
@@ -20,9 +56,11 @@ const AnimelistWrapper = () => {
     }
 
     function getAnimeListSize() {
-
         const arr = animeList.links.last?.split('&')
-        const offset = arr.filter((i)=>i.match('offset')).join('').split('=')[1]
+        const offset = arr
+            .filter((i) => i.match('offset'))
+            .join('')
+            .split('=')[1]
 
         if (animeList.data.length !== 0) {
             dispatch(paginationSlice.actions.animeListSetMaxOffset(Number(offset)))
@@ -37,21 +75,13 @@ const AnimelistWrapper = () => {
         dispatch(fetchAnimeList(sortType, currentGenresRequest, currentCategoriesRequest, isSearched, searchValue, animeListCurrentPage))
     }, [sortType, isSearched, currentGenresRequest, animeListCurrentPage, currentCategoriesRequest])
 
-
-
     return (
-        <div className="animelist-wrapper">
+        <AnimelistWrapperStyled>
             <AnimeModal />
 
-            {isSearched && animeList.data.length > 0 ? (
-                <h2>
-                    Found for your request "{searchValue}"
-                </h2>
-            ) : (
-                ''
-            )}
+            {isSearched && animeList.data.length > 0 ? <h2>Found for your request "{searchValue}"</h2> : ''}
 
-            <div className="anime-cards-container">
+            <AnimeCardsContainerStyled>
                 {animeList.data.length === 0 && isSearched ? (
                     <h1>No anime found...</h1>
                 ) : (
@@ -67,14 +97,15 @@ const AnimelistWrapper = () => {
                         />
                     ))
                 )}
-            </div>
+            </AnimeCardsContainerStyled>
 
             <ReactPaginate
-                className={animeListMaxOffset === 0 || (isLoading || animeList.data.length === 0) ? 'hidden' : ''}
+                className={animeListMaxOffset === 0 || isLoading || animeList.data.length === 0 ? 'hidden' : ''}
                 breakLabel="..."
                 nextLabel=">"
                 onPageChange={pageChangeHandler}
-                pageRangeDisplayed={3}
+                pageRangeDisplayed={2}
+                marginPagesDisplayed={1}
                 pageCount={animeListPagesAmount}
                 previousLabel="<"
                 breakClassName={'page-item'}
@@ -89,7 +120,7 @@ const AnimelistWrapper = () => {
                 activeClassName={'active-pagination'}
                 forcePage={animeListCurrentPage}
             />
-        </div>
+        </AnimelistWrapperStyled>
     )
 }
 

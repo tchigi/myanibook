@@ -8,14 +8,14 @@ import { IGenre } from '../../models/IGenre'
 import { categoriesSlice } from './CategoriesSlice'
 import { ICategories } from '../../models/ICategories'
 
-export const fetchAnimeList = (sort: string, genres: string, categories: string, isSearched: boolean, searchValue: string, page: number) => async (dispatch: AppDispatch) => {
-    const currentOffset = page * 20
-
-    const currentSortTypeRequest = `&sort=${sort}`
+export const fetchAnimeList = (sort: string, genres: string, categories: any, isSearched: boolean, searchValue: string, page: number) => async (dispatch: AppDispatch) => {
+    const currentOffset = Object.values(categories).join('') ? (page + 1) * 20 : page * 20
+    const currentSortTypeRequest = `&sort=${Array.isArray(sort) ? '-averageRating' : sort}`
     const currentPageRequest = `page[limit]=20&page[offset]=${currentOffset}`
     const currentSearchedRequest = isSearched ? `&filter[text]=${searchValue}` : ''
+    const currentCategories = `${categories.categories !== '' ? categories.categories : ''}&${categories.subtype !== '' ? categories.subtype : ''}&${categories.ageRating !== '' ? categories.ageRating : ''}`
 
-    const currentRequest = StartURL + currentPageRequest + currentSortTypeRequest + currentSearchedRequest + genres + categories
+    const currentRequest = StartURL + currentPageRequest + currentSortTypeRequest + currentSearchedRequest + genres + currentCategories
 
     try {
         dispatch(animeSlice.actions.animeListFetching())

@@ -64,6 +64,8 @@ export interface AnimeAttributes {
     startDate: string
     showType: string
     averageRating: string
+    subtype: string
+    ageRating: string
 }
 
 export interface PosterImage {

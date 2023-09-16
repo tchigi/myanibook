@@ -7,8 +7,6 @@ interface ViewedState {
     viewedAnimeDayOfAdditionList: IAnimeDateOfAdditionList[]
     bookList: any
 }
-
-
 const initialState: ViewedState = {
     viewedAnimeList: [],
     viewedAnimeDayOfAdditionList: [],

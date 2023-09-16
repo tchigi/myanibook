@@ -28,7 +28,7 @@ const initialState: AnimeState = {
     isLoading: false,
     error: '',
     isSearched: false,
-    sortType: 'id',
+    sortType: '-averageRating',
     isModalActive: false,
     selectedAnime: {
         id: '',
@@ -45,6 +45,8 @@ const initialState: AnimeState = {
             startDate: '',
             showType: '',
             averageRating: '',
+            subtype: '',
+            ageRating: ''
         },
         relationships: {
             genres: {
@@ -102,6 +104,7 @@ export const animeSlice = createSlice({
         },
         modalHandler(state, action: PayloadAction<boolean>) {
             state.isModalActive = action.payload
+            action.payload ? document.body.classList.add('scroll-hidden') : document.body.classList.remove('scroll-hidden')
         },
         modalAnimeSelectedFetchingGenres(state, action: PayloadAction<IAnimeGenres>) {
             state.isLoading = false

@@ -2,11 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { CategoriesData, ICategories } from '../../models/ICategories'
 
 interface CategoriesState {
-    categories: ICategories,
-    isLoading: boolean,
-    error: string,
-    currentCategories: CategoriesData[],
-    currentCategoriesRequest: string
+    categories: ICategories
+    isLoading: boolean
+    error: string
+    currentCategories: CategoriesData[]
+    currentCategoriesRequest: {
+        categories: ''
+        subtype: ''
+        ageRating: ''
+    }
 }
 
 const initialState: CategoriesState = {
@@ -18,7 +22,11 @@ const initialState: CategoriesState = {
     isLoading: false,
     error: '',
     currentCategories: [],
-    currentCategoriesRequest: ''
+    currentCategoriesRequest: {
+        categories: '',
+        subtype: '',
+        ageRating: '',
+    }
 }
 export const categoriesSlice = createSlice({
     name: 'categories',
@@ -42,8 +50,9 @@ export const categoriesSlice = createSlice({
         clearCurrentCategories(state) {
             state.currentCategories = []
         },
-        currentCategoriesRequestHandler(state, action: PayloadAction<string>) {
-            state.currentCategoriesRequest = action.payload
+        currentCategoriesRequestHandler(state, action: PayloadAction<any>) {
+            // @ts-ignore
+            state.currentCategoriesRequest[action.payload[0]] = action.payload[1]
         }
     },
 })

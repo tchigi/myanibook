@@ -1,80 +1,43 @@
-import React, {  useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { paginationSlice } from '../store/reducers/PaginationSlice'
-import { animeSlice } from '../store/reducers/AnimeSlice'
-import HeaderAuthButtons from './authComponents/HeaderAuthButtons'
-import HeaderUserAvatar from './authComponents/HeaderUserAvatar'
+import React from 'react'
+import Search from './headerComponents/Search'
+import AuthContainer from './headerComponents/AuthContainer'
+import Nav from './headerComponents/Nav'
+import Logo from './headerComponents/Logo'
+import BurgerMenu from './headerComponents/BurgerMenu'
+import styled from 'styled-components'
 
+const HeaderStyled = styled.header`
+    z-index: 1000;
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #1c1f22;
+
+    @media (max-width: 720px) {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 320px;
+        height: 50px;
+        padding: 0 5px;
+    }
+`
 
 function Header() {
-    const dispatch = useAppDispatch()
-    const [value, setValue] = useState('')
-    let navigate = useNavigate()
-    const { isAuthorized } = useAppSelector(state => state.userReducer)
-
-    const setActive = ({ isActive, isPending }:any) =>
-        isPending ? "pending-link" : isActive ? "active-link" : ""
-
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value)
-    }
-
-    const onClickSearch = () => {
-        dispatch(animeSlice.actions.animeSearch(value))
-        dispatch(paginationSlice.actions.animeListSetCurrentPage(0))
-
-        navigate('/anime')
-    }
-
-    const onClickClear = () => {
-        dispatch(paginationSlice.actions.animeListSetCurrentPage(0))
-        setValue('')
-        dispatch(animeSlice.actions.animeClearSearch())
-    }
-
-     const onKeyPressEnter = (e: any) => {
-
-        if (e.key === 'Enter') {
-            onClickSearch()
-        }
-    }
-
     return (
-        <header className={'header'}>
-            <div className="nav-container">
-                <NavLink to="/">
-                    <div className="title-logo"></div>
-                </NavLink>
-                <nav className="nav">
-                    <NavLink to="/" end className={setActive}>
-                        Home
-                    </NavLink>
-                    <NavLink to="/anime" className={setActive}>
-                        Anime
-                    </NavLink>
-                    <NavLink to="/user" className={setActive}>
-                        {' '}
-                        AnimeList
-                    </NavLink>
-                </nav>
-            </div>
-            <div className="search-wrapper">
-                <input value={value} onChange={onChange} onKeyDown={onKeyPressEnter} type="text" placeholder={'Search anime...'} className={'animelist-search-input'} />
-                <Link to={'/anime'}>
-                    <button className="small__button blue__button" onClick={onClickSearch}>
-                        Search
-                    </button>
-                </Link>
-                <button className="small__button red__button" onClick={onClickClear}>
-                    Clear
-                </button>
-            </div>
-
-            <div className="header-auth-container">
-                {isAuthorized ? <HeaderUserAvatar/> : <HeaderAuthButtons/>}
-            </div>
-        </header>
+        <HeaderStyled className={'header'}>
+            <Logo />
+            <Nav />
+            <Search />
+            <AuthContainer />
+            <BurgerMenu />
+        </HeaderStyled>
     )
 }
 
