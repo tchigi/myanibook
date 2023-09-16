@@ -59,12 +59,8 @@ const ViewedListSelectWrapperStyled = styled.div`
 const ViewedListTableWrapperStyled = styled.div`
     display: flex;
     flex-direction: column;
-    height: 80vh;
-    overflow-y: scroll;
-
-    @media (max-width: 720px) {
-        height: auto;
-    }
+    height: auto;
+    overflow: hidden;
 `
 const ViewedListTableOrderControlStyled = styled.div`
     font-size: 14px;

@@ -117,6 +117,21 @@ const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
     font-family: Lato,sans-serif;
   }
+
+  body::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: inherit;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #535b65;
+    border-radius: 20px;
+    border: 1px solid #535b65;
+  }
+  
   main {
     flex: 1;
     padding-top: 70px;
