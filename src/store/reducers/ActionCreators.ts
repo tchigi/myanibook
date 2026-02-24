@@ -1,7 +1,8 @@
 import { AppDispatch } from '../store'
 import axios from 'axios'
-import { IAnime, IAnimeCategories, IAnimeGenres } from '../../models/IAnime'
+import { IAnime, IAnimeCategories, IAnimeGenres, AnimeData } from '../../models/IAnime'
 import { animeSlice } from './AnimeSlice'
+import { viewedSlice } from './ViewedSlice'
 import { genresSlice } from './GenresSlice'
 import { CategoriesURL, GenresURL, StartURL } from '../../constants/url'
 import { IGenre } from '../../models/IGenre'
@@ -69,4 +70,20 @@ export const fetchCategoriesList =
             dispatch(categoriesSlice.actions.animeListFetchingError(e.message))
         }
     }
+
+export const fetchAnimeByIds = (ids: string[]) => async (dispatch: AppDispatch) => {
+    try {
+        const chunks: string[][] = []
+        for (let i = 0; i < ids.length; i += 20) {
+            chunks.push(ids.slice(i, i + 20))
+        }
+        const responses = await Promise.all(
+            chunks.map((chunk) => axios.get(`https://kitsu.io/api/edge/anime?filter[id]=${chunk.join(',')}&page[limit]=20`))
+        )
+        const animeData: AnimeData[] = responses.flatMap((res) => res.data.data)
+        dispatch(viewedSlice.actions.setAnimeDetails(animeData))
+    } catch (e: any) {
+        console.log(e)
+    }
+}
 
