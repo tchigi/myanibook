@@ -123,10 +123,16 @@ const HeaderUserAvatar = () => {
         if (isLoaded) {
             if (isAuthorized) {
                 axios
-                    .post(`${ApiURL}/users-info/anime-list`, {
-                        userId: userId,
-                        value: JSON.stringify(viewedAnimeList),
-                    })
+                    .post(
+                        `${ApiURL}/users-info/anime-list`,
+                        {
+                            userId: userId,
+                            value: JSON.stringify(viewedAnimeList),
+                        },
+                        {
+                            headers: { Authorization: `Bearer ${userToken}` },
+                        }
+                    )
                     .then((res) => {
                         dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
                     })

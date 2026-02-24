@@ -51,7 +51,7 @@ export const fetchGenresList =
     (link: string = GenresURL) =>
     async (dispatch: AppDispatch) => {
         try {
-            dispatch(genresSlice.actions.genresFetching)
+            dispatch(genresSlice.actions.genresFetching())
             const response = await axios.get<IGenre>(link)
             dispatch(genresSlice.actions.genresFetchingSuccess(response.data))
         } catch (e: any) {
@@ -63,7 +63,7 @@ export const fetchCategoriesList =
     (link: string = CategoriesURL) =>
     async (dispatch: AppDispatch) => {
         try {
-            dispatch(categoriesSlice.actions.categoriesFetching)
+            dispatch(categoriesSlice.actions.categoriesFetching())
             const response = await axios.get<ICategories>(link)
             dispatch(categoriesSlice.actions.categoriesFetchingSuccess(response.data))
         } catch (e: any) {
