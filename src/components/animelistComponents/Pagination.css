@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 .pagination {
     display: flex;
     flex-direction: row;

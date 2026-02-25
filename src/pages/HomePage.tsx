@@ -72,7 +72,7 @@ const HomepageButtonStyled = styled.button`
         align-self: flex-start;
     }
 `
-const HomepageButtonLabelStyled = styled.label`
+const HomepageButtonLabelStyled = styled.span`
     font-size: 20px;
     text-transform: uppercase;
     font-weight: lighter;
