@@ -9,6 +9,8 @@ import { IGenre } from '../../models/IGenre'
 import { categoriesSlice } from './CategoriesSlice'
 import { ICategories } from '../../models/ICategories'
 
+let fetchAnimeListController: AbortController | null = null
+
 export const fetchAnimeList = (sort: string, genres: string, categories: any, isSearched: boolean, searchValue: string, page: number) => async (dispatch: AppDispatch) => {
     const currentOffset = Object.values(categories).join('') ? (page + 1) * 20 : page * 20
     const currentSortTypeRequest = `&sort=${Array.isArray(sort) ? '-averageRating' : sort}`
@@ -18,11 +20,17 @@ export const fetchAnimeList = (sort: string, genres: string, categories: any, is
 
     const currentRequest = StartURL + currentPageRequest + currentSortTypeRequest + currentSearchedRequest + genres + currentCategories
 
+    if (fetchAnimeListController) {
+        fetchAnimeListController.abort()
+    }
+    fetchAnimeListController = new AbortController()
+
     try {
         dispatch(animeSlice.actions.animeListFetching())
-        const response = await axios.get<IAnime>(currentRequest)
+        const response = await axios.get<IAnime>(currentRequest, { signal: fetchAnimeListController.signal })
         dispatch(animeSlice.actions.animeListFetchingSuccess(response.data))
     } catch (e: any) {
+        if (axios.isCancel(e)) return
         dispatch(animeSlice.actions.animeListFetchingError(e.message))
     }
 }

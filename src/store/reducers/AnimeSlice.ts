@@ -119,6 +119,9 @@ export const animeSlice = createSlice({
         modalSelectAnime(state, action: PayloadAction<AnimeData>) {
             state.selectedAnime = action.payload
         },
+        animeListLoadingReset(state) {
+            state.isLoading = false
+        },
     },
 })
 

@@ -31,6 +31,7 @@ const AnimelistAnimeBlockStyled = styled.div`
         width: 100%;
         border-radius: 10px;
         padding: 5px;
+        min-height: 50vh;
     }
 `
 const AnimeList = () => {

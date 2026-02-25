@@ -6,6 +6,7 @@ import UserPanel from '../components/userInfoComponents/UserPanel'
 import styled from 'styled-components'
 
 const UserinfoPageWrapperStyled = styled.main`
+    position: relative;
     background-color: #1c1f22;
     border-radius: 20px;
     display: flex;
