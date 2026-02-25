@@ -3,6 +3,7 @@ import AnimeCard from './AnimeCard'
 import ReactPaginate from 'react-paginate'
 import { paginationSlice } from '../../store/reducers/PaginationSlice'
 import { fetchAnimeList } from '../../store/reducers/ActionCreators'
+import { animeSlice } from '../../store/reducers/AnimeSlice'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import AnimeModal from './AnimeModal'
 import styled from 'styled-components'
@@ -74,6 +75,12 @@ const AnimelistWrapper = () => {
     useEffect(() => {
         dispatch(fetchAnimeList(sortType, currentGenresRequest, currentCategoriesRequest, isSearched, searchValue, animeListCurrentPage))
     }, [sortType, isSearched, currentGenresRequest, animeListCurrentPage, currentCategoriesRequest])
+
+    useEffect(() => {
+        return () => {
+            dispatch(animeSlice.actions.animeListLoadingReset())
+        }
+    }, [])
 
     return (
         <AnimelistWrapperStyled>

@@ -97,16 +97,17 @@ const UserPanelChangeAvatarWrapperStyled = styled.div`
 
 const UserPanelContainer = () => {
     const dispatch = useAppDispatch()
-    const { isNicknameChanging, userId, avatar } = useAppSelector((state) => state.userReducer)
+    const { isNicknameChanging, userId, userToken, avatar } = useAppSelector((state) => state.userReducer)
     const [isAvatarChanging, setIsAvatarChanging] = useState(false)
 
     const onChangeAvatarHandler = (e: any) => {
         const file = e.target.files[0]
         const formData = new FormData()
-        formData.append('userId', `${userId}`)
         formData.append('image', file)
         axios
-            .post(`${ApiURL}/users-info/avatar`, formData)
+            .post(`${ApiURL}/users-info/avatar`, formData, {
+                headers: { Authorization: `Bearer ${userToken}` },
+            })
             .then((res) => {
                 dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
                 dispatch(userSlice.actions.userAvatarHandler(res.data.avatar))

@@ -229,23 +229,13 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
         return new Date().getTime().toString()
     }
 
-    function addToViewedAnimeDateOfAdditionList() {
-        const currentDate = getCurrentDate()
-        return {
-            id: id,
-            dateOfAddition: currentDate,
-        }
-    }
-
     function onClickHandler() {
         if (wasViewed) {
-            dispatch(viewedSlice.actions.removeAnimeFromViewedList(anime))
+            dispatch(viewedSlice.actions.removeAnimeFromViewedList(id))
             setWasViewed(false)
-            dispatch(viewedSlice.actions.removeAnimeFromDateOfAdditionList(id))
         } else {
-            dispatch(viewedSlice.actions.addAnimeToViewedList(anime))
+            dispatch(viewedSlice.actions.addAnimeToViewedList({ id, addedAt: getCurrentDate() }))
             setWasViewed(true)
-            dispatch(viewedSlice.actions.addAnimeToDateOfAdditionList(addToViewedAnimeDateOfAdditionList()))
         }
     }
 

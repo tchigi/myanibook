@@ -76,7 +76,7 @@ const HeaderUserAvatarStyled = styled.div`
 const HeaderUserAvatar = () => {
     const dispatch = useAppDispatch()
     const { isAuthorized, userToken, decodedToken, userId, decodedUserInfo, email, avatar, isLoaded } = useAppSelector((state) => state.userReducer)
-    const { viewedAnimeList, viewedAnimeDayOfAdditionList } = useAppSelector((state) => state.viewedReducer)
+    const { viewedAnimeList } = useAppSelector((state) => state.viewedReducer)
     const [error, setError] = useState('')
     // @ts-ignore
     const nickname = decodedUserInfo.nickname || email
@@ -84,7 +84,6 @@ const HeaderUserAvatar = () => {
     const onClickLogOutHandler = () => {
         dispatch(userSlice.actions.userResetUserInfo())
         dispatch(viewedSlice.actions.addListToViewedList('[]'))
-        dispatch(viewedSlice.actions.addListToDateOfAdditionList('[]'))
     }
 
     useEffect(() => {
@@ -109,11 +108,8 @@ const HeaderUserAvatar = () => {
                 .then((res) => {
                     dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
                     dispatch(userSlice.actions.userAvatarHandler(res.data.avatar))
-                    console.log(res.data.animeList, typeof res.data.animeList)
-                    console.log(res.data.animeDayOfAdditionList, typeof res.data.animeDayOfAdditionList)
-                    if (res.data.animeDayOfAdditionList !== null && res.data.animeList !== null) {
+                    if (res.data.animeList !== null) {
                         dispatch(viewedSlice.actions.addListToViewedList(res.data.animeList))
-                        dispatch(viewedSlice.actions.addListToDateOfAdditionList(res.data.animeDayOfAdditionList))
                     }
                     dispatch(userSlice.actions.userFlagHandler(true))
                 })
@@ -126,12 +122,17 @@ const HeaderUserAvatar = () => {
     useEffect(() => {
         if (isLoaded) {
             if (isAuthorized) {
-                const myJson = JSON.stringify(viewedAnimeList)
                 axios
-                    .post(`${ApiURL}/users-info/anime-list`, {
-                        userId: userId,
-                        value: myJson,
-                    })
+                    .post(
+                        `${ApiURL}/users-info/anime-list`,
+                        {
+                            userId: userId,
+                            value: JSON.stringify(viewedAnimeList),
+                        },
+                        {
+                            headers: { Authorization: `Bearer ${userToken}` },
+                        }
+                    )
                     .then((res) => {
                         dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
                     })
@@ -141,25 +142,6 @@ const HeaderUserAvatar = () => {
             }
         }
     }, [viewedAnimeList])
-
-    useEffect(() => {
-        if (isLoaded) {
-            if (isAuthorized) {
-                const myJson = JSON.stringify(viewedAnimeDayOfAdditionList)
-                axios
-                    .post(`${ApiURL}/users-info/anime-day-of-addition-list`, {
-                        userId: userId,
-                        value: myJson,
-                    })
-                    .then((res) => {
-                        dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
-                    })
-                    .catch((e) => {
-                        console.log(e)
-                    })
-            }
-        }
-    }, [viewedAnimeDayOfAdditionList])
 
     return (
         <HeaderUserAvatarWrapperStyled title={'Log Out'} onClick={onClickLogOutHandler}>

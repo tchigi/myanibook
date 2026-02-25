@@ -59,7 +59,7 @@ const UserPanelNicknameChangeChangingButtonLabelStyled = styled.label`
 const UserPanelChangeNicknameInput = () => {
     const [nickname, setNickname] = useState('')
     const [error, setError] = useState('')
-    const { userId } = useAppSelector((state) => state.userReducer)
+    const { userId, userToken } = useAppSelector((state) => state.userReducer)
     const dispatch = useAppDispatch()
 
     function isValidNickname(nickname: string) {
@@ -83,6 +83,7 @@ const UserPanelChangeNicknameInput = () => {
                 {
                     headers: {
                         'Content-Type': 'application/json',
+                        Authorization: `Bearer ${userToken}`,
                     },
                 }
             )

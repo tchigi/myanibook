@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useAppSelector } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import ViewedAnimeListItem from './ViewedAnimeListItem'
 import UserCustomSelect from './UserCustomSelect'
 import { AnimeData } from '../../models/IAnime'
 import AnimeModal from '../animelistComponents/AnimeModal'
+import { fetchAnimeByIds } from '../../store/reducers/ActionCreators'
 import styled from 'styled-components'
 
 const ViewedListWrapperStyled = styled.div`
@@ -95,10 +96,18 @@ const SelectContainerStyled = styled.div`
 `
 
 const ViewedList = () => {
-    const { viewedAnimeList, viewedAnimeDayOfAdditionList } = useAppSelector((state) => state.viewedReducer)
+    const dispatch = useAppDispatch()
+    const { viewedAnimeList, viewedAnimeDetails } = useAppSelector((state) => state.viewedReducer)
     const { viewedAnimeSortType } = useAppSelector((state) => state.userReducer)
-    const [sortedArray, setSortedArray] = useState(viewedAnimeList)
-    const viewedAnimeListClone = viewedAnimeList.slice()
+    const [sortedArray, setSortedArray] = useState(viewedAnimeDetails)
+
+    useEffect(() => {
+        const cachedIds = new Set(viewedAnimeDetails.map((a) => a.id))
+        const missingIds = viewedAnimeList.filter((item) => !cachedIds.has(item.id)).map((item) => item.id)
+        if (missingIds.length > 0) {
+            dispatch(fetchAnimeByIds(missingIds))
+        }
+    }, [viewedAnimeList])
 
     const sortByName = (a: AnimeData, b: AnimeData) => {
         const newA = a.attributes.canonicalTitle
@@ -108,35 +117,24 @@ const ViewedList = () => {
         else return 0
     }
     const sortByDate = (a: AnimeData, b: AnimeData) => {
-        const newA = viewedAnimeDayOfAdditionList.find((x) => x.id === a.id)?.dateOfAddition || 0
-        const newB = viewedAnimeDayOfAdditionList.find((x) => x.id === b.id)?.dateOfAddition || 0
+        const newA = viewedAnimeList.find((x) => x.id === a.id)?.addedAt || 0
+        const newB = viewedAnimeList.find((x) => x.id === b.id)?.addedAt || 0
         if (newA < newB) return 1
         else if (newA > newB) return -1
         else return 0
     }
     const arraySortHandler = () => {
-        const a = viewedAnimeListClone.sort(sortByName).slice()
-        const b = viewedAnimeListClone.sort(sortByName).reverse().slice()
-        const c = viewedAnimeListClone.sort(sortByDate).slice()
-        const d = viewedAnimeListClone.sort(sortByDate).reverse().slice()
-
-        if (viewedAnimeSortType === `sortByNameAZ`) {
-            setSortedArray(a)
-        }
-        if (viewedAnimeSortType === `sortByNameZA`) {
-            setSortedArray(b)
-        }
-        if (viewedAnimeSortType === `sortByDateFirstOld`) {
-            setSortedArray(d)
-        }
-        if (viewedAnimeSortType === `sortByDateFirstNew`) {
-            setSortedArray(c)
-        }
+        const clone = viewedAnimeDetails.slice()
+        if (viewedAnimeSortType === 'sortByNameAZ') setSortedArray(clone.sort(sortByName))
+        else if (viewedAnimeSortType === 'sortByNameZA') setSortedArray(clone.sort(sortByName).reverse())
+        else if (viewedAnimeSortType === 'sortByDateFirstOld') setSortedArray(clone.sort(sortByDate).reverse())
+        else if (viewedAnimeSortType === 'sortByDateFirstNew') setSortedArray(clone.sort(sortByDate))
+        else setSortedArray(clone)
     }
 
     useEffect(() => {
         arraySortHandler()
-    }, [viewedAnimeSortType, viewedAnimeList])
+    }, [viewedAnimeSortType, viewedAnimeDetails])
 
     return (
         <ViewedListWrapperStyled>
@@ -171,6 +169,7 @@ const ViewedList = () => {
                             anime={item}
                             rating={item.attributes.averageRating}
                             index={index}
+                            addedAt={viewedAnimeList.find((v) => v.id === item.id)?.addedAt || ''}
                         />
                     ))}
                 </ViewedListTableWrapperStyled>

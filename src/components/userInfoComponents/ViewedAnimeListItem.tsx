@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AnimeData } from '../../models/IAnime'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { useAppDispatch } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
 import { fetchAnimeCategories, fetchAnimeGenres } from '../../store/reducers/ActionCreators'
 import { viewedSlice } from '../../store/reducers/ViewedSlice'
@@ -14,6 +14,7 @@ interface ViewedAnimeListItemProps {
     anime: AnimeData
     rating: string
     index: number
+    addedAt: string
 }
 
 const ViewedListItemWrapperStyled = styled.div`
@@ -119,28 +120,21 @@ const ViewedListItemDeleteButtonIconStyled = styled.span`
     justify-content: center;
 `
 
-const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index }: ViewedAnimeListItemProps) => {
+const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index, addedAt }: ViewedAnimeListItemProps) => {
     const dispatch = useAppDispatch()
     const currentOrder = index + 1
-    const { viewedAnimeDayOfAdditionList } = useAppSelector((state) => state.viewedReducer)
-    const [dateOfAdd, setDateOfAdd] = useState('')
 
-    function getDateOfAddition(dateOfAddition: string) {
-        const currentDate = new Date(Number(dateOfAddition))
+    function getDateOfAddition(timestamp: string) {
+        const currentDate = new Date(Number(timestamp))
 
         const currentDayOfMonth = currentDate.getDate()
         const currentMonth = currentDate.getMonth() > 9 ? currentDate.getMonth() + 1 : `0${currentDate.getMonth() + 1}`
         const currentYear = currentDate.getFullYear()
 
-        const dateString = `${currentDayOfMonth}/${currentMonth}/${currentYear}`
-
-        return dateString
+        return `${currentDayOfMonth}/${currentMonth}/${currentYear}`
     }
 
-    useEffect(() => {
-        const currentDate = getDateOfAddition(viewedAnimeDayOfAdditionList.filter((item) => item.id === id)[0].dateOfAddition)
-        setDateOfAdd(currentDate)
-    }, [])
+    const dateOfAdd = getDateOfAddition(addedAt)
 
     function modalOnClickHandler() {
         dispatch(animeSlice.actions.modalHandler(true))
@@ -150,8 +144,7 @@ const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index 
     }
 
     function onClickDeleteButtonHandler() {
-        dispatch(viewedSlice.actions.removeAnimeFromViewedList(anime))
-        dispatch(viewedSlice.actions.removeAnimeFromDateOfAdditionList(id))
+        dispatch(viewedSlice.actions.removeAnimeFromViewedList(id))
     }
 
     return (
