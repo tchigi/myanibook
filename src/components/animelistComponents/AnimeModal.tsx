@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
 import styled from 'styled-components'
+import Loading from '../Loading'
 
 const AnimeCardModalStyled = styled.div`
     z-index: 1000;
@@ -100,6 +101,7 @@ const AnimeCardModalInfoBlockStyled = styled.div`
 `
 const AnimeCardModalRatingStyled = styled.div``
 const AnimeCardModalDescriptionStyled = styled.div`
+    position: relative;
     font-size: 18px;
     display: flex;
     flex-direction: column;
@@ -153,7 +155,7 @@ const AnimeCardModalCloseButton = styled.button`
 `
 
 const AnimeModal = () => {
-    const { isModalActive, selectedAnime, categories, genres } = useAppSelector((state) => state.animeReducer)
+    const { isModalActive, selectedAnime, categories, genres, isCategoriesLoading } = useAppSelector((state) => state.animeReducer)
     const dispatch = useAppDispatch()
 
     useEffect(() => {}, [selectedAnime])
@@ -186,6 +188,7 @@ const AnimeModal = () => {
                     </AnimeCardModalInfoBlockStyled>
                 </AnimeCardModalImageWrapperStyled>
                 <AnimeCardModalDescriptionStyled>
+                    {isCategoriesLoading && <Loading />}
                     <AnimeCardModalSynopsisStyled>
                         <p>Description: </p>
                         {selectedAnime.attributes.description}
