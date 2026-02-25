@@ -94,7 +94,7 @@ const AnimelistWrapper = () => {
                 ) : (
                     animeList.data.map((item) => (
                         <AnimeCard
-                            image={item.attributes.posterImage.original}
+                            image={item.attributes.posterImage?.original ?? null}
                             title={item.attributes.canonicalTitle}
                             showType={item.attributes.showType}
                             key={item.id}
@@ -108,21 +108,21 @@ const AnimelistWrapper = () => {
 
             <ReactPaginate
                 className={animeListMaxOffset === 0 || isLoading || animeList.data.length === 0 ? 'hidden' : ''}
-                breakLabel="..."
-                nextLabel=">"
+                breakLabel="···"
+                nextLabel="›"
                 onPageChange={pageChangeHandler}
                 pageRangeDisplayed={2}
                 marginPagesDisplayed={1}
                 pageCount={animeListPagesAmount}
-                previousLabel="<"
+                previousLabel="‹"
                 breakClassName={'page-item'}
                 breakLinkClassName={'page-link'}
                 containerClassName={'pagination'}
                 pageClassName={'page-item'}
                 pageLinkClassName={'page-link'}
-                previousClassName={'page-item'}
+                previousClassName={'page-item page-nav'}
                 previousLinkClassName={'page-link'}
-                nextClassName={'page-item'}
+                nextClassName={'page-item page-nav'}
                 nextLinkClassName={'page-link'}
                 activeClassName={'active-pagination'}
                 forcePage={animeListCurrentPage}
