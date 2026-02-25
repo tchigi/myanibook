@@ -202,8 +202,8 @@ const CompletedButtonWrapperStyled = styled.div`
 `
 
 const CompletedButtonStyled = styled.button`
-    width: 75%;
-    height: 75%;
+    width: 100%;
+    height: 100%;
     background-image: url(${completed});
     background-position: center;
     background-repeat: no-repeat;
