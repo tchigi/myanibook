@@ -50,13 +50,21 @@ const HomepageDescriptionTextStyled = styled.span`
         text-align: left;
     }
 `
-const HomepageButtonStyled = styled.button`
+const HomepageButtonStyled = styled(Link)`
     background: linear-gradient(to bottom, #ff6600, #b84900);
     width: 250px;
     height: 50px;
     align-self: center;
     border-radius: 30px;
     transform: scale(0.99);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: lighter;
 
     &:hover {
         background: linear-gradient(to bottom, rgba(255, 102, 0, 0.5), rgba(184, 73, 0, 0.5));
@@ -70,18 +78,7 @@ const HomepageButtonStyled = styled.button`
         width: 150px;
         height: 40px;
         align-self: flex-start;
-    }
-`
-const HomepageButtonLabelStyled = styled.span`
-    font-size: 20px;
-    text-transform: uppercase;
-    font-weight: lighter;
-    text-align: center;
-    line-height: 50px;
-
-    @media (max-width: 720px) {
         font-size: 16px;
-        line-height: 40px;
     }
 `
 const HomepageImageBlockStyled = styled.figure`
@@ -126,13 +123,7 @@ const HomePage = () => {
                     <br /> Don't forget anything!
                 </HomepageDescriptionTitleStyled>
                 <HomepageDescriptionTextStyled>MyAniBook is a project designed to create a list of watched anime.</HomepageDescriptionTextStyled>
-                <HomepageButtonStyled>
-                    <HomepageButtonLabelStyled>
-                        <Link to={'anime'} style={{ textDecoration: 'none', color: '#FFFFFF' }}>
-                            Start
-                        </Link>
-                    </HomepageButtonLabelStyled>
-                </HomepageButtonStyled>
+                <HomepageButtonStyled to={'anime'}>Start</HomepageButtonStyled>
             </HomepageDescriptionBlockStyled>
             <HomepageImageBlockStyled>
                 <HomepageImageWrapperStyled>
