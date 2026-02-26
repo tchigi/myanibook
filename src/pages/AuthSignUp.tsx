@@ -195,6 +195,7 @@ const AuthSignUp = () => {
                 }
             )
             .then((res) => {
+                localStorage.setItem('userToken', res.data.token)
                 dispatch(userSlice.actions.userTokenHandler(res.data.token))
                 dispatch(userSlice.actions.userAuthHandler(true))
                 setIsLoading(false)

@@ -82,6 +82,7 @@ const HeaderUserAvatar = () => {
     const nickname = decodedUserInfo.nickname || email
 
     const onClickLogOutHandler = () => {
+        localStorage.removeItem('userToken')
         dispatch(userSlice.actions.userResetUserInfo())
         dispatch(viewedSlice.actions.addListToViewedList('[]'))
     }

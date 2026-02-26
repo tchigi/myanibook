@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from './components/Layout'
 import { Routes, Route } from 'react-router-dom'
+import { useAppDispatch } from './hooks/redux'
+import { userSlice } from './store/reducers/UserSlice'
 import HomePage from './pages/HomePage'
 import AnimeList from './pages/AnimeList'
 import NotFoundPage from './pages/NotFoundPage'
@@ -151,6 +153,16 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        const token = localStorage.getItem('userToken')
+        if (token) {
+            dispatch(userSlice.actions.userTokenHandler(token))
+            dispatch(userSlice.actions.userAuthHandler(true))
+        }
+    }, [])
+
     return (
         <React.Fragment>
             <GlobalStyle />
