@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import completed from '../../assets/images/viewed_logo.png'
 
 interface AnimeCardProps {
-    image: string
+    image: string | null
     title: string
     showType: string
     id: string
@@ -202,8 +202,8 @@ const CompletedButtonWrapperStyled = styled.div`
 `
 
 const CompletedButtonStyled = styled.button`
-    width: 75%;
-    height: 75%;
+    width: 100%;
+    height: 100%;
     background-image: url(${completed});
     background-position: center;
     background-repeat: no-repeat;
@@ -248,7 +248,7 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
 
     return (
         <AnimeCardStyled>
-            <AnimeCardImageStyled src={image} alt="" onClick={modalOnClickHandler} />
+            <AnimeCardImageStyled src={image ?? ''} alt="" onClick={modalOnClickHandler} />
             <AnimeCardRatingStyled>{rating}</AnimeCardRatingStyled>
             <AnimeCardDescriptionWrapperStyled>
                 <AnimeCardTitleStyled onClick={modalOnClickHandler}>{title}</AnimeCardTitleStyled>

@@ -47,7 +47,7 @@ export const fetchAnimeGenres = (link: string) => async (dispatch: AppDispatch) 
 
 export const fetchAnimeCategories = (link: string) => async (dispatch: AppDispatch) => {
     try {
-        dispatch(animeSlice.actions.animeListFetching())
+        dispatch(animeSlice.actions.categoriesFetching())
         const response = await axios.get<IAnimeCategories>(link)
         dispatch(animeSlice.actions.modalAnimeSelectedFetchingCategories(response.data))
     } catch (e: any) {

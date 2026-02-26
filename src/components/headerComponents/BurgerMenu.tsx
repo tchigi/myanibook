@@ -45,10 +45,6 @@ const BurgerMenuStyled = styled.div`
             bottom: 50%;
             transform: rotate(45deg) translate(0, 50%);
         }
-
-        &.active span {
-            transform: scale(0);
-        }
     }
 `
 
@@ -90,7 +86,7 @@ const BurgerMenuBgStyled = styled.div`
             transform: translateX(0);
         }
       
-        :last-child {
+        & > :last-child {
           margin-top: auto;
         }
     }

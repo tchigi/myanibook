@@ -44,7 +44,7 @@ const Nav = () => {
             </NavLink>
             <NavLink to="/user" className={setActive}>
                 {' '}
-                AnimeList
+                Profile
             </NavLink>
         </NavStyled>
     )

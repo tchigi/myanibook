@@ -87,7 +87,7 @@ const BurgerNav = () => {
                     <rect y="13" width="15" height="2" />
                     <rect y="17" width="20" height="2" />
                 </svg>
-                <p>AnimeList</p>
+                <p>Profile</p>
             </NavLink>
         </BurgerNavStyled>
     )

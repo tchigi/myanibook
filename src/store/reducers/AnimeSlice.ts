@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 interface AnimeState {
     animeList: IAnime
     isLoading: boolean
+    isCategoriesLoading: boolean
     error: string
     isSearched: boolean
     sortType: string
@@ -26,6 +27,7 @@ const initialState: AnimeState = {
         },
     },
     isLoading: false,
+    isCategoriesLoading: false,
     error: '',
     isSearched: false,
     sortType: '-averageRating',
@@ -111,13 +113,19 @@ export const animeSlice = createSlice({
             state.error = ''
             state.genres = action.payload
         },
+        categoriesFetching(state) {
+            state.isCategoriesLoading = true
+        },
         modalAnimeSelectedFetchingCategories(state, action: PayloadAction<IAnimeCategories>) {
+            state.isCategoriesLoading = false
             state.isLoading = false
             state.error = ''
             state.categories = action.payload
         },
         modalSelectAnime(state, action: PayloadAction<AnimeData>) {
             state.selectedAnime = action.payload
+            state.categories = { data: [], meta: [], links: [] }
+            state.isCategoriesLoading = true
         },
         animeListLoadingReset(state) {
             state.isLoading = false
