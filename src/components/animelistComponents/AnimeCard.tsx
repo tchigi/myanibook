@@ -216,6 +216,7 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
     const [wasViewed, setWasViewed] = useState(false)
     const dispatch = useAppDispatch()
     const { viewedAnimeList } = useAppSelector((state) => state.viewedReducer)
+    const { isAuthorized } = useAppSelector((state) => state.userReducer)
 
     useEffect(() => {
         setWasViewed(checkAnimeInList(id))
@@ -254,9 +255,11 @@ const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps
                 <AnimeCardTitleStyled onClick={modalOnClickHandler}>{title}</AnimeCardTitleStyled>
                 <AnimeCardShowTypeStyled onClick={modalOnClickHandler}>{showType}</AnimeCardShowTypeStyled>
             </AnimeCardDescriptionWrapperStyled>
-            <CompletedButtonWrapperStyled className={wasViewed ? 'active' : ''}>
-                <CompletedButtonStyled onClick={onClickHandler}></CompletedButtonStyled>
-            </CompletedButtonWrapperStyled>
+            {isAuthorized && (
+                <CompletedButtonWrapperStyled className={wasViewed ? 'active' : ''}>
+                    <CompletedButtonStyled onClick={onClickHandler}></CompletedButtonStyled>
+                </CompletedButtonWrapperStyled>
+            )}
         </AnimeCardStyled>
     )
 }
