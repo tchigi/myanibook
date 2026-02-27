@@ -212,9 +212,11 @@ const CompletedButtonStyled = styled.button`
 `
 
 const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps) => {
-    const [wasViewed, setWasViewed] = useState(false)
     const dispatch = useAppDispatch()
-    const { isAuthorized } = useAppSelector((state) => state.userReducer)
+    const { isAuthorized, decodedUserInfo } = useAppSelector((state) => state.userReducer)
+
+    const isInList = typeof decodedUserInfo !== 'string' && decodedUserInfo.animeList?.some((a) => String(a.id) === String(id))
+    const [wasViewed, setWasViewed] = useState(isInList)
 
     function getCurrentDate() {
         return new Date().toISOString()
