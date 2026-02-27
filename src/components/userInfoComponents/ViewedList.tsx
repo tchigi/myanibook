@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import ViewedAnimeListItem from './ViewedAnimeListItem'
 import UserCustomSelect from './UserCustomSelect'
 import { AnimeData } from '../../models/IAnime'
 import AnimeModal from '../animelistComponents/AnimeModal'
-import { fetchAnimeByIds } from '../../store/reducers/ActionCreators'
+import IViewedAnime from '../../models/IViewedAnime'
+import { IDecodedUserInfo } from '../../models/IDecodedToken'
+import { fetchAnimeDetailsByIds } from '../../store/reducers/ActionCreators'
 import styled from 'styled-components'
 
 const ViewedListWrapperStyled = styled.div`
@@ -97,17 +99,19 @@ const SelectContainerStyled = styled.div`
 
 const ViewedList = () => {
     const dispatch = useAppDispatch()
-    const { viewedAnimeList, viewedAnimeDetails } = useAppSelector((state) => state.viewedReducer)
-    const { viewedAnimeSortType } = useAppSelector((state) => state.userReducer)
-    const [sortedArray, setSortedArray] = useState(viewedAnimeDetails)
+    const { viewedAnimeSortType, decodedUserInfo } = useAppSelector((state) => state.userReducer)
+    const animeDetails = useAppSelector((state) => state.viewedReducer.viewedAnimeDetails)
+    const [sortedArray, setSortedArray] = useState<AnimeData[]>([])
+
+    const animeList: IViewedAnime[] = useMemo(() => {
+        if (!decodedUserInfo) return []
+        return (decodedUserInfo as IDecodedUserInfo).animeList ?? []
+    }, [decodedUserInfo])
 
     useEffect(() => {
-        const cachedIds = new Set(viewedAnimeDetails.map((a) => a.id))
-        const missingIds = viewedAnimeList.filter((item) => !cachedIds.has(item.id)).map((item) => item.id)
-        if (missingIds.length > 0) {
-            dispatch(fetchAnimeByIds(missingIds))
-        }
-    }, [viewedAnimeList])
+        if (animeList.length === 0) return
+        dispatch(fetchAnimeDetailsByIds(animeList))
+    }, [animeList])
 
     const sortByName = (a: AnimeData, b: AnimeData) => {
         const newA = a.attributes.canonicalTitle
@@ -117,14 +121,15 @@ const ViewedList = () => {
         else return 0
     }
     const sortByDate = (a: AnimeData, b: AnimeData) => {
-        const newA = viewedAnimeList.find((x) => x.id === a.id)?.addedAt || 0
-        const newB = viewedAnimeList.find((x) => x.id === b.id)?.addedAt || 0
+        const newA = animeList.find((x) => String(x.id) === a.id)?.addedAt || ''
+        const newB = animeList.find((x) => String(x.id) === b.id)?.addedAt || ''
         if (newA < newB) return 1
         else if (newA > newB) return -1
         else return 0
     }
     const arraySortHandler = () => {
-        const clone = viewedAnimeDetails.slice()
+        const activeDetails = animeDetails.filter((d) => animeList.some((v) => String(v.id) === d.id))
+        const clone = activeDetails.slice()
         if (viewedAnimeSortType === 'sortByNameAZ') setSortedArray(clone.sort(sortByName))
         else if (viewedAnimeSortType === 'sortByNameZA') setSortedArray(clone.sort(sortByName).reverse())
         else if (viewedAnimeSortType === 'sortByDateFirstOld') setSortedArray(clone.sort(sortByDate).reverse())
@@ -134,15 +139,15 @@ const ViewedList = () => {
 
     useEffect(() => {
         arraySortHandler()
-    }, [viewedAnimeSortType, viewedAnimeDetails])
+    }, [viewedAnimeSortType, animeDetails, animeList])
 
     return (
         <ViewedListWrapperStyled>
             <AnimeModal />
 
-            {viewedAnimeList.length === 0 ? <h1>Your anime list is empty</h1> : ''}
+            {animeList.length === 0 ? <h1>Your anime list is empty</h1> : ''}
 
-            <ViewedListContainerStyled className={viewedAnimeList.length > 0 ? '' : 'hidden'}>
+            <ViewedListContainerStyled className={animeList.length > 0 ? '' : 'hidden'}>
                 <ViewedListTitleContainerStyled>
                     <ViewedListTitleStyled>ANIME LIST</ViewedListTitleStyled>
                     <ViewedListSelectWrapperStyled>
@@ -169,7 +174,7 @@ const ViewedList = () => {
                             anime={item}
                             rating={item.attributes.averageRating}
                             index={index}
-                            addedAt={viewedAnimeList.find((v) => v.id === item.id)?.addedAt || ''}
+                            addedAt={animeList.find((v) => String(v.id) === item.id)?.addedAt || ''}
                         />
                     ))}
                 </ViewedListTableWrapperStyled>

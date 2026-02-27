@@ -4,7 +4,6 @@ import { userSlice } from '../../../store/reducers/UserSlice'
 import { decodeToken } from 'react-jwt'
 import axios from 'axios'
 import { ApiURL } from '../../../constants/url'
-import { viewedSlice } from '../../../store/reducers/ViewedSlice'
 import styled from 'styled-components'
 import logout from '../../../assets/images/logout.png'
 import anonAvatar from '../../../assets/images/anon-avatar.png'
@@ -75,8 +74,7 @@ const HeaderUserAvatarStyled = styled.div`
 
 const HeaderUserAvatar = () => {
     const dispatch = useAppDispatch()
-    const { isAuthorized, userToken, decodedToken, userId, decodedUserInfo, email, avatar, isLoaded } = useAppSelector((state) => state.userReducer)
-    const { viewedAnimeList } = useAppSelector((state) => state.viewedReducer)
+    const { isAuthorized, userToken, decodedToken, userId, decodedUserInfo, email, avatar } = useAppSelector((state) => state.userReducer)
     const [error, setError] = useState('')
     // @ts-ignore
     const nickname = decodedUserInfo.nickname || email
@@ -84,7 +82,6 @@ const HeaderUserAvatar = () => {
     const onClickLogOutHandler = () => {
         localStorage.removeItem('userToken')
         dispatch(userSlice.actions.userResetUserInfo())
-        dispatch(viewedSlice.actions.addListToViewedList('[]'))
     }
 
     useEffect(() => {
@@ -109,10 +106,6 @@ const HeaderUserAvatar = () => {
                 .then((res) => {
                     dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
                     dispatch(userSlice.actions.userAvatarHandler(res.data.avatar))
-                    if (res.data.animeList !== null) {
-                        dispatch(viewedSlice.actions.addListToViewedList(res.data.animeList))
-                    }
-                    dispatch(userSlice.actions.userFlagHandler(true))
                 })
                 .catch((e) => {
                     setError(e.response.data.message)
@@ -120,29 +113,6 @@ const HeaderUserAvatar = () => {
         }
     }, [decodedToken])
 
-    useEffect(() => {
-        if (isLoaded) {
-            if (isAuthorized) {
-                axios
-                    .post(
-                        `${ApiURL}/users-info/anime-list`,
-                        {
-                            userId: userId,
-                            value: JSON.stringify(viewedAnimeList),
-                        },
-                        {
-                            headers: { Authorization: `Bearer ${userToken}` },
-                        }
-                    )
-                    .then((res) => {
-                        dispatch(userSlice.actions.userDecodedUserInfoHandler(res.data))
-                    })
-                    .catch((e) => {
-                        console.log(e)
-                    })
-            }
-        }
-    }, [viewedAnimeList])
 
     return (
         <HeaderUserAvatarWrapperStyled title={'Log Out'} onClick={onClickLogOutHandler}>

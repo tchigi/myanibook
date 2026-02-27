@@ -2,8 +2,7 @@ import React from 'react'
 import { AnimeData } from '../../models/IAnime'
 import { useAppDispatch } from '../../hooks/redux'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
-import { fetchAnimeCategories, fetchAnimeGenres } from '../../store/reducers/ActionCreators'
-import { viewedSlice } from '../../store/reducers/ViewedSlice'
+import { fetchAnimeCategories, fetchAnimeGenres, removeAnimeFromListThunk } from '../../store/reducers/ActionCreators'
 import styled from 'styled-components'
 
 interface ViewedAnimeListItemProps {
@@ -33,6 +32,7 @@ const ViewedListItemWrapperStyled = styled.div`
     &.white {
         background-color: inherit;
     }
+
     &:hover {
         background-color: #535b65;
     }
@@ -102,6 +102,7 @@ const ViewedListItemDeleteButtonStyled = styled.button`
         -webkit-transform: scale(0.95);
         transform: scale(0.95);
     }
+
     &:active {
         -webkit-transform: scale(1);
         transform: scale(1);
@@ -120,18 +121,27 @@ const ViewedListItemDeleteButtonIconStyled = styled.span`
     justify-content: center;
 `
 
-const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index, addedAt }: ViewedAnimeListItemProps) => {
+const ViewedAnimeListItem = ({
+                                 image,
+                                 title,
+                                 showType,
+                                 id,
+                                 anime,
+                                 rating,
+                                 index,
+                                 addedAt,
+                             }: ViewedAnimeListItemProps) => {
     const dispatch = useAppDispatch()
     const currentOrder = index + 1
 
     function getDateOfAddition(timestamp: string) {
-        const currentDate = new Date(Number(timestamp))
+        const currentDate = new Date(timestamp)
 
-        const currentDayOfMonth = currentDate.getDate()
-        const currentMonth = currentDate.getMonth() > 9 ? currentDate.getMonth() + 1 : `0${currentDate.getMonth() + 1}`
-        const currentYear = currentDate.getFullYear()
+        const yyyy = currentDate.getFullYear()
+        const mm = String(currentDate.getMonth() + 1).padStart(2, '0') // Months are 0-indexed
+        const dd = String(currentDate.getDate()).padStart(2, '0')
 
-        return `${currentDayOfMonth}/${currentMonth}/${currentYear}`
+        return `${yyyy}/${mm}/${dd}`
     }
 
     const dateOfAdd = getDateOfAddition(addedAt)
@@ -144,12 +154,13 @@ const ViewedAnimeListItem = ({ image, title, showType, id, anime, rating, index,
     }
 
     function onClickDeleteButtonHandler() {
-        dispatch(viewedSlice.actions.removeAnimeFromViewedList(id))
+        dispatch(removeAnimeFromListThunk(id))
     }
 
     return (
         <ViewedListItemWrapperStyled className={index % 2 === 0 ? 'white' : ''}>
-            <ViewedListItemCurrentOrderStyled onClick={modalOnClickHandler}>{currentOrder}</ViewedListItemCurrentOrderStyled>
+            <ViewedListItemCurrentOrderStyled
+                onClick={modalOnClickHandler}>{currentOrder}</ViewedListItemCurrentOrderStyled>
             <ViewedListItemTitleStyled onClick={modalOnClickHandler}>{title}</ViewedListItemTitleStyled>
             <ViewedListItemKindStyled onClick={modalOnClickHandler}>{showType}</ViewedListItemKindStyled>
             <ViewedListItemDateStyled onClick={modalOnClickHandler}>{dateOfAdd}</ViewedListItemDateStyled>

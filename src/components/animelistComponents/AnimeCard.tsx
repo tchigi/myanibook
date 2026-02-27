@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { AnimeData } from '../../models/IAnime'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { viewedSlice } from '../../store/reducers/ViewedSlice'
 import { animeSlice } from '../../store/reducers/AnimeSlice'
-import { fetchAnimeCategories, fetchAnimeGenres } from '../../store/reducers/ActionCreators'
+import { addAnimeToListThunk, fetchAnimeCategories, fetchAnimeGenres, removeAnimeFromListThunk } from '../../store/reducers/ActionCreators'
 import styled from 'styled-components'
 import completed from '../../assets/images/viewed_logo.png'
 
@@ -215,27 +214,18 @@ const CompletedButtonStyled = styled.button`
 const AnimeCard = ({ image, title, showType, id, anime, rating }: AnimeCardProps) => {
     const [wasViewed, setWasViewed] = useState(false)
     const dispatch = useAppDispatch()
-    const { viewedAnimeList } = useAppSelector((state) => state.viewedReducer)
     const { isAuthorized } = useAppSelector((state) => state.userReducer)
 
-    useEffect(() => {
-        setWasViewed(checkAnimeInList(id))
-    }, [])
-
-    function checkAnimeInList(animeId: string) {
-        return !!viewedAnimeList.find((i) => i.id === animeId)
-    }
-
     function getCurrentDate() {
-        return new Date().getTime().toString()
+        return new Date().toISOString()
     }
 
     function onClickHandler() {
         if (wasViewed) {
-            dispatch(viewedSlice.actions.removeAnimeFromViewedList(id))
+            dispatch(removeAnimeFromListThunk(id))
             setWasViewed(false)
         } else {
-            dispatch(viewedSlice.actions.addAnimeToViewedList({ id, addedAt: getCurrentDate() }))
+            dispatch(addAnimeToListThunk(id, getCurrentDate()))
             setWasViewed(true)
         }
     }
