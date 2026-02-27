@@ -74,7 +74,15 @@ const HeaderUserAvatarStyled = styled.div`
 
 const HeaderUserAvatar = () => {
     const dispatch = useAppDispatch()
-    const { isAuthorized, userToken, decodedToken, userId, decodedUserInfo, email, avatar } = useAppSelector((state) => state.userReducer)
+    const {
+        isAuthorized,
+        userToken,
+        decodedToken,
+        userId,
+        decodedUserInfo,
+        email,
+        avatar,
+    } = useAppSelector((state) => state.userReducer)
     const [error, setError] = useState('')
     // @ts-ignore
     const nickname = decodedUserInfo.nickname || email
@@ -115,15 +123,15 @@ const HeaderUserAvatar = () => {
 
 
     return (
-        <HeaderUserAvatarWrapperStyled title={'Log Out'} onClick={onClickLogOutHandler}>
+        <HeaderUserAvatarWrapperStyled title={'Log Out'}>
             <HeaderUserNicknameStyled>{nickname}</HeaderUserNicknameStyled>
             {avatar ? (
-                <HeaderUserAvatarStyled
-                    style={{
-                        backgroundImage: `url("${ApiURL}/${avatar}")`,
-                    }}></HeaderUserAvatarStyled>
+                <HeaderUserAvatarStyled onClick={onClickLogOutHandler}
+                                        style={{
+                                            backgroundImage: `url("${ApiURL}/${avatar}")`,
+                                        }} />
             ) : (
-                <HeaderUserAvatarWrapperStyled></HeaderUserAvatarWrapperStyled>
+                <HeaderUserAvatarStyled onClick={onClickLogOutHandler} />
             )}
         </HeaderUserAvatarWrapperStyled>
     )
