@@ -89,7 +89,7 @@ const AnimelistWrapper = () => {
             {isSearched && animeList.data.length > 0 ? <h2>Found for your request "{searchValue}"</h2> : ''}
 
             <AnimeCardsContainerStyled>
-                {animeList.data.length === 0 && isSearched ? (
+                {animeList.data.length === 0 ? (
                     <h1>No anime found...</h1>
                 ) : (
                     animeList.data.map((item) => (
