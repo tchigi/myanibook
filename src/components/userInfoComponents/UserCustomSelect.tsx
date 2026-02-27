@@ -125,7 +125,7 @@ const CustomSelectStyled = styled.div`
         width: 10px;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         .custom-select__multi-value__label {
             font-size: 10px;
         }

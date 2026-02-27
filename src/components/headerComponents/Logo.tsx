@@ -17,8 +17,12 @@ const LogoStyled = styled.div`
         transform: scale(1);
     }
 
-    @media (max-width: 720px) {
-      width: 150px;
+    @media (max-width: 768px) {
+        width: 180px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;
     }
 `
 const Logo = () => {

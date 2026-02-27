@@ -5,7 +5,7 @@ import HeaderAuthButtons from './authComponents/HeaderAuthButtons'
 import styled from 'styled-components'
 
 const AuthContainerStyled = styled.div`
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: none;
     }
 `

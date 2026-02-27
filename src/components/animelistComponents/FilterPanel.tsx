@@ -14,12 +14,12 @@ const FilterPanelWrapperStyled = styled.div`
         display: none;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         position: static;
         width: 100%;
         height: 60px;
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         align-items: center;
         border-radius: 10px;
         background-color: #2e3338;
@@ -35,7 +35,7 @@ const FilterPanelWrapperStyled = styled.div`
 const FilterPanelMobileVision = styled.div`
     display: none;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -51,7 +51,7 @@ const FilterPanelMobileVision = styled.div`
 const FilterPanelMobileVisionP = styled.p`
     display: none;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         text-transform: uppercase;
         font-size: 14px;
         font-weight: bold;
@@ -62,7 +62,7 @@ const FilterPanelMobileVisionP = styled.p`
 const FilterPanelSpan = styled.span`
     display: none;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         position: relative;
         display: block;
         width: 2px;
@@ -104,7 +104,7 @@ const FilterPanelContainerStyled = styled.div`
     gap: 15px;
     border-radius: 20px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         position: static;
         padding-top: 0;
         width: 100%;
@@ -120,7 +120,11 @@ const FilterPanelTitleStyled = styled.h4`
     background-color: #25292d;
     border-left: 5px solid #b84900;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 15px;
+    }
+
+    @media (max-width: 480px) {
         display: none;
 
         &.active {
@@ -137,7 +141,7 @@ const SelectWrapperStyled = styled.div`
     width: 100%;
     gap: 10px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: none;
         gap: 0;
 
@@ -151,7 +155,12 @@ const SelectContainerStyled = styled.div`
     padding: 10px;
     font-size: 18px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 15px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
         display: none;
 
         &.active {

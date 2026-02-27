@@ -9,7 +9,7 @@ const BurgerMenuStyled = styled.div`
     position: relative;
     display: none;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -56,7 +56,7 @@ const BurgerMenuSpanStyled = styled.span`
 `
 
 const BurgerMenuBgStyled = styled.div`
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         padding: 50px 25px;
         z-index: 200;
         display: flex;

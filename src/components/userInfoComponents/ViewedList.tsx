@@ -15,7 +15,7 @@ const ViewedListWrapperStyled = styled.div`
     padding: 10px;
     background-color: #2e3338;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         width: 100%;
         border-radius: 10px;
 
@@ -38,7 +38,7 @@ const ViewedListTitleContainerStyled = styled.div`
     background-color: #25292d;
     border-left: 5px solid #b84900;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         border-radius: 10px 10px 0 0;
         flex-direction: column;
         justify-content: flex-start;
@@ -52,7 +52,12 @@ const ViewedListTitleStyled = styled.div`
     font-size: 28px;
     font-family: 'Bahnschrift';
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 22px;
+        line-height: 50px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 18px;
         line-height: 30px;
     }
@@ -75,7 +80,12 @@ const ViewedListTableOrderControlStyled = styled.div`
     grid-template-columns: 5% 60% 10% 15% 10%;
     justify-items: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 13px;
+        grid-auto-rows: 25px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 12px;
         grid-auto-rows: 20px;
         grid-template-columns: 10% 75% 15%;
@@ -90,7 +100,7 @@ const SelectContainerStyled = styled.div`
     padding: 10px;
     font-size: 18px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: block;
         font-size: 14px;
         padding: 0;

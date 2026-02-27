@@ -15,10 +15,14 @@ const UserPanelWrapperStyled = styled.div`
   align-items: center;
   justify-content: flex-start;
 
-  @media (max-width: 720px) {
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media (max-width: 480px) {
     width: 100%;
     border-radius: 10px;
-    
+
     & h1 {
       font-size: 18px;
     }

@@ -63,7 +63,13 @@ const AnimeCardStyled = styled.div`
         border: 3px #2e3338 solid;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 190px;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
         border: 1px #2e3338 solid;
         width: 145px;
         padding: 5px;
@@ -93,7 +99,12 @@ const AnimeCardImageStyled = styled.img.attrs((props) => ({
     border-radius: 10px;
     box-sizing: border-box;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 170px;
+        height: 240px;
+    }
+
+    @media (max-width: 480px) {
         width: 130px;
         height: 200px;
     }
@@ -104,7 +115,11 @@ const AnimeCardDescriptionWrapperStyled = styled.div`
     flex-direction: column;
     gap: 15px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        gap: 10px;
+    }
+
+    @media (max-width: 480px) {
         gap: 5px;
     }
 `
@@ -119,7 +134,11 @@ const AnimeCardShowTypeStyled = styled.div`
         color: #ff6600;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 12px;
     }
 `
@@ -136,7 +155,7 @@ const AnimeCardTitleStyled = styled.div`
         color: #ff6600;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 16px;
     }
 `
@@ -156,7 +175,13 @@ const AnimeCardRatingStyled = styled.div`
     font-size: 16px;
     background: #1c1f22;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 45px;
+        height: 45px;
+        font-size: 15px;
+    }
+
+    @media (max-width: 480px) {
         bottom: 20%;
         left: 5%;
         width: 40px;
@@ -193,7 +218,12 @@ const CompletedButtonWrapperStyled = styled.div`
         opacity: 1;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 28px;
+        height: 20px;
+    }
+
+    @media (max-width: 480px) {
         width: 20px;
         height: 15px;
         border-radius: 5px;

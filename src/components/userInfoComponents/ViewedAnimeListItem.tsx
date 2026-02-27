@@ -37,7 +37,7 @@ const ViewedListItemWrapperStyled = styled.div`
         background-color: #535b65;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         line-height: 25px;
         grid-auto-rows: auto;
         grid-template-columns: 10% 75% 15%;
@@ -48,28 +48,28 @@ const ViewedListItemCurrentOrderStyled = styled.div`
     font-size: 18px;
     justify-self: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 12px;
     }
 `
 const ViewedListItemTitleStyled = styled.div`
     font-size: 18px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 12px;
     }
 `
 const ViewedListItemKindStyled = styled.div`
     font-size: 16px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: none;
     }
 `
 const ViewedListItemDateStyled = styled.div`
     font-size: 16px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: none;
     }
 `
@@ -80,7 +80,7 @@ const ViewedListItemDeleteButtonWrapperStyled = styled.div`
     height: 30px;
     justify-self: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         height: 20px;
     }
 `
@@ -108,7 +108,7 @@ const ViewedListItemDeleteButtonStyled = styled.button`
         transform: scale(1);
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         width: 25px;
         height: 15px;
         font-size: 14px;

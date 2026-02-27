@@ -23,7 +23,12 @@ const AuthInfoContainerStyled = styled.div`
     background-color: #25292d;
     border-radius: 20px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 480px;
+        gap: 30px;
+    }
+
+    @media (max-width: 480px) {
         width: 310px;
         height: auto;
         gap: 20px;
@@ -34,7 +39,7 @@ const AuthTitleStyled = styled.h1`
     font-weight: normal;
     text-align: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 18px;
     }
 `
@@ -43,7 +48,7 @@ const AuthSubTitleStyled = styled.h4`
     font-size: 20px;
     text-align: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 14px;
     }
 `
@@ -54,7 +59,7 @@ const AuthFormStyled = styled.form`
     gap: 20px;
     align-items: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         gap: 10px;
     }
 `
@@ -63,7 +68,7 @@ const AuthFormItemWrapperStyled = styled.div`
     flex-direction: column;
     gap: 10px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         gap: 5px;
     }
 `
@@ -72,7 +77,7 @@ const AuthFormItemLabelStyled = styled.span`
     font-size: 18px;
     pointer-events: none;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 14px;
     }
 `
@@ -83,7 +88,12 @@ const AuthFormInputStyled = styled.input`
     color: #ffffff;
     width: 400px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 360px;
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 14px;
         width: 290px;
     }
@@ -91,7 +101,7 @@ const AuthFormInputStyled = styled.input`
 const AuthFormItemErrorLabelStyled = styled.h4`
     color: #ff7f7f;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 14px;
     }
 `
@@ -104,7 +114,11 @@ const AuthFormButtonStyled = styled.button`
         background: linear-gradient(to bottom, rgba(255, 102, 0, 0.5), rgba(184, 73, 0, 0.5));
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 360px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 14px;
         width: 290px;
     }
@@ -123,7 +137,7 @@ const AuthFormSignupButtonLabelStyled = styled.label`
     font-size: 18px;
     pointer-events: none;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 14px;
     }
 `
@@ -147,7 +161,7 @@ const AuthFormHomeButtonLabelStyled = styled.label`
     pointer-events: none;
     font-size: 20px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 14px;
     }
 `

@@ -22,8 +22,9 @@ const AnimeCardModalStyled = styled.div`
         pointer-events: all;
         background-color: rgba(0, 0, 0, 0.8);
     }
-    @media (max-width: 720px) {
-        overflow: scroll;
+    @media (max-width: 768px) {
+        align-items: center;
+        overflow: auto;
     }
 `
 const AnimeCardModalContentStyled = styled.div`
@@ -42,17 +43,18 @@ const AnimeCardModalContentStyled = styled.div`
     &.active {
     }
 
-    @media (max-width: 720px) {
-        transform: none;
+    @media (max-width: 768px) {
         flex-direction: column;
         justify-content: flex-start;
-        width: 320px;
-        padding: 0;
-        gap: 0;
-        height: 100%;
-        border: 0;
-        background-color: #1c1f22;
-        border-radius: 0;
+        width: 90%;
+        max-width: 560px;
+        height: auto;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 20px;
+        gap: 15px;
+        border: 3px #ff6600 solid;
+        border-radius: 15px;
     }
 `
 const AnimeCardModalImageWrapperStyled = styled.div`
@@ -65,7 +67,7 @@ const AnimeCardModalImageWrapperStyled = styled.div`
     padding: 10px;
     border-radius: 20px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         background-color: inherit;
     }
 `
@@ -77,7 +79,10 @@ const AnimeCardModalImageStyled = styled.img.attrs((props) => ({
     border-radius: 10px;
     align-self: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 200px;
+        height: 270px;
+        align-self: center;
     }
 `
 const AnimeCardModalTitleStyled = styled.div`
@@ -85,7 +90,7 @@ const AnimeCardModalTitleStyled = styled.div`
     text-align: center;
     font-weight: bold;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 20px;
     }
 `
@@ -96,7 +101,7 @@ const AnimeCardModalInfoBlockStyled = styled.div`
     flex-direction: row;
     justify-content: space-evenly;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
     }
 `
 const AnimeCardModalRatingStyled = styled.div``
@@ -117,10 +122,8 @@ const AnimeCardModalDescriptionStyled = styled.div`
         color: #b84900;
     }
 
-    @media (max-width: 720px) {
-        border-radius: 0;
-        font-size: 12px;
-        background-color: inherit;
+    @media (max-width: 768px) {
+        font-size: 14px;
     }
 `
 const AnimeCardModalSynopsisStyled = styled.div`
@@ -147,9 +150,9 @@ const AnimeCardModalCloseButton = styled.button`
         stroke: #ff6600;
     }
 
-    @media (max-width: 720px) {
-        top: 0;
-        right: unset;
+    @media (max-width: 768px) {
+        top: 10px;
+        right: 10px;
         position: fixed;
     }
 `

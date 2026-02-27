@@ -22,7 +22,7 @@ const AnimelistWrapperStyled = styled.div`
         font-size: 24px;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         & h2 {
             font-size: 18px;
         }
@@ -38,7 +38,7 @@ const AnimeCardsContainerStyled = styled.div`
     width: 100%;
     gap: 20px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         gap: 5px;
     }
 `

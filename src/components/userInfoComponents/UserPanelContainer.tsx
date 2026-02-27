@@ -12,6 +12,17 @@ import edit from '../../assets/images/edit.png'
 const UserPanelContainerStyled = styled.div`
     width: 100%;
     height: 250px;
+
+    @media (max-width: 768px) {
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 480px) {
+        width: 120px;
+        height: 120px;
+    }
 `
 const UserPanelAvatarStyled = styled.div`
     position: relative;

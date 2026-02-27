@@ -13,7 +13,7 @@ const UserinfoPageWrapperStyled = styled.main`
     flex-direction: row;
     gap: 20px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         flex-direction: column;
         gap: 10px;
     }
