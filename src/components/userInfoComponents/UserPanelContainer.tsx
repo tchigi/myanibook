@@ -70,9 +70,10 @@ const UserPanelAvatarStyled = styled.div`
 const UserPanelChangeAvatarWrapperStyled = styled.div`
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 6px;
 
     & .inputfile {
         width: 0.1px;
@@ -152,6 +153,7 @@ const UserPanelContainer = () => {
             <UserPanelChangeAvatarWrapperStyled className={isAvatarChanging ? '' : 'hidden'}>
                 <input type="file" name="file" id="file" className="inputfile" accept={'image/*'} onChange={onChangeAvatarHandler} />
                 <label htmlFor="file">Choose file...</label>
+                <span style={{ fontSize: '12px', color: '#888', textAlign: 'center' }}>Max size: 500KB · jpeg, png, webp</span>
             </UserPanelChangeAvatarWrapperStyled>
             {isNicknameChanging ? <UserPanelChangeNicknameInput /> : <UserPanelNicknameWrapper />}
         </>
