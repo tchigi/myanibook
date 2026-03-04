@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from './components/Layout'
 import { Routes, Route } from 'react-router-dom'
+import { useAppDispatch } from './hooks/redux'
+import { userSlice } from './store/reducers/UserSlice'
 import HomePage from './pages/HomePage'
 import AnimeList from './pages/AnimeList'
 import NotFoundPage from './pages/NotFoundPage'
@@ -11,14 +13,15 @@ import styled, { createGlobalStyle } from 'styled-components'
 
 const WrapperStyled = styled.div`
     min-height: 100vh;
-    width: 1440px;
+    max-width: 1440px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
 
-    @media (max-width: 720px) {
-        width: 320px;
+    @media (max-width: 768px) {
+        padding: 0 10px;
     }
 `
 const GlobalStyle = createGlobalStyle`
@@ -136,6 +139,12 @@ const GlobalStyle = createGlobalStyle`
     flex: 1;
     padding-top: 70px;
   }
+
+  @media (max-width: 768px) {
+    main {
+      padding-top: 60px;
+    }
+  }
   footer {
     height: 20px;
     display: flex;
@@ -143,7 +152,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 480px) {
     main {
       padding: 50px 5px 0;
     }
@@ -151,6 +160,16 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        const token = localStorage.getItem('userToken')
+        if (token) {
+            dispatch(userSlice.actions.userTokenHandler(token))
+            dispatch(userSlice.actions.userAuthHandler(true))
+        }
+    }, [])
+
     return (
         <React.Fragment>
             <GlobalStyle />

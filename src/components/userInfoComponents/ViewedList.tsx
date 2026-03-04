@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import ViewedAnimeListItem from './ViewedAnimeListItem'
 import UserCustomSelect from './UserCustomSelect'
 import { AnimeData } from '../../models/IAnime'
 import AnimeModal from '../animelistComponents/AnimeModal'
-import { fetchAnimeByIds } from '../../store/reducers/ActionCreators'
+import IViewedAnime from '../../models/IViewedAnime'
+import { IDecodedUserInfo } from '../../models/IDecodedToken'
+import { fetchAnimeDetailsByIds } from '../../store/reducers/ActionCreators'
 import styled from 'styled-components'
 
 const ViewedListWrapperStyled = styled.div`
@@ -13,7 +15,7 @@ const ViewedListWrapperStyled = styled.div`
     padding: 10px;
     background-color: #2e3338;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         width: 100%;
         border-radius: 10px;
 
@@ -36,7 +38,7 @@ const ViewedListTitleContainerStyled = styled.div`
     background-color: #25292d;
     border-left: 5px solid #b84900;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         border-radius: 10px 10px 0 0;
         flex-direction: column;
         justify-content: flex-start;
@@ -50,7 +52,12 @@ const ViewedListTitleStyled = styled.div`
     font-size: 28px;
     font-family: 'Bahnschrift';
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 22px;
+        line-height: 50px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 18px;
         line-height: 30px;
     }
@@ -73,7 +80,12 @@ const ViewedListTableOrderControlStyled = styled.div`
     grid-template-columns: 5% 60% 10% 15% 10%;
     justify-items: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 13px;
+        grid-auto-rows: 25px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 12px;
         grid-auto-rows: 20px;
         grid-template-columns: 10% 75% 15%;
@@ -88,7 +100,7 @@ const SelectContainerStyled = styled.div`
     padding: 10px;
     font-size: 18px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: block;
         font-size: 14px;
         padding: 0;
@@ -97,17 +109,19 @@ const SelectContainerStyled = styled.div`
 
 const ViewedList = () => {
     const dispatch = useAppDispatch()
-    const { viewedAnimeList, viewedAnimeDetails } = useAppSelector((state) => state.viewedReducer)
-    const { viewedAnimeSortType } = useAppSelector((state) => state.userReducer)
-    const [sortedArray, setSortedArray] = useState(viewedAnimeDetails)
+    const { viewedAnimeSortType, decodedUserInfo } = useAppSelector((state) => state.userReducer)
+    const animeDetails = useAppSelector((state) => state.viewedReducer.viewedAnimeDetails)
+    const [sortedArray, setSortedArray] = useState<AnimeData[]>([])
+
+    const animeList: IViewedAnime[] = useMemo(() => {
+        if (!decodedUserInfo) return []
+        return (decodedUserInfo as IDecodedUserInfo).animeList ?? []
+    }, [decodedUserInfo])
 
     useEffect(() => {
-        const cachedIds = new Set(viewedAnimeDetails.map((a) => a.id))
-        const missingIds = viewedAnimeList.filter((item) => !cachedIds.has(item.id)).map((item) => item.id)
-        if (missingIds.length > 0) {
-            dispatch(fetchAnimeByIds(missingIds))
-        }
-    }, [viewedAnimeList])
+        if (animeList.length === 0) return
+        dispatch(fetchAnimeDetailsByIds(animeList))
+    }, [animeList])
 
     const sortByName = (a: AnimeData, b: AnimeData) => {
         const newA = a.attributes.canonicalTitle
@@ -117,14 +131,15 @@ const ViewedList = () => {
         else return 0
     }
     const sortByDate = (a: AnimeData, b: AnimeData) => {
-        const newA = viewedAnimeList.find((x) => x.id === a.id)?.addedAt || 0
-        const newB = viewedAnimeList.find((x) => x.id === b.id)?.addedAt || 0
+        const newA = animeList.find((x) => String(x.id) === a.id)?.addedAt || ''
+        const newB = animeList.find((x) => String(x.id) === b.id)?.addedAt || ''
         if (newA < newB) return 1
         else if (newA > newB) return -1
         else return 0
     }
     const arraySortHandler = () => {
-        const clone = viewedAnimeDetails.slice()
+        const activeDetails = animeDetails.filter((d) => animeList.some((v) => String(v.id) === d.id))
+        const clone = activeDetails.slice()
         if (viewedAnimeSortType === 'sortByNameAZ') setSortedArray(clone.sort(sortByName))
         else if (viewedAnimeSortType === 'sortByNameZA') setSortedArray(clone.sort(sortByName).reverse())
         else if (viewedAnimeSortType === 'sortByDateFirstOld') setSortedArray(clone.sort(sortByDate).reverse())
@@ -134,15 +149,15 @@ const ViewedList = () => {
 
     useEffect(() => {
         arraySortHandler()
-    }, [viewedAnimeSortType, viewedAnimeDetails])
+    }, [viewedAnimeSortType, animeDetails, animeList])
 
     return (
         <ViewedListWrapperStyled>
             <AnimeModal />
 
-            {viewedAnimeList.length === 0 ? <h1>Your anime list is empty</h1> : ''}
+            {animeList.length === 0 ? <h1>Your anime list is empty</h1> : ''}
 
-            <ViewedListContainerStyled className={viewedAnimeList.length > 0 ? '' : 'hidden'}>
+            <ViewedListContainerStyled className={animeList.length > 0 ? '' : 'hidden'}>
                 <ViewedListTitleContainerStyled>
                     <ViewedListTitleStyled>ANIME LIST</ViewedListTitleStyled>
                     <ViewedListSelectWrapperStyled>
@@ -169,7 +184,7 @@ const ViewedList = () => {
                             anime={item}
                             rating={item.attributes.averageRating}
                             index={index}
-                            addedAt={viewedAnimeList.find((v) => v.id === item.id)?.addedAt || ''}
+                            addedAt={animeList.find((v) => String(v.id) === item.id)?.addedAt || ''}
                         />
                     ))}
                 </ViewedListTableWrapperStyled>

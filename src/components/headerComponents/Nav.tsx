@@ -26,7 +26,7 @@ const NavStyled = styled.nav`
         color: #ff6600 !important;
     }
   
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: none;
     }
 `

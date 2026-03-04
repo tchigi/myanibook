@@ -6,7 +6,7 @@ import image from '../assets/images/Lenore_Infobox.png'
 const HomepageWrapperMainStyled = styled.main`
     display: flex;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         flex-direction: column;
         gap: 10px;
     }
@@ -18,7 +18,11 @@ const HomepageDescriptionBlockStyled = styled.div`
     padding-top: 250px;
     gap: 30px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        padding-top: 80px;
+    }
+
+    @media (max-width: 480px) {
         padding-top: 10px;
     }
 `
@@ -30,7 +34,11 @@ const HomepageDescriptionTitleStyled = styled.span`
         display: none;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 24px;
         text-align: left;
         align-self: flex-start;
@@ -45,7 +53,11 @@ const HomepageDescriptionTextStyled = styled.span`
     line-height: 1.5;
     text-align: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 18px;
         text-align: left;
     }
@@ -74,7 +86,13 @@ const HomepageButtonStyled = styled(Link)`
         transform: scale(1);
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 200px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
         width: 150px;
         height: 40px;
         align-self: flex-start;
@@ -87,7 +105,7 @@ const HomepageImageBlockStyled = styled.figure`
     justify-content: center;
     align-items: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         order: -1;
     }
 `
@@ -97,7 +115,12 @@ const HomepageImageWrapperStyled = styled.div`
     border-radius: 50%;
     background: radial-gradient(#ff6600, #1c1f22 70%);
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 450px;
+        height: 450px;
+    }
+
+    @media (max-width: 480px) {
         width: 300px;
         height: 300px;
     }
@@ -108,7 +131,12 @@ const HomepageImageStyled = styled.img.attrs((props) => ({
     width: 750px;
     height: 750px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+        width: 450px;
+        height: 450px;
+    }
+
+    @media (max-width: 480px) {
         width: 300px;
         height: 300px;
     }

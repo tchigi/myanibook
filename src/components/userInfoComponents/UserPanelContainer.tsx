@@ -12,6 +12,17 @@ import edit from '../../assets/images/edit.png'
 const UserPanelContainerStyled = styled.div`
     width: 100%;
     height: 250px;
+
+    @media (max-width: 768px) {
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 480px) {
+        width: 120px;
+        height: 120px;
+    }
 `
 const UserPanelAvatarStyled = styled.div`
     position: relative;
@@ -59,9 +70,10 @@ const UserPanelAvatarStyled = styled.div`
 const UserPanelChangeAvatarWrapperStyled = styled.div`
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 6px;
 
     & .inputfile {
         width: 0.1px;
@@ -141,6 +153,7 @@ const UserPanelContainer = () => {
             <UserPanelChangeAvatarWrapperStyled className={isAvatarChanging ? '' : 'hidden'}>
                 <input type="file" name="file" id="file" className="inputfile" accept={'image/*'} onChange={onChangeAvatarHandler} />
                 <label htmlFor="file">Choose file...</label>
+                <span style={{ fontSize: '12px', color: '#888', textAlign: 'center' }}>Max size: 500KB · jpeg, png, webp</span>
             </UserPanelChangeAvatarWrapperStyled>
             {isNicknameChanging ? <UserPanelChangeNicknameInput /> : <UserPanelNicknameWrapper />}
         </>

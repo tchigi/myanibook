@@ -23,7 +23,7 @@ const SearchStyled = styled.div`
         box-shadow: 0 0 16px rgba(255, 102, 0, 0.5), 0 0 0 1px #ff6600;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         display: none;
     }
 `

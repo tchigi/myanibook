@@ -1,20 +1,42 @@
 # MyAniBook
 
-MyAniBook - это приложение, которое позволит Вам создать собственный список просмотренных аниме. Присутствует регистрация и работа с пользователем
+**MyAniBook** — веб-приложение для ведения личного списка просмотренных аниме. Поддерживает регистрацию, авторизацию и управление профилем пользователя.
 
-### Используемые технологии
+## Demo
 
-* Frontend:
-  * TypeScript
-  * React
-  * Redux
-  * Деплой [https://myanibook.vercel.app/](https://myanibook.vercel.app/)
+- Frontend: [myanibook.vercel.app](https://myanibook.vercel.app/)
+- Backend API (Swagger): [myanibook-api.onrender.com/api/docs](https://myanibook-api.onrender.com/api/docs)
 
-* Backend (возможно не работает из-за проблем с оплатой):
-  * NestJS
-  * PostgresSQL
-  * Sequelize
-  * Docker
-  * JWTAuth
-  * Документация с помощью Swagger [https://myanibook-api.adaptable.app/api/docs](https://myanibook-api.adaptable.app/api/docs)
+> Бэкенд размещён на бесплатном тарифе Render — первый запрос может занять до 30 секунд (cold start).
+> 
+> Для корректной работы приложения может потребоваться VPN.
 
+## Стек технологий
+
+**Frontend**
+- TypeScript
+- React 18
+- Redux Toolkit
+- React Router v6
+- Styled Components
+
+**Backend** (отдельный репозиторий)
+- NestJS
+- PostgreSQL + Sequelize
+- JWT авторизация
+- Swagger документация
+- Docker
+
+## Возможности
+
+- Поиск и просмотр информации об аниме через [Kitsu.io API](https://kitsu.io)
+- Фильтрация по жанрам и категориям
+- Добавление аниме в личный список просмотренных
+- Регистрация, вход, управление профилем и аватаром
+- Адаптивный дизайн (desktop / mobile)
+
+## История изменений
+
+- Проведён рефакторинг кодовой базы: улучшена структура компонентов, оптимизированы запросы к API, исправлен адаптивный дизайн для планшетов и мобильных устройств
+- Сборщик проекта перенесён с Create React App на Vite
+- Бэкенд перенесён с adaptable.app на Render

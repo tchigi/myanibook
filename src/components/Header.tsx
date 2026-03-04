@@ -20,9 +20,13 @@ const HeaderStyled = styled.header`
     padding-right: 20px;
     background-color: #1c1f22;
 
-    @media (max-width: 720px) {
-        left: 50%;
-        transform: translateX(-50%);
+    @media (max-width: 768px) {
+        height: 60px;
+        padding: 0 10px;
+    }
+
+    @media (max-width: 480px) {
+        left: calc(50vw - 160px);
         width: 320px;
         height: 50px;
         padding: 0 5px;

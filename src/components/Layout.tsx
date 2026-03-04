@@ -10,7 +10,7 @@ const FooterStyled = styled.footer`
     justify-content: center;
     font-size: 14px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         font-size: 12px;
     }
 `

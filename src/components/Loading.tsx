@@ -25,7 +25,7 @@ const Overlay = styled.div`
     align-items: center;
     justify-content: center;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         border-radius: 10px;
     }
 `

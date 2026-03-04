@@ -13,7 +13,7 @@ const AnimelistPageWrapperStyled = styled.main`
     flex-direction: row;
     gap: 20px;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         flex-direction: column;
         align-items: center;
         gap: 10px;
@@ -27,7 +27,7 @@ const AnimelistAnimeBlockStyled = styled.div`
     padding: 15px;
     background-color: #2e3338;
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
         width: 100%;
         border-radius: 10px;
         padding: 5px;

@@ -1,13 +1,15 @@
-import { AppDispatch } from '../store'
+import { AppDispatch, RootState } from '../store'
 import axios from 'axios'
-import { IAnime, IAnimeCategories, IAnimeGenres, AnimeData } from '../../models/IAnime'
+import { IAnime, IAnimeCategories, IAnimeGenres } from '../../models/IAnime'
 import { animeSlice } from './AnimeSlice'
-import { viewedSlice } from './ViewedSlice'
+import { userSlice } from './UserSlice'
 import { genresSlice } from './GenresSlice'
-import { CategoriesURL, GenresURL, StartURL } from '../../constants/url'
+import { ApiURL, CategoriesURL, GenresURL, StartURL } from '../../constants/url'
 import { IGenre } from '../../models/IGenre'
 import { categoriesSlice } from './CategoriesSlice'
 import { ICategories } from '../../models/ICategories'
+import { viewedSlice } from './ViewedSlice'
+import IViewedAnime from '../../models/IViewedAnime'
 
 let fetchAnimeListController: AbortController | null = null
 
@@ -57,41 +59,75 @@ export const fetchAnimeCategories = (link: string) => async (dispatch: AppDispat
 
 export const fetchGenresList =
     (link: string = GenresURL) =>
-    async (dispatch: AppDispatch) => {
-        try {
-            dispatch(genresSlice.actions.genresFetching())
-            const response = await axios.get<IGenre>(link)
-            dispatch(genresSlice.actions.genresFetchingSuccess(response.data))
-        } catch (e: any) {
-            dispatch(genresSlice.actions.animeListFetchingError(e.message))
+        async (dispatch: AppDispatch) => {
+            try {
+                dispatch(genresSlice.actions.genresFetching())
+                const response = await axios.get<IGenre>(link)
+                dispatch(genresSlice.actions.genresFetchingSuccess(response.data))
+            } catch (e: any) {
+                dispatch(genresSlice.actions.animeListFetchingError(e.message))
+            }
         }
-    }
 
 export const fetchCategoriesList =
     (link: string = CategoriesURL) =>
-    async (dispatch: AppDispatch) => {
-        try {
-            dispatch(categoriesSlice.actions.categoriesFetching())
-            const response = await axios.get<ICategories>(link)
-            dispatch(categoriesSlice.actions.categoriesFetchingSuccess(response.data))
-        } catch (e: any) {
-            dispatch(categoriesSlice.actions.animeListFetchingError(e.message))
+        async (dispatch: AppDispatch) => {
+            try {
+                dispatch(categoriesSlice.actions.categoriesFetching())
+                const response = await axios.get<ICategories>(link)
+                dispatch(categoriesSlice.actions.categoriesFetchingSuccess(response.data))
+            } catch (e: any) {
+                dispatch(categoriesSlice.actions.animeListFetchingError(e.message))
+            }
         }
-    }
 
-export const fetchAnimeByIds = (ids: string[]) => async (dispatch: AppDispatch) => {
+export const addAnimeToListThunk = (id: string, addedAt: string) => async (dispatch: AppDispatch, getState: () => RootState) => {
+    const { userToken } = getState().userReducer
     try {
-        const chunks: string[][] = []
-        for (let i = 0; i < ids.length; i += 20) {
-            chunks.push(ids.slice(i, i + 20))
-        }
-        const responses = await Promise.all(
-            chunks.map((chunk) => axios.get(`https://kitsu.io/api/edge/anime?filter[id]=${chunk.join(',')}&page[limit]=20`))
-        )
-        const animeData: AnimeData[] = responses.flatMap((res) => res.data.data)
-        dispatch(viewedSlice.actions.setAnimeDetails(animeData))
-    } catch (e: any) {
+        const response = await axios.post(`${ApiURL}/users-info/anime-list`, {
+            id: Number(id),
+            addedAt,
+        }, { headers: { Authorization: `Bearer ${userToken}` } })
+        dispatch(userSlice.actions.userDecodedUserInfoHandler(response.data))
+    } catch (e) {
         console.log(e)
     }
 }
 
+export const removeAnimeFromListThunk = (id: string) => async (dispatch: AppDispatch, getState: () => RootState) => {
+    const { userToken } = getState().userReducer
+    try {
+        const response = await axios.delete(`${ApiURL}/users-info/anime-list`, {
+            data: { id: Number(id) },
+            headers: { Authorization: `Bearer ${userToken}` },
+        })
+        dispatch(userSlice.actions.userDecodedUserInfoHandler(response.data))
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const fetchAnimeDetailsByIds = (animeList: IViewedAnime[]) => async (dispatch: AppDispatch, getState: () => RootState) => {
+    const cached = getState().viewedReducer.viewedAnimeDetails
+    const cachedIds = new Set(cached.map((a) => a.id))
+    const missingIds = animeList.map((a) => a.id).filter((id) => !cachedIds.has(id))
+
+    if (missingIds.length === 0) return
+
+    const chunks: string[][] = []
+    for (let i = 0; i < missingIds.length; i += 20) {
+        chunks.push(missingIds.slice(i, i + 20))
+    }
+
+    try {
+        const results = await Promise.all(
+            chunks.map((chunk) => axios.get<IAnime>(`${StartURL}filter[id]=${chunk.join(',')}&page[limit]=20`)),
+        )
+        const allData = results.flatMap((res) => res.data.data)
+        const addedAtMap = new Map(animeList.map((a) => [String(a.id), a.addedAt]))
+        const viewedAnime = allData.map((a) => ({ ...a, addedAt: addedAtMap.get(a.id) ?? '' }))
+        dispatch(viewedSlice.actions.setAnimeDetails(viewedAnime))
+    } catch (e) {
+        console.log(e)
+    }
+}
